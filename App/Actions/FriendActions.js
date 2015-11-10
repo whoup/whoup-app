@@ -1,13 +1,17 @@
 var Dispatcher    = require('../Dispatcher');
 var AppConstants  = require('../Constants/AppConstants');
-var Firebase      = require('firebase');
-var ref = new Firebase('http://whoup.firebaseIO.com/')
+var FirebaseRef      = require('../Api/FirebaseRef');
 var UserService = require('../Api/UserService');
+var Network = require('../Api/Network');
+
 var CurrentUserStore = require('../Stores/CurrentUserStore');
 var CURRENT_USER = CurrentUserStore.get().data;
+
 var FriendActions = {
   fetchList: function(uid, callback) {
+    Network.started();
     UserService.fetchFriendList(uid, function(error, listProps) {
+      Network.completed();
       if(callback) callback(error);
 
       if (!error) {
@@ -19,7 +23,9 @@ var FriendActions = {
     });
   },
   fetchRequestList: function(uid, callback) {
+    Network.started();
     UserService.fetchRequestList(uid, function(error, listProps) {
+      Network.completed();
       if(callback) callback(error);
       if (!error) {
         Dispatcher.dispatch({
@@ -31,7 +37,7 @@ var FriendActions = {
   },
 
   mountFriendAdd: function(uid) {
-    ref.child('users').child(uid).child('friends').on('child_added', function(snapshot, prevKey) {
+    FirebaseRef.userFriendRef(CURRENT_USER.id).on('child_added', function(snapshot, prevKey) {
       var newFriend = snapshot.val();
       var data = {
         key: 'friend',
@@ -48,7 +54,7 @@ var FriendActions = {
   },
 
   mountFriendReq: function(uid) {
-    ref.child('users').child(uid).child('friend_reqs').on('child_added', function(snapshot, prevKey){
+    FirebaseRef.userFriendReqRef(CURRENT_USER.id).on('child_added', function(snapshot, prevKey){
       var newReq = snapshot.val();
       var data = {
         key: 'request',
@@ -65,7 +71,8 @@ var FriendActions = {
   },
 
   addFriend: function(uid, username, callback) {
-    ref.child('users').child(uid).child('friend_reqs').child(CURRENT_USER.id).transaction(function(currentData) {
+    Network.started();
+    FirebaseRef.userFriendReqRef(uid).child(CURRENT_USER.id).transaction(function(currentData) {
       if (currentData === null) {
         return {username: CURRENT_USER.username}
         return data;
@@ -74,12 +81,13 @@ var FriendActions = {
       return callback({message: "Request already sent"}); // Abort the transaction.
     }
     }, function(error, committed, snapshot) {
+      Network.completed();
       if (error) {
         console.log('Transaction failed abnormally!', error);
       } else if (!committed) {
         console.log('We aborted the transaction (because wilma already exists).');
       } else {
-        ref.child('users').child(CURRENT_USER.id).child('sent_reqs').child(uid).set({username: username})
+        FirebaseRef.userRef(CURRENT_USER.id).child('sent_reqs').child(uid).set({username: username})
         callback();
       }
     });

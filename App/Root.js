@@ -6,6 +6,9 @@ var {
 } = React;
 
 var assign = require('object-assign');
+var Firebase = require('firebase');
+var ref = new Firebase('https://whoup.firebaseIO.com/');
+
 
 var Routes     = require('./Navigation/Routes');
 var Launch     = require('./Root/Launch');
@@ -19,8 +22,11 @@ var EnvironmentStore   = require('./Stores/EnvironmentStore');
 var DispatcherListener = require('./Mixins/DispatcherListener');
 
 function getUserState() {
+  current_user = CurrentUserStore.get();
+  if (current_user && current_user.token)
+    ref.authWithCustomToken(current_user.token, function(error, result) {return;});
   return {
-    user: CurrentUserStore.get()
+    user: current_user
   };
 };
 

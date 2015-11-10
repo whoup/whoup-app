@@ -1,6 +1,5 @@
 var Network = require('../Api/Network');
-var Firebase = require('firebase');
-var ref = new Firebase('https://whoup.firebaseio.com');
+var FirebaseRef = require('../Api/FirebaseRef');
 var UserService = {
 
   parseFriend: function(response) {
@@ -32,7 +31,7 @@ var UserService = {
   },
 
   fetchFriendList: function(uid, callback) {
-    ref.child('users').child(uid).child('friends').once('value', function(snapdata) {
+    FirebaseRef.userFriendRef(uid).once('value', function(snapdata) {
       var data = snapdata.val();
       if (data === null || data === 'undefined') {
         callback(null, {friends: [], username: uid})
@@ -44,7 +43,7 @@ var UserService = {
     });
   },
   fetchRequestList: function(uid, callback) {
-    ref.child('users').child(uid).child('friend_reqs').once('value', function(snapdata) {
+    FirebaseRef.userFriendReqRef(uid).once('value', function(snapdata) {
       var data = snapdata.val();
       if (data === null || data === 'undefined') {
         callback(null, {friendReq: [], key: 'friend'})
@@ -56,9 +55,9 @@ var UserService = {
     });
   },
   getUser: function(authData, callback, error) {
+
     if (!authData) return callback({message: "An error occurred, please try again"})
-    var usersRef = ref.child('users').child(authData.uid);
-    usersRef.once('value', function(snapshot) {
+    FirebaseRef.userRef(authData.uid).once('value', function(snapshot) {
       var dbData = snapshot.val();
       var data = {};
       data.token = authData.token;

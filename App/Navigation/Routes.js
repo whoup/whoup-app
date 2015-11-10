@@ -16,23 +16,6 @@ var Routes = {
     };
   },
 
-  LogList: function(username) {
-    return {
-      component: require('../Screens/LogList'),
-      title: '', // set to name
-      passProps: {
-        username: username
-      },
-      navRight: {
-        subPath: '_post',
-        icon: 'ios-create' // TODO: icon font
-      },
-      navLeft: {
-        subPath: '_settings',
-        icon: 'gear-a' // TODO: icon font
-      },
-    };
-  },
   FriendAdd: function() {
     return{
       component: require('../Screens/FriendAdd'),
@@ -80,49 +63,7 @@ var Routes = {
     };
   },
 
-  CreateActivityLog: function() {
-    return {
-      component: require('../Screens/CreateFoodLog'),
-      title: '',
-      navBack: {
-        icon: 'close'
-      }
-    };
-  },
-  CreateComment: function() {
-    return {
-      component: require('../Screens/CommentCreate'),
-      title: 'New Comment',
-      navBack: {
-        icon: 'android-arrow-back'
-      }
-    };
-  },
 
-  NutritionRoom: function() {
-    return {
-      component: require('../Screens/NutritionRoom'),
-      title: 'Nutrition Team',
-      navBack: {
-        mixIcon: {
-          label: 'Messages',
-          icon: 'ios-arrow-back'
-        }
-      }
-    }
-  },
-  CookingRoom: function() {
-    return {
-      component: require('../Screens/CookingRoom'),
-      title: 'Cooking Hotline',
-      navBack: {
-        mixIcon: {
-          label: 'Messages',
-          icon: 'ios-arrow-back'
-        }
-      }
-    }
-  },
   ActivityRoom: function() {
     return {
       component: require('../Screens/ActivityRoom'),
@@ -150,17 +91,6 @@ var listRoute = function(route, defaultRoute) {
         return Routes.Settings();
       case '_friendAdd':
         return Routes.FriendAdd();
-      case '_comments':
-        return Routes.CreateComment();
-      case '_nutrition':
-      console.log('nutri');
-        return Routes.NutritionRoom();
-      case '_cooking':
-      console.log('Cookin');
-        return Routes.CookingRoom();
-      case '_activity':
-       console.log('Activity');
-        return Routes.ActivityRoom();
       default:
         if (!defaultRoute) return null;
         return defaultRoute(path);
@@ -176,17 +106,6 @@ var userRoute = function(username) {
 
   route.parse = function(path) {
     switch(path) {
-      case 'logs':
-        return listRoute(Routes.LogList(username), function(postId) {
-          // TOOD: show log view?
-          return null;
-        });
-      case '_friends':
-        return listRoute(Routes.FriendList(username), null)
-          // function(follow) {
-          // // it's a user
-          // return userRoute(follow);
-        //})
       case 'dashboard':
         return listRoute(Routes.Dashboard(username), function(room) {
           // unsure
