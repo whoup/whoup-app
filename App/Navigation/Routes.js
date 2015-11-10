@@ -48,11 +48,11 @@ var Routes = {
         username: username
       },
       navBack: {
-        icon: 'close-round'
+        icon: 'close'
       },
       navRight: {
         subPath: '_friendAdd',
-        icon: 'person-add' // TODO: icon font
+        icon: 'ios-personadd' // TODO: icon font
       },
     };
   },
@@ -65,11 +65,11 @@ var Routes = {
       },
       navLeft: {
         subPath: 'friends',
-        icon: 'plus-round' // TODO: icon font
+        icon: 'ios-people' // TODO: icon font
       },
       navRight: {
         subPath: '_settings',
-        icon: 'gear-a' // TODO: icon font
+        icon: 'ios-gear' // TODO: icon font
       },
     }
   },
@@ -85,7 +85,7 @@ var Routes = {
       component: require('../Screens/CreateFoodLog'),
       title: '',
       navBack: {
-        icon: 'close-round'
+        icon: 'close'
       }
     };
   },

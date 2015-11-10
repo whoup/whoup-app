@@ -10,7 +10,7 @@ var LoggedIn = React.createClass({
     return {navBarHidden: false};
   },
   getInitialState: function() {
-    StatusBar.setStyle('light-content');
+    StatusBar.setStyle('default');
     return {
       navBarHidden: false
     };

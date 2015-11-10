@@ -38,7 +38,7 @@ var NavigationButton = React.createClass({
 
     if (item.mixIcon) {
       comp = (
-                <Icon name={item.mixIcon.icon} size={40} color="#FFF" style={[styles[item.label + 'NavBar'], item.disabled && styles.disabledText]}>
+                <Icon name={item.mixIcon.icon} size={40} color={cssVar('thm1')} style={[styles[item.label + 'NavBar'], item.disabled && styles.disabledText]}>
                     <Text style={[styles.navBarText, styles.navBarIconText, styles.navBarButtonText, styles[item.mixIcon.label + 'NavBar'], item.disabled && styles.disabledText]}>
                       {item.mixIcon.label}
                     </Text>
@@ -47,7 +47,7 @@ var NavigationButton = React.createClass({
     }
     else if (item.icon) {
       comp = (
-              <Icon name={item.icon} size={30} color="#FFF" style={[styles.navBarIcon, styles[item.label + 'NavBar'], item.disabled && styles.disabledText]} />
+              <Icon name={item.icon} size={30} color={cssVar('thm1')} style={[styles.navBarIcon, styles[item.label + 'NavBar'], item.disabled && styles.disabledText]} />
               )
     }
     else {
@@ -97,7 +97,7 @@ var NavigationButton = React.createClass({
       return null;
     }
 
-    var backLabel = route.navBack || {icon: 'android-arrow-back'}; //{icon: 'caret-left-semi'};
+    var backLabel = route.navBack || {icon: 'ios-arrow-back'}; //{icon: 'caret-left-semi'};
     return this.makeButton(backLabel, styles.navBarLeftButton, this.goBack);
   },
 
@@ -136,7 +136,7 @@ var styles = StyleSheet.create({
     paddingRight: 10,
   },
   navBarButtonText: {
-    color: 'white',
+    color: cssVar('thm1'),
   },
   disabledText: {
     color: cssVar('gray30')

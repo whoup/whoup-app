@@ -52,12 +52,12 @@ var styles = StyleSheet.create({
   navBarTitleText: {
     fontSize: 20,
     fontFamily: cssVar('fontRegular'),
-    color: 'white',
+    color: cssVar('thm1'),
     fontWeight: '500',
     marginVertical: 9,
   },
   navBarTitleLogo: {
-    fontSize: 35,
+    fontSize: 25,
     fontWeight: '900',
     fontFamily: cssVar('fontLogo')
   }

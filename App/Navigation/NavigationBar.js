@@ -178,16 +178,16 @@ var styles = StyleSheet.create({
     flex: 1
   },
   navBar: {
-    backgroundColor: cssVar('blue50'),
-    height: 60//NavigatorNavigationBarStyles.General.TotalNavHeight
+    backgroundColor: 'white',
+    height: 64//NavigatorNavigationBarStyles.General.TotalNavHeight
   },
   navBarSmall: {
-    backgroundColor: cssVar('blue50'),
+    backgroundColor: 'white',
     height: 20,
   },
   scene: {
     flex: 1,
-    marginTop: 60,//NavigatorNavigationBarStyles.General.TotalNavHeight,
+    marginTop: 64,//NavigatorNavigationBarStyles.General.TotalNavHeight,
     backgroundColor: cssVar('gray5'),
   },
   sceneHidden: {

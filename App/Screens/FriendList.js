@@ -27,11 +27,10 @@ var FollowList = React.createClass({
     return this.getUsername() == username;
   },
 
-  getItemProps: function(follow) {
-    console.log(follow);
+  getItemProps: function(friend) {
     return {
-      key: follow.data.id,
-      title: follow.data.username,
+      key: friend.data.id,
+      title: friend.data.username,
     }
   },
 
