@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "985E092534E614886625E6D75730BF8DDC1D17E3",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "985E092534E614886625E6D75730BF8DDC1D17E3" : 0,
+    "22769016D0548D1B472FC137B5A23271FBAAA623" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "C4D86E42-E63E-4C2E-8BC0-78CAF06DB3C8",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "985E092534E614886625E6D75730BF8DDC1D17E3" : "whoup\/",
+    "22769016D0548D1B472FC137B5A23271FBAAA623" : "fwd\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "whoup",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "ios\/whoup.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/JoinRespectful\/fwd-app.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "22769016D0548D1B472FC137B5A23271FBAAA623"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/whoup\/whoup-app",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "985E092534E614886625E6D75730BF8DDC1D17E3"
+    }
+  ]
+}
