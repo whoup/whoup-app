@@ -6,6 +6,7 @@ var CurrentUser    = require('../Models/CurrentUser');
 var LocalKeyStore  = require('../Stores/LocalKeyStore');
 var Dispatcher     = require('../Dispatcher');
 var AppConstants   = require('../Constants/AppConstants');
+var FirebaseRef    = require('../Api/FirebaseRef');
 
 var CHANGE_EVENT     = 'change';
 var LOCAL_STORE_KEY  = 'CurrentUser';
@@ -80,6 +81,7 @@ Dispatcher.register(function(action) {
       saveSingleton();
       break;
     case AppConstants.LOGOUT_REQUESTED:
+      FirebaseRef.unauth();
       clearData();
       SingletonStore.emitChange();
       break;

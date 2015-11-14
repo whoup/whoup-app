@@ -10,7 +10,7 @@ var CURRENT_USER = CurrentUserStore.get().data;
 var FriendActions = {
   fetchList: function(uid, callback) {
     Network.started();
-    UserService.fetchFriendList(uid, function(error, listProps) {
+    UserService.fetchFriendList(CURRENT_USER.id, function(error, listProps) {
       Network.completed();
       if(callback) callback(error);
 
@@ -24,7 +24,7 @@ var FriendActions = {
   },
   fetchRequestList: function(uid, callback) {
     Network.started();
-    UserService.fetchRequestList(uid, function(error, listProps) {
+    UserService.fetchRequestList(CURRENT_USER.id, function(error, listProps) {
       Network.completed();
       if(callback) callback(error);
       if (!error) {
@@ -74,24 +74,59 @@ var FriendActions = {
     Network.started();
     FirebaseRef.userFriendReqRef(uid).child(CURRENT_USER.id).transaction(function(currentData) {
       if (currentData === null) {
-        return {username: CURRENT_USER.username}
-        return data;
+        return {username: CURRENT_USER.username};
       } else {
 
       return callback({message: "Request already sent"}); // Abort the transaction.
     }
     }, function(error, committed, snapshot) {
-      Network.completed();
       if (error) {
         console.log('Transaction failed abnormally!', error);
       } else if (!committed) {
         console.log('We aborted the transaction (because wilma already exists).');
       } else {
         FirebaseRef.userRef(CURRENT_USER.id).child('sent_reqs').child(uid).set({username: username})
+        Network.completed();
         callback();
       }
     });
-  }
+  },
+
+  acceptRequest: function(uid, username, callback) {
+    Network.started();
+    FirebaseRef.userFriendRef(uid).child(CURRENT_USER.id).transaction(function(currentData) {
+        if (currentData === null) {
+          var data = {};
+          data.username = CURRENT_USER.username;
+          return data;
+        } else {
+          return callback({message: "Friend already added"})
+        }
+    }, function(error, committed, snapshot) {
+       if (error) {
+        // todo: error callback
+        console.log('Transaction failed abnormally!', error);
+      } else if (!committed) {
+        // todo: error callback
+        console.log('We aborted the transaction.');
+      } else {
+        FirebaseRef.userFriendRef(CURRENT_USER.id).child(uid).set({username: username})
+      }
+    });
+    FirebaseRef.userRef(uid).child('sent_reqs').child(CURRENT_USER.id).remove(function(error) {
+        if (error) {
+          callback({message: "Friend already accepted"})
+        } else {
+          FirebaseRef.userFriendReqRef(CURRENT_USER.id).child(uid).remove(function(error) {
+            Network.completed();
+            return callback();
+          });
+        }
+    });
+
+  },
+
+
 };
 
 module.exports = FriendActions;

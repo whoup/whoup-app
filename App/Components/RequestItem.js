@@ -6,14 +6,29 @@ var {
 } = React;
 
 var cssVar = require('../Lib/cssVar');
-var Icon = require('react-native-vector-icons/Ionicons');
+
 var Text       = require('../Components/Text');
-var AppActions = require('../Actions/AppActions');
+var FriendActions = require('../Actions/FriendActions');
+
+var Icon = require('react-native-vector-icons/Ionicons');
 
 var SimpleListItem = React.createClass({
 
+  getInitialState: function() {
+    return {
+      accepted: false
+    }
+  },
+
   onSelection: function() {
-    AppActions.launchRelativeItem(this.props.currentRoute, this.props);
+    FriendActions.acceptRequest(this.props.id, this.props.title, function(error, success) {
+      if (error) {
+        alert(error.message);
+      } else {
+        this.setState({accepted: true});
+        this.props.reloadList();
+      }
+    }.bind(this));
   },
 
   renderTitle: function() {
@@ -37,10 +52,27 @@ var SimpleListItem = React.createClass({
   },
 
   renderRightIcon: function() {
-    if (!this.props.nextIcon) return null;
-    return (
-      <Icon name={'ios-arrow-right'} size={30} color={'black'} style={''} />
-    );
+    if (!this.props.action) return null;
+
+    // caret-right-semi
+    if (this.props.action === 'accept') {
+      if (this.state.accepted) {
+        return (
+          <Icon name={'checkmark'} size={30} color={'green'} style={''} />
+        );
+      }
+      else {
+        return (
+          <Icon name={'plus'} size={30} color={'black'} style={''} />
+        );
+      }
+    }
+    else {
+      return (
+        <Icon name={'ios-arrow-right'} size={30} color={'black'} style={''} />
+      );
+    }
+
   },
 
   renderContent: function() {

@@ -14,7 +14,7 @@ var UserService = {
 
     var out = {friends: []};
     for(var i in response) {
-      out.friends.push(UserService.parseFriend(response[i]));
+      out.friends.push({id: i, username: response[i].username});
     }
     out.key = key;
     return out;

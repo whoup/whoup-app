@@ -27,7 +27,7 @@ var stacksEqual = function(one, two, length) {
 };
 
 var SCREEN_WIDTH = require('Dimensions').get('window').width;
-var BaseConfig = Navigator.SceneConfigs.FloatFromBottom;
+var BaseConfig = Navigator.SceneConfigs.FloatFromRight;
 
 var CustomLeftToRightGesture = Object.assign({}, BaseConfig.gestures.pop, {
   // Make it snap back really quickly after canceling pop

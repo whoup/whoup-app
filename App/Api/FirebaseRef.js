@@ -3,6 +3,10 @@ var ref = new Firebase('https://whoup.firebaseIO.com/');
 
 var FirebaseRef = {
 
+  ref: function() {
+    return ref;
+  },
+
   userRef: function(uid) {
     return ref.child('users').child(uid);
   },
@@ -13,6 +17,10 @@ var FirebaseRef = {
 
   userFriendReqRef: function(uid) {
     return ref.child('users').child(uid).child('friend_reqs')
+  },
+
+  unauth: function() {
+    return ref.unauth();
   }
 
 };

@@ -47,7 +47,7 @@ var ModelStore = assign({}, EventEmitter.prototype, {
 Dispatcher.register(function(action) {
   switch(action.actionType) {
     case AppConstants.FRIEND_LIST_UPDATED:
-      setList(action.listProps.key, action.listProps.listProps);
+      setList(action.listProps.key, action.listProps.friends);
       ModelStore.emitChange();
       break;
     case AppConstants.FRIEND_ADDED:

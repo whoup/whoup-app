@@ -7,7 +7,7 @@ var {
 
 var assign = require('object-assign');
 var Firebase = require('firebase');
-var ref = new Firebase('https://whoup.firebaseIO.com/');
+var FirebaseRef = require('./Api/FirebaseRef');
 
 
 var Routes     = require('./Navigation/Routes');
@@ -22,11 +22,8 @@ var EnvironmentStore   = require('./Stores/EnvironmentStore');
 var DispatcherListener = require('./Mixins/DispatcherListener');
 
 function getUserState() {
-  current_user = CurrentUserStore.get();
-  if (current_user && current_user.token)
-    ref.authWithCustomToken(current_user.token, function(error, result) {return;});
   return {
-    user: current_user
+    user: CurrentUserStore.get()
   };
 };
 
@@ -37,7 +34,6 @@ function getEnvironmentState() {
 };
 
 var Root = React.createClass({
-
   mixins: [DispatcherListener],
 
   getInitialState: function() {
@@ -75,9 +71,11 @@ var Root = React.createClass({
   renderContent: function() {
     var routeStack = this.state.routeStack;
     if(this.state.user.isLoggedIn()) {
+      FirebaseRef.ref().auth(this.state.user.token, function(error, result) {return;});
       return(<LoggedIn ref="current" routeStack={routeStack} />);
     }
     else {
+      FirebaseRef.unauth();
       return(<LoggedOut ref="current" routeStack={routeStack} />);
     }
   },
