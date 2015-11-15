@@ -136,26 +136,26 @@ var RequestList = React.createClass({
 var FriendAndRequestList = React.createClass({
 
   render: function() {
-    var reqList;
+    var noReqs;
     var reqStore = FriendRequestStore;
     var anyRequests = reqStore.get('request');
     var anyFriends = reqStore.get('friend');
-    if (anyRequests === null || anyRequests === 'undefined') {
-      reqList = <RequestList store={reqStore} {...this.props} />
+    if (anyRequests === null || anyRequests === 'undefined'|| anyRequests.length === 0) {
+      noReqs = false;
     }
     else {
-      reqList = <RequestList store={reqStore} {...this.props} />
+      noReqs = true;
     }
 
     return (
       <View style={[styles.flex, styles.container]}>
         <Text style={[styles.section]}>requests</Text>
-        <View style={[styles.container, anyRequests && styles.qflex]}>
-          {reqList}
+        <View style={[styles.container, noReqs && styles.qflex]}>
+          <RequestList store={reqStore} {...this.props} />
         </View>
         <View style={styles.spacer}/>
         <Text style={[styles.section]}>all friends</Text>
-        <View style={[styles.container, anyRequests && styles.flex]}>
+        <View style={[styles.container, styles.flex]}>
           <FriendList store={FriendListStore} {...this.props} />
         </View>
       </View>
