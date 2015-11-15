@@ -56,9 +56,7 @@ var ListHelper = {
     if (this.reloadList) {
       this.reloadList();
     };
-    // if (this.props.navBarHidden) {
-    //   AppActions.hideNavBar();
-    // };
+
   },
 
   componentWillUnmount: function() {
@@ -95,6 +93,7 @@ var ListHelper = {
   },
 
   renderEmpty: function() {
+    if (this.blankContent) return this.blankContent();
     return(
       <View style={styles.container} >
         <Text style={styles.description}>
@@ -121,11 +120,7 @@ var ListHelper = {
 
   renderList: function() {
     if (this.state.items === null) {
-      return (<View >
-                <Text>
-                No Friends :(
-                </Text>
-              </View>
+      return (<View/>
               );
     }
     else if (this.state.items === undefined) {

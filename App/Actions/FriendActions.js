@@ -10,7 +10,7 @@ var CURRENT_USER = CurrentUserStore.get().data;
 var FriendActions = {
   fetchList: function(uid, callback) {
     Network.started();
-    UserService.fetchFriendList(CURRENT_USER.id, function(error, listProps) {
+    UserService.watchFriendList(CURRENT_USER.id, function(error, listProps) {
       Network.completed();
       if(callback) callback(error);
 
@@ -24,7 +24,7 @@ var FriendActions = {
   },
   fetchRequestList: function(uid, callback) {
     Network.started();
-    UserService.fetchRequestList(CURRENT_USER.id, function(error, listProps) {
+    UserService.watchRequestList(CURRENT_USER.id, function(error, listProps) {
       Network.completed();
       if(callback) callback(error);
       if (!error) {
@@ -36,8 +36,8 @@ var FriendActions = {
     });
   },
 
-  mountFriendAdd: function(uid) {
-    FirebaseRef.userFriendRef(CURRENT_USER.id).on('child_added', function(snapshot, prevKey) {
+  unmountFriendAdd: function() {
+    FirebaseRef.userFriendRef(CURRENT_USER.id).off('child_added', function(snapshot, prevKey) {
       var newFriend = snapshot.val();
       var data = {
         key: 'friend',
@@ -53,7 +53,39 @@ var FriendActions = {
     })
   },
 
-  mountFriendReq: function(uid) {
+  mountFriendAdd: function() {
+    FirebaseRef.userFriendRef(CURRENT_USER.id).on('child_added', function(snapshot, prevKey) {
+      var newFriend = snapshot.val();
+      var data = {
+        key: 'friend',
+        friendProps: {
+          id: newFriend.id,
+          username: newFriend.username,
+        }
+      };
+        Dispatcher.dispatch({
+          actionType: AppConstants.FRIEND_ADDED,
+          friendProps: data
+        });
+    })
+  },
+  unmountFriendReq: function() {
+    FirebaseRef.userFriendReqRef(CURRENT_USER.id).off('child_added', function(snapshot, prevKey){
+      var newReq = snapshot.val();
+      var data = {
+        key: 'request',
+        friendProps: {
+          id: newReq.id,
+          username: newReq.username,
+        }
+      };
+       Dispatcher.dispatch({
+          actionType: AppConstants.FRIENDREQ_ADDED,
+          friendProps: data
+        });
+    });
+  },
+  mountFriendReq: function() {
     FirebaseRef.userFriendReqRef(CURRENT_USER.id).on('child_added', function(snapshot, prevKey){
       var newReq = snapshot.val();
       var data = {

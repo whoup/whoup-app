@@ -1,16 +1,16 @@
 {
-  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "684DBC886FA43A99BB0CD673A4278122C8B52F70",
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "985E092534E614886625E6D75730BF8DDC1D17E3",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
 
   },
   "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
-    "22769016D0548D1B472FC137B5A23271FBAAA623" : 0,
-    "684DBC886FA43A99BB0CD673A4278122C8B52F70" : 0
+    "985E092534E614886625E6D75730BF8DDC1D17E3" : 0,
+    "22769016D0548D1B472FC137B5A23271FBAAA623" : 0
   },
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "C4D86E42-E63E-4C2E-8BC0-78CAF06DB3C8",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
-    "22769016D0548D1B472FC137B5A23271FBAAA623" : "fwd\/",
-    "684DBC886FA43A99BB0CD673A4278122C8B52F70" : "whoup\/"
+    "985E092534E614886625E6D75730BF8DDC1D17E3" : "whoup\/",
+    "22769016D0548D1B472FC137B5A23271FBAAA623" : "fwd\/"
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "whoup",
   "DVTSourceControlWorkspaceBlueprintVersion" : 204,
@@ -24,7 +24,7 @@
     {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/whoup\/whoup-app",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "684DBC886FA43A99BB0CD673A4278122C8B52F70"
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "985E092534E614886625E6D75730BF8DDC1D17E3"
     }
   ]
 }

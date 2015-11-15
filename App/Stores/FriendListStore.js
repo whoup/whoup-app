@@ -54,14 +54,6 @@ Dispatcher.register(function(action) {
       addModel(action.friendProps.key, action.friendProps.friendProps);
       ModelStore.emitChange();
       break;
-    case AppConstants.FRIENDREQ_LIST_UPDATED:
-      setList(action.listProps.key, action.listProps.friendReq);
-      ModelStore.emitChange();
-      break;
-    case AppConstants.FRIENDREQ_ADDED:
-      addModel(action.friendProps.key, action.friendProps.friendProps);
-      ModelStore.emitChange();
-      break;
     // TODO: save
     default:
       // no op

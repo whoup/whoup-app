@@ -30,11 +30,11 @@ var UserService = {
     return out;
   },
 
-  fetchFriendList: function(uid, callback) {
-    FirebaseRef.userFriendRef(uid).once('value', function(snapdata) {
+  watchFriendList: function(uid, callback) {
+    FirebaseRef.userFriendRef(uid).on('value', function(snapdata) {
       var data = snapdata.val();
       if (data === null || data === 'undefined') {
-        callback(null, {friends: [], username: uid})
+        callback(null, {friends: [], key: 'friend'})
       }
       else {
         var listProps = UserService.parseFriends(data, 'friend');
@@ -42,11 +42,11 @@ var UserService = {
       }
     });
   },
-  fetchRequestList: function(uid, callback) {
-    FirebaseRef.userFriendReqRef(uid).once('value', function(snapdata) {
+  watchRequestList: function(uid, callback) {
+    FirebaseRef.userFriendReqRef(uid).on('value', function(snapdata) {
       var data = snapdata.val();
       if (data === null || data === 'undefined') {
-        callback(null, {friendReq: [], key: 'friend'})
+        callback(null, {friendReq: [], key: 'request'})
       }
       else {
         var listProps = UserService.parseFriendReq(data, 'request');

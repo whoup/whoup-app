@@ -19,7 +19,7 @@ function addModel(key, props) {
 function setList(key, list) {
   var models = [];
   for(var i in list) {
-    model = new Friend(list[i]);
+    var model = new Friend(list[i]);
     models.push(model);
   }
   _hash[key] = models;
@@ -28,7 +28,11 @@ function setList(key, list) {
 var ModelStore = assign({}, EventEmitter.prototype, {
 
   get: function(key) {
+    if (!_hash[key]) return null;
     return _hash[key];
+  },
+
+  change: function(key, id) {
   },
 
 
@@ -49,11 +53,11 @@ var ModelStore = assign({}, EventEmitter.prototype, {
 Dispatcher.register(function(action) {
   switch(action.actionType) {
     case AppConstants.FRIENDREQ_LIST_UPDATED:
-      setList(action.listProps.username, action.listProps.friendReq);
+      setList(action.listProps.key, action.listProps.friendReq);
       ModelStore.emitChange();
       break;
     case AppConstants.FRIENDREQ_ADDED:
-      addModel(action.friendProps.username, action.friendProps.friendProps);
+      addModel(action.friendProps.key, action.friendProps.friendProps);
       ModelStore.emitChange();
       break;
     // TODO: save
