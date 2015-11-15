@@ -32,10 +32,6 @@ var ModelStore = assign({}, EventEmitter.prototype, {
     return _hash[key];
   },
 
-  change: function(key, id) {
-  },
-
-
   emitChange: function() {
     this.emit(CHANGE_EVENT);
   },

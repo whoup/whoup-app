@@ -3,10 +3,12 @@ var {
   View,
   StyleSheet,
   PixelRatio,
+  ScrollView,
   TouchableWithoutFeedback
 } = React;
 
 var cssVar = require('../Lib/cssVar');
+var dismissKeyboard = require('dismissKeyboard')
 
 var AppActions = require('../Actions/AppActions');
 var Text       = require('../Components/Text');
@@ -26,6 +28,9 @@ var AuthHelper = {
       password_confirm: '',
       chooseUsername: false
     }
+  },
+  hideKeyboard: function() {
+    dismissKeyboard();
   },
 
   getLinkText: function() {
@@ -113,6 +118,7 @@ var AuthHelper = {
       <TextInput ref="username"
           placeholder={"Username"}
           autoCapitalize={"none"}
+          clearButtonMode={'always'}
           keyboardType="email-address"
           style={[styles.input, styles.username]}
           enablesReturnKeyAutomatically={true}
@@ -128,10 +134,11 @@ var AuthHelper = {
         <TextInput ref="email"
           placeholder={"Email"}
           autoCapitalize={"none"}
-          keyboardType="email-address"
+          clearButtonMode={'always'}
+          keyboardType={"email-address"}
           style={[styles.input, styles.username]}
           enablesReturnKeyAutomatically={true}
-          returnKeyType='next'
+          returnKeyType={'next'}
           onChange={(event) => this.state.email = event.nativeEvent.text }
           onSubmitEditing={(event) => this.refs.password.focus() }
           />;
@@ -139,11 +146,12 @@ var AuthHelper = {
          <TextInput ref="password"
           placeholder={'Password'}
           password={true}
+          clearButtonMode={'always'}
           autoCorrect={false}
-          keyboardType="default"
+          keyboardType={"default"}
           style={[styles.input, styles.password]}
           enablesReturnKeyAutomatically={true}
-          returnKeyType='done'
+          returnKeyType={'done'}
           onChange={(event) => this.state.password = event.nativeEvent.text }
           onSubmitEditing={this.onAuthButton}
         />
@@ -177,9 +185,9 @@ var AuthHelper = {
         <View style={styles.bottom}>
           {this.renderPassword()}
           <View style={styles.flex} />
-          <Text style={[styles.bottomText, styles.version]}>TODO: v1</Text>
         </View>
       </View>
+
     )
   }
 };
@@ -192,18 +200,21 @@ var styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: cssVar('gray5')//'#FFF',
+    backgroundColor: cssVar('thm1')//'#FFF',
   },
   username: {
-    marginBottom: 10
+    marginBottom: 10,
+    backgroundColor: cssVar('thm5')
   },
   password: {
-    marginBottom: 10
+    marginBottom: 10,
+    backgroundColor: cssVar('thm5')
   },
   title: {
-    marginBottom: 5,
-    fontSize: 20,
+    marginBottom: 20,
+    fontSize: 30,
     fontWeight: 'bold',
+    color: 'white'
   },
   input: {
     borderWidth: 1 / PixelRatio.get(),
@@ -215,14 +226,14 @@ var styles = StyleSheet.create({
     marginHorizontal: 30
   },
   pop: {
-    color: cssVar('blue50'),
+    color: cssVar('thm3'),
   },
   bottom: {
     marginTop: 10,
   },
   bottomText: {
     padding: 10,
-    color: cssVar('gray20'),
+    color: cssVar('thm5'),
   },
   forgot: {
     textAlign: 'left'
@@ -233,8 +244,12 @@ var styles = StyleSheet.create({
   switch: {
     alignItems: 'center'
   },
+  button: {
+     backgroundColor: cssVar('thm3'),
+  },
   switchText: {
     fontSize: 16,
+    color: cssVar('thm5'),
   },
 });
 

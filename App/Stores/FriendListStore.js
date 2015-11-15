@@ -25,11 +25,13 @@ function setList(key, list) {
     _hash[key] = models;
 }
 
+
 var ModelStore = assign({}, EventEmitter.prototype, {
   get: function(key) {
     if (!_hash[key]) return null;
     return _hash[key];
   },
+
   emitChange: function() {
     this.emit(CHANGE_EVENT);
   },
@@ -54,6 +56,7 @@ Dispatcher.register(function(action) {
       addModel(action.friendProps.key, action.friendProps.friendProps);
       ModelStore.emitChange();
       break;
+    case AppConstants.LOGOUT_REQUESTED:
     // TODO: save
     default:
       // no op

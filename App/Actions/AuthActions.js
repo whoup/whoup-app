@@ -2,6 +2,7 @@ var Dispatcher   = require('../Dispatcher');
 var AppConstants = require('../Constants/AppConstants');
 var AuthService  = require('../Api/AuthService');
 var Network = require('../Api/Network');
+var FirebaseRef = require('../Api/FirebaseRef');
 
 var AuthActions = {
 
@@ -9,7 +10,6 @@ var AuthActions = {
     return function(error, data) {
       Network.completed();
       if(callback) callback(error);
-
       if (!error) {
         Dispatcher.dispatch({
           actionType: AppConstants.LOGIN_USER,

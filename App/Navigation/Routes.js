@@ -32,7 +32,7 @@ var Routes = {
       },
       navRight: {
         subPath: '_friendAdd',
-        icon: 'ios-personadd' // TODO: icon font
+        icon:   'ios-plus-outline'//'ios-personadd' // TODO: icon font
       },
     };
   },

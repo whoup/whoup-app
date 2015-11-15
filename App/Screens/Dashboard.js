@@ -10,15 +10,17 @@ var NavigationListener = require('../Mixins/NavigationListener');
 var NavBarHelper       = require('../Mixins/NavBarHelper');
 var Loading          = require('../Screens/Loading');
 var Text             = require('../Components/Text');
+var Button     = require('../Components/Button');
 var SimpleList       = require('../Components/SimpleList');
 var AppActions       = require('../Actions/AppActions');
-var FriendActions       = require('../Actions/FriendActions');
 var cssVar = require('../Lib/cssVar');
-var ChatListStore = require('../Stores/ChatListStore');
 var FriendListStore = require('../Stores/FriendListStore');
 var CurrentUserStore = require('../Stores/CurrentUserStore');
 var FriendActions = require('../Actions/FriendActions');
+var ChatActions = require('../Actions/ChatActions');
 
+var CurrentUserStore = require('../Stores/CurrentUserStore');
+var CURRENT_USER = CurrentUserStore.get().data;
 
 
 var ChatRoomList = React.createClass({
@@ -36,7 +38,7 @@ var ChatRoomList = React.createClass({
   getListItems: function() {
     uid = this.getUserId();
     //FriendActions.mountFriendAdd(uid);
-    return FriendListStore.get('friends');
+    return FriendListStore.get('friend');
   },
 
   isListChange: function(username) {
@@ -67,12 +69,12 @@ var ChatRoomList = React.createClass({
     }.bind(this));
   },
 
-
-
-
-
+  imUp: function() {
+    ChatActions.goOnline(CURRENT_USER.id,);
+  },
 
   getInitialState: function() {
+    this.getUserStatus();
     return this.getListState();
   },
 
@@ -95,6 +97,10 @@ var ChatRoomList = React.createClass({
   onDidFocusNavigation: function() {
     // items may have changed
     this.setState(this.getListState());
+  },
+
+  getUserStatus: function() {
+    return
   },
 
   componentDidMount: function() {
@@ -203,8 +209,26 @@ var ChatRoomList = React.createClass({
 
   },
 
+  renderYouUp: function() {
+    return ( <View style={[styles.flex, styles.container]}>
+                  <Text style={[styles.question]}>
+                    {'you up?'}
+                  </Text>
+                  <Button onPress={this.imUp} style={styles.button}>
+                      {'Yes'}
+                  </Button>
+                </View>
+            );
+  },
+
   render: function() {
-   return this.renderList();
+    var content;
+    if (this.state.userIsUp) {
+      content = this.renderList();
+    } else {
+      content = this.renderYouUp();
+    }
+   return content;
   }
 });
 
@@ -217,6 +241,16 @@ var styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
     color: cssVar('thm2')
+  },
+  question: {
+    fontSize: 40,
+    paddingBottom: 20,
+    fontWeight: '900',
+    color: cssVar('thm2')
+  },
+  button: {
+    width: 100,
+    backgroundColor: cssVar('thm2'),
   },
   container: {
     flex: 1,

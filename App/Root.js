@@ -71,11 +71,11 @@ var Root = React.createClass({
   renderContent: function() {
     var routeStack = this.state.routeStack;
     if(this.state.user.isLoggedIn()) {
-      FirebaseRef.ref().auth(this.state.user.token, function(error, result) {return;});
+      FirebaseRef.ref().authWithCustomToken(this.state.user.token, function(error, result) {return;});
       return(<LoggedIn ref="current" routeStack={routeStack} />);
     }
     else {
-      FirebaseRef.unauth();
+      FirebaseRef.ref().unauth();
       return(<LoggedOut ref="current" routeStack={routeStack} />);
     }
   },

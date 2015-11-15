@@ -1,7 +1,8 @@
 var React = require('react-native');
 var {
   View,
-  StyleSheet
+  StyleSheet,
+  TouchableWithoutFeedback
 } = React;
 
 var TextInput   = require('../Components/TextInput');
@@ -9,9 +10,8 @@ var Text = require('../Components/Text');
 var Button      = require('../Components/Button');
 var FriendActions = require('../Actions/FriendActions');
 var AppActions  = require('../Actions/AppActions');
-var ScrollSelect = require('../Components/ScrollSelect');
-var TimeInput = require('../Components/TimeInput');
 var NavBarHelper = require('../Mixins/NavBarHelper');
+var Icon = require('react-native-vector-icons/Ionicons');
 
 var KeyboardListener = require('../Mixins/KeyboardListener');
 
@@ -50,6 +50,16 @@ var FriendAdd = React.createClass({
     }.bind(this));
   },
 
+  addButton: function() {
+    if (this.state.username) {
+      return (
+               <Icon name={'plus'} size={30} color={'black'} style={styles.button} />
+      );
+    } else {
+      return ( <View/>)
+    }
+  },
+
   updateText: function(text) {
 
   if (text !== ''){
@@ -66,6 +76,7 @@ var FriendAdd = React.createClass({
   },
 
   render: function() {
+    var button = this.addButton();
     return (
       <View style={styles.flex} >
         <TextInput ref="username-input"
@@ -86,11 +97,14 @@ var FriendAdd = React.createClass({
         <Text style={[styles.username, styles.left]}>
           {this.state.username}
         </Text>
-        <Text style={[styles.username, styles.right]} onPress={this.onSubmitButton}>
-          {this.state.username && '+'}
-        </Text>
+        <View style={[styles.username, styles.right]}>
+          <TouchableWithoutFeedback onPress={this.onSubmitButton}>
+            {button}
+          </TouchableWithoutFeedback>
+        </View>
       </View>
       <View style={{height: this.state.keyboardSpace}}></View>
+
       </View>
     );
   }
@@ -113,6 +127,14 @@ var styles = StyleSheet.create({
   durationLabel: {
     fontSize: 18
   },
+  row: {
+    height: 30,
+    paddingTop: 5,
+    paddingBottom: 5,
+    borderWidth: 1,
+    borderColor: 'black'
+
+  },
   durationEdit: {
     height: 50,
     width: 50,
@@ -122,7 +144,7 @@ var styles = StyleSheet.create({
 
   },
   button: {
-
+    paddingRight: 10
   },
   left: {
     flex: 1,
@@ -131,7 +153,8 @@ var styles = StyleSheet.create({
 
   },
   username: {
-    fontSize: 18,
+    fontSize: 25,
+    marginLeft: 10,
     fontWeight: 'bold'
   },
   footer: {

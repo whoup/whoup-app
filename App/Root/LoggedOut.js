@@ -10,7 +10,7 @@ var LoggedOut = React.createClass({
     return {navBarHidden: true};
   },
   getInitialState: function() {
-    StatusBar.setStyle('default');
+    StatusBar.setStyle('light-content');
     return {
       navBarHidden: true
     };
