@@ -13,7 +13,7 @@ var Text             = require('../Components/Text');
 var SimpleList       = require('../Components/SimpleList');
 var AppActions       = require('../Actions/AppActions');
 var FriendActions       = require('../Actions/FriendActions');
-
+var cssVar = require('../Lib/cssVar');
 var ChatListStore = require('../Stores/ChatListStore');
 var FriendListStore = require('../Stores/FriendListStore');
 var CurrentUserStore = require('../Stores/CurrentUserStore');
@@ -216,7 +216,7 @@ var styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     textAlign: 'center',
-    color: '#270F36'
+    color: cssVar('thm2')
   },
   container: {
     flex: 1,

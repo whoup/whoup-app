@@ -38,7 +38,7 @@ var NavigationButton = React.createClass({
 
     if (item.mixIcon) {
       comp = (
-                <Icon name={item.mixIcon.icon} size={40} color={cssVar('thm1')} style={[styles[item.label + 'NavBar'], item.disabled && styles.disabledText]}>
+                <Icon name={item.mixIcon.icon} size={40} color={cssVar('thm2')} style={[styles[item.label + 'NavBar'], item.disabled && styles.disabledText]}>
                     <Text style={[styles.navBarText, styles.navBarIconText, styles.navBarButtonText, styles[item.mixIcon.label + 'NavBar'], item.disabled && styles.disabledText]}>
                       {item.mixIcon.label}
                     </Text>
@@ -47,7 +47,7 @@ var NavigationButton = React.createClass({
     }
     else if (item.icon) {
       comp = (
-              <Icon name={item.icon} size={30} color={cssVar('thm1')} style={[styles.navBarIcon, styles[item.label + 'NavBar'], item.disabled && styles.disabledText]} />
+              <Icon name={item.icon} size={30} color={cssVar('thm2')} style={[styles.navBarIcon, styles[item.label + 'NavBar'], item.disabled && styles.disabledText]} />
               )
     }
     else {
@@ -69,7 +69,7 @@ var NavigationButton = React.createClass({
     }
     else {
       return (
-        <TouchableOpacity onPress={callback}>
+        <TouchableOpacity style={[this.props.direction === 'left' && styles.leftButton]} onPress={callback}>
           {button}
         </TouchableOpacity>
       );
@@ -136,10 +136,13 @@ var styles = StyleSheet.create({
     paddingRight: 10,
   },
   navBarButtonText: {
-    color: cssVar('thm1'),
+    color: cssVar('thm2'),
   },
   disabledText: {
     color: cssVar('gray30')
+  },
+  leftButton: {
+    paddingRight: 50,
   }
 });
 

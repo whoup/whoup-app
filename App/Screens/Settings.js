@@ -6,7 +6,7 @@ var {
 
 var SimpleListItem   = require('../Components/SimpleList');
 var AppConstants = require('../Constants/AppConstants');
-
+var cssVar = require('../Lib/cssVar');
 function getListState() {
   var list = [];
   list.push({
@@ -36,7 +36,8 @@ var Settings = React.createClass({
 
 var styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    backgroundColor: cssVar('thm5'),
   }
 });
 

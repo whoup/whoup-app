@@ -78,6 +78,7 @@ var RequestList = React.createClass({
 
   getDefaultProps: function() {
     return {
+      navBarTitle: 'My Friends',
       listProps: {
         nextIcon: true
       },

@@ -16,7 +16,7 @@ module.exports = {
 
   heartActive: '#df1f1f',
 
-  blue50: '#270f36',
+  blue50: '#642B6B',
 
   thm1: '#270F36',
   thm2: '#642B6B',

@@ -30,9 +30,6 @@ var Routes = {
       passProps: {
         username: username
       },
-      navBack: {
-        icon: 'close'
-      },
       navRight: {
         subPath: '_friendAdd',
         icon: 'ios-personadd' // TODO: icon font

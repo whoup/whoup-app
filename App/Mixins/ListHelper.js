@@ -22,6 +22,7 @@ var Text             = require('../Components/Text');
 var SimpleList       = require('../Components/SimpleList');
 var AppActions       = require('../Actions/AppActions');
 var FriendActions       = require('../Actions/FriendActions');
+var cssVar = require('../Lib/cssVar');
 
 var ListHelper = {
   mixins: [NavigationListener, NavBarHelper],
@@ -146,7 +147,7 @@ var styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#123456',
+    backgroundColor: cssVar('thm5'),
   }
 });
 
