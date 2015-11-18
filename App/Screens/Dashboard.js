@@ -210,7 +210,7 @@ var ChatRoomList = React.createClass({
   },
 
   renderYouUp: function() {
-    return ( <View style={[styles.flex, styles.container]}>
+    return ( <View style={[styles.flex, styles.container, styles.offsetBottom]}>
                   <Text style={[styles.question]}>
                     {'you up?'}
                   </Text>
@@ -246,11 +246,14 @@ var styles = StyleSheet.create({
     fontSize: 40,
     paddingBottom: 20,
     fontWeight: '900',
-    color: cssVar('thm2')
+    color: cssVar('thm1')
   },
   button: {
     width: 100,
     backgroundColor: cssVar('thm2'),
+  },
+  offsetBottom: {
+    paddingBottom: 100
   },
   container: {
     flex: 1,

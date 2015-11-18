@@ -2,7 +2,6 @@ var Dispatcher    = require('../Dispatcher');
 var AppConstants  = require('../Constants/AppConstants');
 var ChatService = require('../Api/ChatService');
 var amOnline = new Firebase('https://whoup.firebaseio.com/.info/connected');
-
 var CurrentUserStore = require('../Stores/CurrentUserStore');
 var CURRENT_USER = CurrentUserStore.get().data;
 
