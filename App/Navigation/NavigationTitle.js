@@ -58,7 +58,7 @@ var styles = StyleSheet.create({
   },
   navBarTitleLogo: {
     fontSize: 25,
-    fontWeight: '900',
+    //fontWeight: '100',
     fontFamily: cssVar('fontLogo')
   }
 });

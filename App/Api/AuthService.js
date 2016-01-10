@@ -5,7 +5,6 @@ var ref = new Firebase('https://whoup.firebaseio.com/');
 var AuthService = {
   accountCallback: function(callback) {
     return function(error, authData) {
-
       UserService.getUser(authData, callback, error);
     };
   },

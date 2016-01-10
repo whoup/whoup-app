@@ -18,17 +18,17 @@ module.exports = {
 
   blue50: '#642B6B',
 
-  thm1: '#270F36',
-  thm2: '#642B6B',
-  thm3: '#C86B89',
-  thm4: '#F47Fc7',
-  thm5: '#E8E9F3',
+  thm1: '#eded00',
+  thm2: '#000000',
+  thm3: '#FFFFFF',
+  thm4: '#E7E7E7',
+  thm5: '#E7E7E7',
 
 
   // http://iosfonts.com/
-  fontRegular: "HelveticaNeue",
+  fontRegular: "SofiaProBlack",
   fontIcon: "HelveticaNeue",
-  fontLogo: "Avenir-Book", // TODO: get an icon font and include
+  fontLogo: "SofiaProBlack",
 
   listLine: {
     backgroundColor: 'rgba(0, 0, 0, 0.1)',

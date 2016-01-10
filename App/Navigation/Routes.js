@@ -9,6 +9,13 @@ var Routes = {
     };
   },
 
+  Welcome: function() {
+    return {
+      component: require('../Screens/Welcome'),
+      title: 'Welcome'
+    };
+  },
+
   SignUp: function() {
     return {
       component: require('../Screens/SignUp'),
@@ -131,6 +138,8 @@ var LoggedIn = {
 var LoggedOut = {
   parse: function(host) {
     switch (host) {
+      case 'welcome':
+        return Routes.Welcome();
       case 'signup':
         return Routes.SignUp();
       case 'login':
@@ -150,7 +159,7 @@ module.exports = {
         found = this.parse('dashboard', true, false, passProps);
       }
       else {
-        found = this.parse('signup', false, false, passProps);
+        found = this.parse('welcome', false, false, passProps);
       }
     }
     return found;
