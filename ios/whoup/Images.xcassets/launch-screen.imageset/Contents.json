@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "apple-icon-114x114.png",
+      "filename" : "Default.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "apple-icon-144x144.png",
+      "filename" : "Default-667h@2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "apple-icon-180x180.png",
+      "filename" : "Default-736h@3x.png",
       "scale" : "3x"
     }
   ],

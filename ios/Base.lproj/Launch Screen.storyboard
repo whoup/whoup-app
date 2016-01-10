@@ -11,30 +11,25 @@
             <objects>
                 <viewController id="01J-lp-oVM" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="z7z-8k-0Y4"/>
-                        <viewControllerLayoutGuide type="bottom" id="1R9-eA-ziu"/>
+                        <viewControllerLayoutGuide type="top" id="Llm-lL-Icb"/>
+                        <viewControllerLayoutGuide type="bottom" id="xb3-aO-Qok"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launch" translatesAutoresizingMaskIntoConstraints="NO" id="TeG-mb-gj0">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launch-screen" translatesAutoresizingMaskIntoConstraints="NO" id="02W-6F-1nt">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="owl" translatesAutoresizingMaskIntoConstraints="NO" id="mZw-q5-yrQ">
-                                <rect key="frame" x="130" y="324" width="155" height="87"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="TeG-mb-gj0" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="topMargin" id="JME-Xa-9jR"/>
-                            <constraint firstItem="mZw-q5-yrQ" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" constant="110" id="aqX-Gs-phP"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="TeG-mb-gj0" secondAttribute="trailing" constant="-20" id="bXa-kX-VFi"/>
-                            <constraint firstItem="1R9-eA-ziu" firstAttribute="top" secondItem="TeG-mb-gj0" secondAttribute="bottom" id="dyi-i9-cOJ"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="mZw-q5-yrQ" secondAttribute="trailing" constant="109" id="gpS-SC-yim"/>
-                            <constraint firstItem="1R9-eA-ziu" firstAttribute="top" secondItem="mZw-q5-yrQ" secondAttribute="bottom" constant="325" id="jCb-9p-aXo"/>
-                            <constraint firstItem="mZw-q5-yrQ" firstAttribute="top" secondItem="z7z-8k-0Y4" secondAttribute="bottom" constant="304" id="lAp-YI-15S"/>
-                            <constraint firstItem="TeG-mb-gj0" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" constant="-20" id="sDE-Lz-18G"/>
+                            <constraint firstItem="02W-6F-1nt" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="topMargin" id="09S-fK-d3z"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="02W-6F-1nt" secondAttribute="trailing" constant="-20" id="9PZ-pN-uZV"/>
+                            <constraint firstItem="02W-6F-1nt" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="AuW-8U-IBX"/>
+                            <constraint firstItem="02W-6F-1nt" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="Ick-UZ-qeV"/>
+                            <constraint firstItem="02W-6F-1nt" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" constant="-20" id="oUc-CQ-TtK"/>
+                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="02W-6F-1nt" secondAttribute="bottom" id="x3d-5f-zme"/>
                         </constraints>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
@@ -45,7 +40,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="launch" width="576" height="1024"/>
-        <image name="owl" width="128" height="128"/>
+        <image name="launch-screen" width="320" height="640"/>
     </resources>
 </document>

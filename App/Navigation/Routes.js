@@ -68,18 +68,18 @@ var Routes = {
   },
 
 
-  ActivityRoom: function() {
-    return {
-      component: require('../Screens/ActivityRoom'),
-      title: 'Activity Team',
-      navBack: {
-        mixIcon: {
-          label: 'Messages',
-          icon: 'ios-arrow-back'
-        }
-      }
-    }
-  }
+  // ActivityRoom: function() {
+  //   return {
+  //     component: require('../Screens/ActivityRoom'),
+  //     title: 'Activity Team',
+  //     navBack: {
+  //       mixIcon: {
+  //         label: 'Messages',
+  //         icon: 'ios-arrow-back'
+  //       }
+  //     }
+  //   }
+  // }
 
 
 };
