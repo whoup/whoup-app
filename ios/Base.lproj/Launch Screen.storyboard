@@ -18,18 +18,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launch-screen" translatesAutoresizingMaskIntoConstraints="NO" id="02W-6F-1nt">
+                            <imageView clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launch-screen" translatesAutoresizingMaskIntoConstraints="NO" id="02W-6F-1nt">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="02W-6F-1nt" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="topMargin" id="09S-fK-d3z"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="02W-6F-1nt" secondAttribute="trailing" constant="-20" id="9PZ-pN-uZV"/>
-                            <constraint firstItem="02W-6F-1nt" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="AuW-8U-IBX"/>
-                            <constraint firstItem="02W-6F-1nt" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="Ick-UZ-qeV"/>
-                            <constraint firstItem="02W-6F-1nt" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" constant="-20" id="oUc-CQ-TtK"/>
-                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="02W-6F-1nt" secondAttribute="bottom" id="x3d-5f-zme"/>
+                            <constraint firstItem="02W-6F-1nt" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="topMargin" id="4q5-Qw-o9u"/>
+                            <constraint firstItem="02W-6F-1nt" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" constant="-20" id="VCU-3l-zVB"/>
+                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="02W-6F-1nt" secondAttribute="bottom" id="md5-nv-Hod"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="02W-6F-1nt" secondAttribute="trailing" constant="-20" id="rF5-wa-RXA"/>
                         </constraints>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>

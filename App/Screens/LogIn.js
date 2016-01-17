@@ -141,9 +141,6 @@ var styles = StyleSheet.create({
   input: {
     fontFamily: cssVar('fontRegular'),
     textAlign: 'center',
-    // borderWidth: 1 / PixelRatio.get(),
-    // borderColor: cssVar('gray20'),
-    // borderRadius: 20,
     fontSize: 18,
     height: 50,
   },
