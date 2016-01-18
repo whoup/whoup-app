@@ -108,7 +108,7 @@ var Button = React.createClass({
 var styles = StyleSheet.create({
   button: {
     padding: 10,
-    borderRadius: 10
+    borderRadius: 2
   },
   blue: {
     backgroundColor: cssVar('blue50')
@@ -122,7 +122,7 @@ var styles = StyleSheet.create({
     fontFamily: cssVar('fontIcon')
   },
   text: {
-    color: 'white',
+    color: 'black',
     fontSize: 17,
     fontWeight: 'bold',
     textAlign: 'center',

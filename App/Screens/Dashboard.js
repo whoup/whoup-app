@@ -2,7 +2,8 @@ var React = require('react-native');
 var {
   View,
   StyleSheet,
-  ListView
+  ListView,
+  Image
 } = React;
 
 var CurrentUserStore   = require('../Stores/CurrentUserStore');
@@ -211,11 +212,15 @@ var ChatRoomList = React.createClass({
 
   renderYouUp: function() {
     return ( <View style={[styles.flex, styles.container, styles.offsetBottom]}>
+              <Image
+                style={styles.logo}
+                source={require('../Images/sleepy-owl.gif')}
+                />
                   <Text style={[styles.question]}>
-                    {'you up?'}
+                    {'You Up?'}
                   </Text>
                   <Button onPress={this.imUp} style={styles.button}>
-                      {'Yes'}
+                      {'YES'}
                   </Button>
                 </View>
             );
@@ -246,11 +251,11 @@ var styles = StyleSheet.create({
     fontSize: 40,
     paddingBottom: 20,
     fontWeight: '900',
-    color: cssVar('thm1')
+    color: '#FFFFFF'
   },
   button: {
-    width: 100,
-    backgroundColor: cssVar('thm2'),
+    width: 150,
+    backgroundColor: cssVar('thm1'),
   },
   offsetBottom: {
     paddingBottom: 100
@@ -260,7 +265,14 @@ var styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#E8E9F3',
+    backgroundColor: '#000000',
+  },
+  logo: {
+    height: 300,
+    width: 100,
+    backgroundColor: 'transparent',
+    alignSelf: 'auto',
+    paddingBottom: 10
   }
 });
 

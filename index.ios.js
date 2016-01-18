@@ -5,5 +5,6 @@ var {
   AppRegistry
 } = React;
 
-var Root = require('./App/Root')
+var Root = require('./App/Root');
+
 AppRegistry.registerComponent('whoup', () => Root);
