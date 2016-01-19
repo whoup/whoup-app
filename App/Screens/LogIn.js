@@ -61,6 +61,7 @@ var Login = React.createClass({
           placeholder={"Email"}
           autoCapitalize={"none"}
           clearButtonMode={'always'}
+          autoCorrect={false}
           keyboardType={"email-address"}
           keyboardAppearance={"dark"}
           style={[styles.input, styles.username]}
