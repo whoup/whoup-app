@@ -72,6 +72,7 @@ var ChatRoomList = React.createClass({
 
   imUp: function() {
     ChatActions.goOnline(CURRENT_USER.id,);
+    this.setState({userIsUp: true});
   },
 
   getInitialState: function() {
@@ -182,12 +183,12 @@ var ChatRoomList = React.createClass({
   },
 
   renderList: function() {
-    var d0 = new Date("01/01/2001 " + "12:00 AM");
-    var d1 = new Date("01/01/2001 " + "6:00 PM");
+    var d0 = new Date("01/01/2001 " + "12:00 PM");
+    var d1 = new Date("01/01/2001 " + "6:00 AM");
     var d = new Date("01/01/2001");
     d.setHours(new Date().getHours());
     d.setMinutes(new Date().getMinutes());
-    var itsTime = d0 < d1  ? (d0 <= d && d < d1) : (d1 <= d && d < d0) == false
+    var itsTime = d0 < d1  ? (d0 <= d && d < d1) : (d1 <= d && d < d0) == false;
     if (itsTime) {
       if (this.state.items === null) {
         return (<View style={[styles.flex, styles.container]}>
@@ -245,7 +246,7 @@ var styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     textAlign: 'center',
-    color: cssVar('thm2')
+    color: cssVar('thm1')
   },
   question: {
     fontSize: 40,

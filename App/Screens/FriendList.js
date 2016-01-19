@@ -58,12 +58,14 @@ var FriendList = React.createClass({
 
   reloadList: function() {
     console.log("reloading follows: " + this.getUserId());
-    FriendActions.fetchList(this.getUserId(), function(error) {
+    this.setTimeout( () => {
+      FriendActions.fetchList(this.getUserId(), function(error) {
       // TODO: handle error
       if (error) {
         alert(error.message);
       }
-    });
+      });
+   },1000);
   },
 
   render: function() {
@@ -120,12 +122,14 @@ var RequestList = React.createClass({
 
   reloadList: function() {
     console.log("reloading follows: " + this.getUserId());
-    FriendActions.fetchRequestList(this.getUserId(), function(error) {
-      // TODO: handle error
-      if (error) {
-        alert(error.message);
-      }
-    });
+    this.setTimeout( () => {
+      FriendActions.fetchRequestList(this.getUserId(), function(error) {
+        // TODO: handle error
+        if (error) {
+          alert(error.message);
+        }
+      });
+    },1000);
   },
 
   render: function() {

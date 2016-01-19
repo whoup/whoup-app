@@ -94,10 +94,10 @@ var FriendAdd = React.createClass({
           />
 
       <View style={[styles.flex, styles.inline]}>
-        <Text style={[styles.username, styles.left]}>
+        <Text style={[styles.username, styles.left, styles.mar_left]}>
           {this.state.username}
         </Text>
-        <View style={[styles.username, styles.right]}>
+        <View style={[styles.mar_left, styles.right]}>
           <TouchableWithoutFeedback onPress={this.onSubmitButton}>
             {button}
           </TouchableWithoutFeedback>
@@ -152,9 +152,11 @@ var styles = StyleSheet.create({
   right: {
 
   },
+  mar_left: {
+    marginLeft: 10,
+  },
   username: {
     fontSize: 25,
-    marginLeft: 10,
     fontWeight: 'bold'
   },
   footer: {
