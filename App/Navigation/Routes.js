@@ -38,8 +38,8 @@ var Routes = {
         username: username
       },
       navRight: {
-        subPath: '_friendAdd',
-        icon:   'ios-plus-outline'//'ios-personadd' // TODO: icon font
+        replacePath: 'dashboard',
+        image:   'owl_yellow'//'ios-personadd' // TODO: icon font
       },
     };
   },
@@ -52,11 +52,11 @@ var Routes = {
       },
       navLeft: {
         subPath: 'friends',
-        icon: 'ios-people' // TODO: icon font
+        image: 'add_friend'
       },
       navRight: {
         subPath: '_settings',
-        icon: 'ios-gear' // TODO: icon font
+        icon: 'gear-b' // TODO: icon font
       },
     }
   },

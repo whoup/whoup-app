@@ -1,6 +1,6 @@
 var React  = require('react-native');
 var {
-  ListView
+  ListView,
 } = React;
 
 var RefreshableListView = require('react-native-refreshable-listview');
@@ -47,5 +47,6 @@ var SimpleList = React.createClass({
     );
   }
 });
+
 
 module.exports = SimpleList;

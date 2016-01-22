@@ -4,6 +4,7 @@ var {
   StyleSheet,
   TouchableOpacity,
   View,
+  Image
 } = React;
 
 var cssVar = require('../Lib/cssVar');
@@ -76,7 +77,6 @@ var NavigationBar = {
   renderScene: function(route, navigator) {
     console.log('renderScene: ' + route.routePath);
     return(
-
       <Container
         ref={this.onLoadedScene}
         route={route}
@@ -158,7 +158,7 @@ var NavigationBar = {
   },
   render: function() {
     return (
-      <View style={styles.appContainer}>
+      <Image style={styles.appContainer} source={{uri: 'launch'}}>
         <Navigator
           ref="navigator"
           debugOverlay={false}
@@ -168,17 +168,18 @@ var NavigationBar = {
           navigationBar={this.renderNavBar()}
           configureScene={this._configureScene}
         />
-      </View>
+      </Image>
     );
   }
 }
 
 var styles = StyleSheet.create({
   appContainer: {
-    flex: 1
+    flex: 1,
+    backgroundColor: 'transparent'
   },
   navBar: {
-    backgroundColor: 'white',
+    backgroundColor: 'transparent',
     height: 64//NavigatorNavigationBarStyles.General.TotalNavHeight
   },
   navBarSmall: {
@@ -188,7 +189,7 @@ var styles = StyleSheet.create({
   scene: {
     flex: 1,
     marginTop: 64,//NavigatorNavigationBarStyles.General.TotalNavHeight,
-    backgroundColor: cssVar('gray5'),
+    backgroundColor: 'transparent',
   },
   sceneHidden: {
     marginTop: 0

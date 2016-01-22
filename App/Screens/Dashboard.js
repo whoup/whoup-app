@@ -61,13 +61,15 @@ var ChatRoomList = React.createClass({
 
    reloadList: function() {
     console.log("reloading friends: ");
-    FriendActions.fetchList(CurrentUserStore.get().data.id, function(error) {
-      // TODO: handle error
-      if (error) {
-        alert(error.message);
-        this.setState({noFriends: true})
-      }
-    }.bind(this));
+    this.setTimeout( () => {
+      FriendActions.fetchList(CurrentUserStore.get().data.id, function(error) {
+        // TODO: handle error
+        if (error) {
+          alert(error.message);
+          this.setState({noFriends: true})
+        }
+      }.bind(this));
+    },1000);
   },
 
   imUp: function() {
@@ -107,9 +109,6 @@ var ChatRoomList = React.createClass({
 
   componentDidMount: function() {
     this.props.store.addChangeListener(this._onChange);
-    if (this.reloadList) {
-      this.reloadList();
-    };
     // if (this.props.navBarHidden) {
     //   AppActions.hideNavBar();
     // };
@@ -168,6 +167,12 @@ var ChatRoomList = React.createClass({
     }
     return (
       <View style={styles.flex}>
+        <View style={[styles.center, styles.qflex, styles.copyOffset]}>
+          <Image style={styles.icon} source={require('../Images/owl.png')} />
+            <Text style={styles.copy}>
+             Who Up?
+            </Text>
+          </View>
         {content}
       </View>
     );
@@ -177,7 +182,7 @@ var ChatRoomList = React.createClass({
     return (
     <View style={[styles.flex, styles.container]}>
       <Text style={[styles.description]}>
-      {"It's not time. Come back at midnight"}
+        {"It's not time. Come back at midnight"}
       </Text>
     </View>)
   },
@@ -266,7 +271,7 @@ var styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#000000',
+    backgroundColor: 'transparent',
   },
   logo: {
     height: 300,
@@ -274,6 +279,27 @@ var styles = StyleSheet.create({
     backgroundColor: 'transparent',
     alignSelf: 'auto',
     paddingBottom: 10
+  },
+  copy: {
+    backgroundColor: 'transparent',
+    fontSize: 40,
+    color: cssVar('thm3')
+  },
+  icon: {
+    width: 75,
+    height: 75,
+    backgroundColor: 'transparent'
+  },
+  center: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'transparent',
+  },
+  qflex: {
+    flex: 0.25
+  },
+  copyOffset: {
+    paddingBottom: 20
   }
 });
 

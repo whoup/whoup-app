@@ -13,7 +13,7 @@ var LoggedIn = React.createClass({
   },
   getInitialState: function() {
     ref.authAnonymously(()=> {return null});
-    StatusBar.setStyle('default');
+    StatusBar.setStyle('light-content');
     return {
       navBarHidden: false
     };

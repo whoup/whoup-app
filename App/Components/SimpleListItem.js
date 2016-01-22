@@ -85,7 +85,9 @@ var styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    padding:20
+    paddingRight: 10,
+    paddingLeft: 10
+
   },
   title: {
     fontSize: 18,

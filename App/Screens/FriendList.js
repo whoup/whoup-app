@@ -120,17 +120,17 @@ var RequestList = React.createClass({
     }
   },
 
-  reloadList: function() {
-    console.log("reloading follows: " + this.getUserId());
-    this.setTimeout( () => {
-      FriendActions.fetchRequestList(this.getUserId(), function(error) {
-        // TODO: handle error
-        if (error) {
-          alert(error.message);
-        }
-      });
-    },1000);
-  },
+  // reloadList: function() {
+  //   console.log("reloading follows: " + this.getUserId());
+  //   this.setTimeout( () => {
+  //     FriendActions.fetchRequestList(this.getUserId(), function(error) {
+  //       // TODO: handle error
+  //       if (error) {
+  //         alert(error.message);
+  //       }
+  //     });
+  //   },1000);
+  // },
 
   render: function() {
     return this.renderList();

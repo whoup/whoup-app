@@ -149,6 +149,10 @@ var styles = StyleSheet.create({
     marginBottom: 20,
     backgroundColor: cssVar('thm5')
   },
+  password: {
+    marginBottom: 20,
+    backgroundColor: cssVar('thm5')
+  },
 });
 
 module.exports = Login;

@@ -2,7 +2,8 @@ var React  = require('react-native');
 var {
   View,
   StyleSheet,
-  TouchableOpacity
+  TouchableOpacity,
+  Image
 } = React;
 
 var cssVar = require('../Lib/cssVar');
@@ -38,7 +39,7 @@ var NavigationButton = React.createClass({
 
     if (item.mixIcon) {
       comp = (
-                <Icon name={item.mixIcon.icon} size={40} color={cssVar('thm2')} style={[styles[item.label + 'NavBar'], item.disabled && styles.disabledText]}>
+                <Icon name={item.mixIcon.icon} size={50} color={cssVar('thm3')} style={[styles[item.label + 'NavBar'], item.disabled && styles.disabledText]}>
                     <Text style={[styles.navBarText, styles.navBarIconText, styles.navBarButtonText, styles[item.mixIcon.label + 'NavBar'], item.disabled && styles.disabledText]}>
                       {item.mixIcon.label}
                     </Text>
@@ -47,8 +48,19 @@ var NavigationButton = React.createClass({
     }
     else if (item.icon) {
       comp = (
-              <Icon name={item.icon} size={30} color={cssVar('thm2')} style={[styles.navBarIcon, styles[item.label + 'NavBar'], item.disabled && styles.disabledText]} />
+              <Icon name={item.icon} size={40} color={cssVar('thm3')} style={[styles.navBarIcon, styles[item.label + 'NavBar'], item.disabled && styles.disabledText]} />
               )
+    }
+    else if (item.image) {
+      if (item.image == "add_friend") {
+        comp = <Image style={[styles.imageIcon]} source={require('../Images/add_friend.png')} />
+      }
+      else if (item.image === "settings") {
+        comp = <Image style={[styles.imageIcon]} source={require('../Images/settings.png')} />
+      }
+       else {
+        comp = <Image style={[styles.imageIcon]} source={require('../Images/owl_yellow.png')} />
+      }
     }
     else {
       comp = (
@@ -130,10 +142,10 @@ var styles = StyleSheet.create({
     marginVertical: 8,
   },
   navBarLeftButton: {
-    paddingLeft: 10,
+    paddingLeft: 15,
   },
   navBarRightButton: {
-    paddingRight: 10,
+    paddingRight: 15,
   },
   navBarButtonText: {
     color: cssVar('thm2'),
@@ -143,7 +155,12 @@ var styles = StyleSheet.create({
   },
   leftButton: {
     paddingRight: 50,
-  }
+  },
+  imageIcon: {
+    width: 50,
+    height: 50,
+    backgroundColor: 'transparent'
+  },
 });
 
 module.exports = NavigationButton;
