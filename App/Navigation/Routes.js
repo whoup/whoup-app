@@ -12,7 +12,8 @@ var Routes = {
   Welcome: function() {
     return {
       component: require('../Screens/Welcome'),
-      title: 'Welcome'
+      title: 'Welcome',
+      subPath: 'login'
     };
   },
 
@@ -34,12 +35,12 @@ var Routes = {
     return {
       component: require('../Screens/FriendList'),
       title: '', // set to name
+      background: 'yellow',
       passProps: {
-        username: username
+        username: username,
       },
-      navRight: {
-        replacePath: 'dashboard',
-        image:   'owl_yellow'//'ios-personadd' // TODO: icon font
+      navBack: {
+        image:   'owl_b'//'ios-personadd' // TODO: icon font
       },
     };
   },
@@ -47,16 +48,17 @@ var Routes = {
     return {
       component: require('../Screens/Dashboard'),
       title: '',
+      background: 'launch',
       passProps: {
         username: username
       },
       navLeft: {
         subPath: 'friends',
-        image: 'add_friend'
+        image: 'owl_plus'
       },
       navRight: {
         subPath: '_settings',
-        icon: 'gear-b' // TODO: icon font
+        image: 'settings' // TODO: icon font
       },
     }
   },
@@ -64,6 +66,10 @@ var Routes = {
     return {
       component: require('../Screens/Settings'),
       title: 'Settings',
+      left: true,
+      navBack: {
+        image:   'owl_b'//'ios-personadd' // TODO: icon font
+      },
     };
   },
 
@@ -90,7 +96,7 @@ var listRoute = function(route, defaultRoute) {
   route.parse = function(path) {
     switch(path) {
       case 'friends':
-        return listRoute(Routes.FriendList(username), null);
+        return Routes.FriendList(username);
       case '_settings':
         return Routes.Settings();
       case '_friendAdd':

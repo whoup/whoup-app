@@ -37,7 +37,7 @@ var ChatRoomList = React.createClass({
   },
 
   getListItems: function() {
-    uid = this.getUserId();
+   // uid = this.getUserId();
     //FriendActions.mountFriendAdd(uid);
     return FriendListStore.get('friend');
   },
@@ -61,7 +61,6 @@ var ChatRoomList = React.createClass({
 
    reloadList: function() {
     console.log("reloading friends: ");
-    this.setTimeout( () => {
       FriendActions.fetchList(CurrentUserStore.get().data.id, function(error) {
         // TODO: handle error
         if (error) {
@@ -69,12 +68,12 @@ var ChatRoomList = React.createClass({
           this.setState({noFriends: true})
         }
       }.bind(this));
-    },1000);
   },
 
   imUp: function() {
     ChatActions.goOnline(CURRENT_USER.id,);
     this.setState({userIsUp: true});
+    this.reloadList();
   },
 
   getInitialState: function() {
@@ -119,8 +118,8 @@ var ChatRoomList = React.createClass({
   },
 
   getNavBarState: function() {
-    var title = this.props.navBarTitle ? this.props.navBarTitle : "Who Up?";
-    return { title: title };
+    var title = this.props.navBarTitle ? this.props.navBarTitle : "";
+    return { title: title, navColor:  cssVar('thm1')};
   },
 
   getUsername: function() {
@@ -166,35 +165,28 @@ var ChatRoomList = React.createClass({
       content = this.renderItems();
     }
     return (
-      <View style={styles.flex}>
+      <Image style={[styles.flex, styles.paddTop]} source={{uri: 'black'}}>
         <View style={[styles.center, styles.qflex, styles.copyOffset]}>
-          <Image style={styles.icon} source={require('../Images/owl.png')} />
+          <Image style={styles.icon} source={{uri: 'owl'}} />
             <Text style={styles.copy}>
              Who Up?
             </Text>
           </View>
         {content}
-      </View>
+      </Image>
     );
   },
 
   renderNotTime: function() {
     return (
-    <View style={[styles.flex, styles.container]}>
-      <Text style={[styles.description]}>
-        {"It's not time. Come back at midnight"}
-      </Text>
-    </View>)
+    <Image style={[styles.flex, styles.paddTop, styles.container]} source={{uri: 'white'}}>
+      <Image style={[styles.notTime]} source={{uri: 'not_time'}}>
+      </Image>
+    </Image>)
   },
 
   renderList: function() {
-    var d0 = new Date("01/01/2001 " + "12:00 PM");
-    var d1 = new Date("01/01/2001 " + "6:00 AM");
-    var d = new Date("01/01/2001");
-    d.setHours(new Date().getHours());
-    d.setMinutes(new Date().getMinutes());
-    var itsTime = d0 < d1  ? (d0 <= d && d < d1) : (d1 <= d && d < d0) == false;
-    if (itsTime) {
+
       if (this.state.items === null) {
         return (<View style={[styles.flex, styles.container]}>
                   <Text style={[styles.description]}>
@@ -209,15 +201,12 @@ var ChatRoomList = React.createClass({
       else {
         return this.renderContent();
       }
-    }
-    else {
-      return this.renderNotTime();
-    }
 
   },
 
   renderYouUp: function() {
-    return ( <View style={[styles.flex, styles.container, styles.offsetBottom]}>
+    return (<Image style={[styles.flex, styles.paddTop]} source={{uri: 'black'}}>
+            <View style={[styles.flex, styles.container, styles.offsetBottom]}>
               <Image
                 style={styles.logo}
                 source={require('../Images/sleepy-owl.gif')}
@@ -229,23 +218,38 @@ var ChatRoomList = React.createClass({
                       {'YES'}
                   </Button>
                 </View>
+                </Image>
             );
   },
 
   render: function() {
     var content;
-    if (this.state.userIsUp) {
-      content = this.renderList();
-    } else {
-      content = this.renderYouUp();
+    var d0 = new Date("01/01/2001 " + "12:00 AM");
+    var d1 = new Date("01/01/2001 " + "6:00 AM");
+    var d = new Date("01/01/2001");
+    d.setHours(new Date().getHours());
+    d.setMinutes(new Date().getMinutes());
+    var itsTime = d0 < d1  ? (d0 <= d && d < d1) : (d1 <= d && d < d0) == false;
+    if (itsTime) {
+      if (this.state.userIsUp) {
+        content = this.renderList();
+      } else {
+        content = this.renderYouUp();
+      }
+      return content;
     }
-   return content;
+    else {
+      return this.renderNotTime();
+    }
   }
 });
 
 var styles = StyleSheet.create({
   flex: {
-    flex: 1
+    flex: 1,
+  },
+  paddTop: {
+    paddingTop: 64
   },
   description: {
     fontSize: 20,
@@ -253,9 +257,13 @@ var styles = StyleSheet.create({
     textAlign: 'center',
     color: cssVar('thm1')
   },
+  notTime: {
+    width: 300,
+    height: 83
+  },
   question: {
-    fontSize: 40,
-    paddingBottom: 20,
+    fontSize: 35,
+    paddingBottom: 10,
     fontWeight: '900',
     color: '#FFFFFF'
   },
@@ -264,7 +272,7 @@ var styles = StyleSheet.create({
     backgroundColor: cssVar('thm1'),
   },
   offsetBottom: {
-    paddingBottom: 100
+    paddingBottom: 150
   },
   container: {
     flex: 1,
@@ -274,11 +282,10 @@ var styles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
   logo: {
-    height: 300,
+    height: 200,
     width: 100,
     backgroundColor: 'transparent',
     alignSelf: 'auto',
-    paddingBottom: 10
   },
   copy: {
     backgroundColor: 'transparent',

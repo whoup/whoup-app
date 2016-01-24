@@ -29,6 +29,9 @@ var NavBarHelper = {
     if (typeof updates.navRightIcon !== "undefined") {
       this.props.currentRoute.navRight.icon = updates.navRightIcon;
     }
+    if (typeof updates.navColor !== "undefined") {
+      this.props.currentRoute.navColor = updates.navColor;
+    }
 
     // if called during componentDidLoad, nav bar not loaded yet
     // requestAnimationFrame to allow it to finish

@@ -1,7 +1,8 @@
 var React = require('react-native');
 var {
   View,
-  StyleSheet
+  StyleSheet,
+  Image
 } = React;
 
 
@@ -17,7 +18,7 @@ var FriendList = React.createClass({
 
   getDefaultProps: function() {
     return {
-      navBarTitle: 'My Friends',
+      navBarTitle: '',
       listProps: {
         nextIcon: true
       },
@@ -80,7 +81,7 @@ var RequestList = React.createClass({
 
   getDefaultProps: function() {
     return {
-      navBarTitle: 'My Friends',
+      navBarTitle: '',
       listProps: {
         nextIcon: true
       },
@@ -153,7 +154,7 @@ var FriendAndRequestList = React.createClass({
     }
 
     return (
-      <View style={[styles.flex, styles.container]}>
+      <Image style={[styles.flex, styles.container, styles.paddTop]} source={{uri: 'yellow'}}>
         <Text style={[styles.section]}>requests</Text>
         <View style={[styles.container, noReqs && styles.qflex]}>
           <RequestList store={reqStore} {...this.props} />
@@ -163,7 +164,7 @@ var FriendAndRequestList = React.createClass({
         <View style={[styles.container, styles.flex]}>
           <FriendList store={FriendListStore} {...this.props} />
         </View>
-      </View>
+      </Image>
             );
   }
 });
@@ -172,11 +173,14 @@ var styles = StyleSheet.create({
   flex: {
     flex: 1
   },
+  paddTop: {
+    paddingTop: 64
+  },
   qflex: {
     flex: 0.20
   },
   container: {
-    backgroundColor: cssVar('thm5')
+    backgroundColor: 'transparent'
   },
   section: {
     fontSize: 12,

@@ -65,7 +65,7 @@ var ListHelper = {
   },
 
   getNavBarState: function() {
-    var title = this.props.navBarTitle ? this.props.navBarTitle : "Who Up?";
+    var title = this.props.navBarTitle ? this.props.navBarTitle : "";
     return { title: title };
   },
 

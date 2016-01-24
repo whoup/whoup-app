@@ -55,7 +55,7 @@ var Login = React.createClass({
       <Image style={styles.container} source={{uri: 'launch'}}>
         <View style={styles.spacer} />
         <View style={styles.center} >
-          <Image style={styles.icon} source={require('../Images/owl.png')} />
+          <Image style={styles.icon} source={{uri: 'owl'}} />
         </View>
         <TextInput ref="email"
           placeholder={"Email"}
@@ -116,7 +116,7 @@ var styles = StyleSheet.create({
   icon: {
     width: 75,
     height: 75,
-    marginBottom: 30,
+    paddingBottom: 30,
     backgroundColor: 'transparent'
   },
   spacer: {

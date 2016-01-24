@@ -15,6 +15,7 @@ var NavBarStylesIOS = require('../Navigation/NavBarStylesIOS');
 var DispatcherListener = require('../Mixins/DispatcherListener');
 var AppConstants = require('../Constants/AppConstants');
 
+
 var stacksEqual = function(one, two, length) {
   if (one.length < length) return false;
   if (two.length < length) return false;
@@ -28,17 +29,35 @@ var stacksEqual = function(one, two, length) {
 };
 
 var SCREEN_WIDTH = require('Dimensions').get('window').width;
-var BaseConfig = Navigator.SceneConfigs.FloatFromRight;
+var RightBaseConfig = Navigator.SceneConfigs.FloatFromLeft;
+var LeftBaseConfig = Navigator.SceneConfigs.FloatFromRight;
 
-var CustomLeftToRightGesture = Object.assign({}, BaseConfig.gestures.pop, {
+var CustomRightToLeftGesture = Object.assign({}, RightBaseConfig.gestures.pop, {
   // Make it snap back really quickly after canceling pop
   snapVelocity: 1,
-
+  direction: 'right-to-left',
   // Make it so we can drag anywhere on the screen
   edgeHitWidth: SCREEN_WIDTH,
 });
 
-var CustomSceneConfig = Object.assign({}, BaseConfig, {
+var RightSceneConfig = Object.assign({}, RightBaseConfig, {
+  // A very tightly wound spring will make this transition fast
+
+  // Use our custom gesture defined above
+  gestures: {
+    pop: CustomRightToLeftGesture,
+  }
+});
+
+var CustomLeftToRightGesture = Object.assign({}, LeftBaseConfig.gestures.pop, {
+  // Make it snap back really quickly after canceling pop
+  snapVelocity: 1,
+  direction: 'left-to-right',
+  // Make it so we can drag anywhere on the screen
+  edgeHitWidth: SCREEN_WIDTH,
+});
+
+var LeftSceneConfig = Object.assign({}, LeftBaseConfig, {
   // A very tightly wound spring will make this transition fast
 
   // Use our custom gesture defined above
@@ -73,6 +92,20 @@ var Container = React.createClass({
 });
 
 var NavigationBar = {
+  // mixins: [DispatcherListener],
+
+  getInitialState: function() {
+    return { navColor: null };
+  },
+  // dispatchAction: function(action) {
+  //   switch(action.actionType) {
+  //     case AppConstants.NAVBAR_UPDATE:
+  //       if (action.route.routePath == this.props.route.routePath) {
+  //         this.setState({updatedColor: action.route.navColor});
+  //       }
+  //       break;
+  //   }
+  // },
 
   renderScene: function(route, navigator) {
     console.log('renderScene: ' + route.routePath);
@@ -93,6 +126,11 @@ var NavigationBar = {
     }
     else {
       this._currentComponent = null;
+    }
+  },
+  updateColor: function() {
+    if (path.navColor) {
+      this.setState({navColor: path.navColor})
     }
   },
 
@@ -142,23 +180,44 @@ var NavigationBar = {
   },
 
   _configureScene: function(route) {
-    return CustomSceneConfig;
+    if (route.left)
+      return LeftSceneConfig;
+    else {
+      return RightSceneConfig;
+    }
+  },
+
+  renderYellowNavBar: function() {
+    return (
+        <Navigator.NavigationBar
+          navigationStyles={NavBarStylesIOS}
+          routeMapper={new NavigationBarRouteMapper()}
+          style={[styles.navBarYellow]}
+        />
+      );
   },
   renderNavBar: function() {
+    var paths = this.props.routeStack.path;
+    var path = paths[paths.length-1];
     if (this.state.navBarHidden){
       return null;
     }
-    return (
-      <Navigator.NavigationBar
-        navigationStyles={NavBarStylesIOS}
-        routeMapper={new NavigationBarRouteMapper()}
-        style={styles.navBar}
-      />
-    );
+    if (path.navBar == 'yellow') {
+      return this.renderYellowNavBar();
+    } else {
+      return (
+        <Navigator.NavigationBar
+          navigationStyles={NavBarStylesIOS}
+          routeMapper={new NavigationBarRouteMapper()}
+          style={[styles.navBar]}
+        />
+      );
+    }
   },
   render: function() {
+    var paths = this.props.routeStack.path;
+    var path = paths[paths.length-1];
     return (
-      <Image style={styles.appContainer} source={{uri: 'launch'}}>
         <Navigator
           ref="navigator"
           debugOverlay={false}
@@ -168,7 +227,6 @@ var NavigationBar = {
           navigationBar={this.renderNavBar()}
           configureScene={this._configureScene}
         />
-      </Image>
     );
   }
 }
@@ -176,9 +234,15 @@ var NavigationBar = {
 var styles = StyleSheet.create({
   appContainer: {
     flex: 1,
-    backgroundColor: 'transparent'
+    backgroundColor: 'black'
+  },
+  navBarYellow: {
+    backgroundColor: 'transparent'//cssVar('thm1')
   },
   navBar: {
+    height: 64//NavigatorNavigationBarStyles.General.TotalNavHeight
+  },
+  navBarColor: {
     backgroundColor: 'transparent',
     height: 64//NavigatorNavigationBarStyles.General.TotalNavHeight
   },
@@ -188,7 +252,7 @@ var styles = StyleSheet.create({
   },
   scene: {
     flex: 1,
-    marginTop: 64,//NavigatorNavigationBarStyles.General.TotalNavHeight,
+    marginTop: 0,//NavigatorNavigationBarStyles.General.TotalNavHeight,
     backgroundColor: 'transparent',
   },
   sceneHidden: {

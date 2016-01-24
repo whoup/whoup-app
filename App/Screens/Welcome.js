@@ -25,7 +25,7 @@ var Welcome = React.createClass({
       <Image style={styles.container} source={{uri: 'launch'}}>
         <View style={styles.spacer} />
         <View style={styles.center} >
-          <Image style={styles.icon} source={require('../Images/owl.png')} />
+          <Image style={styles.icon} source={{uri: 'owl'}} />
           <Text style={styles.copy}>
            Who Up?
           </Text>

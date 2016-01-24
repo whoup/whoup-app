@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "Owl_yellow@1x.png",
+      "filename" : "Not_Time_Yet@x1.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "Owl_yellow@2x.png",
+      "filename" : "Not_Time_Yet@x2.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "Owl_yellow@3x.png",
+      "filename" : "Not_Time_Yet@x3.png",
       "scale" : "3x"
     }
   ],

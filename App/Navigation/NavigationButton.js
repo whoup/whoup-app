@@ -52,15 +52,7 @@ var NavigationButton = React.createClass({
               )
     }
     else if (item.image) {
-      if (item.image == "add_friend") {
-        comp = <Image style={[styles.imageIcon]} source={require('../Images/add_friend.png')} />
-      }
-      else if (item.image === "settings") {
-        comp = <Image style={[styles.imageIcon]} source={require('../Images/settings.png')} />
-      }
-       else {
-        comp = <Image style={[styles.imageIcon]} source={require('../Images/owl_yellow.png')} />
-      }
+      comp = <Image style={[styles.imageIcon]} source={{uri: item.image}} />
     }
     else {
       comp = (
@@ -89,12 +81,25 @@ var NavigationButton = React.createClass({
   },
 
   renderRight: function() {
-    var route = this.props.route || this.state.updatedRoute;
-    if (!route.navRight) return null;
 
-    return this.makeButton(route.navRight, styles.navBarRightButton, function() {
-      AppActions.launchNavItem(route, route.navRight);
-    });
+    var route = this.props.route || this.state.updatedRoute;
+    console.log(route);
+    //if (!route.navRight) return null;
+    if (route.navRight && !route.navBack) {
+      return this.makeButton(route.navRight, styles.navBarRightButton, function() {
+        AppActions.launchNavItem(route, route.navRight);
+      });
+    }
+
+    if (this.props.index === 0) {
+      return null;
+    }
+    if (route.left == undefined) {
+      var backLabel = route.navBack || {icon: 'ios-arrow-back'}; //{icon: 'caret-left-semi'};
+      return this.makeButton(backLabel, styles.navBarRightButton, this.goBack);
+    } else {
+      return null;
+    }
   },
 
   renderLeft: function() {
@@ -108,9 +113,12 @@ var NavigationButton = React.createClass({
     if (this.props.index === 0) {
       return null;
     }
-
-    var backLabel = route.navBack || {icon: 'ios-arrow-back'}; //{icon: 'caret-left-semi'};
-    return this.makeButton(backLabel, styles.navBarLeftButton, this.goBack);
+    if (route.left) {
+      var backLabel = route.navBack || {icon: 'ios-arrow-back'}; //{icon: 'caret-left-semi'};
+      return this.makeButton(backLabel, styles.navBarLeftButton, this.goBack);
+    } else {
+      return null;
+    }
   },
 
   goBack: function() {
@@ -157,8 +165,8 @@ var styles = StyleSheet.create({
     paddingRight: 50,
   },
   imageIcon: {
-    width: 50,
-    height: 50,
+    width: 30,
+    height: 30,
     backgroundColor: 'transparent'
   },
 });
