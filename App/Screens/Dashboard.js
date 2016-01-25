@@ -179,7 +179,8 @@ var ChatRoomList = React.createClass({
 
   renderNotTime: function() {
     return (
-    <Image style={[styles.flex, styles.paddTop, styles.container]} source={{uri: 'white'}}>
+    <Image style={[styles.container]} source={{uri: 'white'}}>
+      <Image style={styles.icon} source={{uri: 'owl'}} />
       <Image style={[styles.notTime]} source={{uri: 'not_time'}}>
       </Image>
     </Image>)
