@@ -35,6 +35,7 @@ var LeftBaseConfig = Navigator.SceneConfigs.FloatFromRight;
 var CustomRightToLeftGesture = Object.assign({}, RightBaseConfig.gestures.pop, {
   // Make it snap back really quickly after canceling pop
   snapVelocity: 1,
+
   direction: 'right-to-left',
   // Make it so we can drag anywhere on the screen
   edgeHitWidth: SCREEN_WIDTH,

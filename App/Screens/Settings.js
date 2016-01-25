@@ -11,6 +11,7 @@ function getListState() {
   var list = [];
   list.push({
     title: "Log out",
+    type: 'settings',
     actionType: AppConstants.LOGOUT_REQUESTED
   });
 
