@@ -92,20 +92,6 @@ var Container = React.createClass({
 });
 
 var NavigationBar = {
-  // mixins: [DispatcherListener],
-
-  getInitialState: function() {
-    return { navColor: null };
-  },
-  // dispatchAction: function(action) {
-  //   switch(action.actionType) {
-  //     case AppConstants.NAVBAR_UPDATE:
-  //       if (action.route.routePath == this.props.route.routePath) {
-  //         this.setState({updatedColor: action.route.navColor});
-  //       }
-  //       break;
-  //   }
-  // },
 
   renderScene: function(route, navigator) {
     console.log('renderScene: ' + route.routePath);
@@ -126,11 +112,6 @@ var NavigationBar = {
     }
     else {
       this._currentComponent = null;
-    }
-  },
-  updateColor: function() {
-    if (path.navColor) {
-      this.setState({navColor: path.navColor})
     }
   },
 

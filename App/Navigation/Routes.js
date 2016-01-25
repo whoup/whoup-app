@@ -45,20 +45,28 @@ var Routes = {
     };
   },
   Dashboard: function(username) {
+    var d0 = new Date("01/01/2001 " + "12:00 AM");
+    var d1 = new Date("01/01/2001 " + "6:00 AM");
+    var d = new Date("01/01/2001");
+    d.setHours(new Date().getHours());
+    d.setMinutes(new Date().getMinutes());
+    var itsTime = d0 < d1  ? (d0 <= d && d < d1) : (d1 <= d && d < d0) == false;
+    var leftImage = itsTime == true ? 'owl_plus' : 'owl_plus_b';
+    var rightImage = itsTime ==true ? 'settings' : 'settings_b';
     return {
       component: require('../Screens/Dashboard'),
       title: '',
-      background: 'launch',
       passProps: {
-        username: username
+        username: username,
+        itsTime: itsTime,
       },
       navLeft: {
         subPath: 'friends',
-        image: 'owl_plus'
+        image: leftImage
       },
       navRight: {
         subPath: '_settings',
-        image: 'settings' // TODO: icon font
+        image: rightImage // TODO: icon font
       },
     }
   },

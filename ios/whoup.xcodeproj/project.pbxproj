@@ -32,7 +32,6 @@
 		332C6AC91BEA09B100A9921C /* libRNKeychain.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 332C6ABB1BEA08E600A9921C /* libRNKeychain.a */; };
 		332C6ACA1BEA09B800A9921C /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 332C6AC71BEA092500A9921C /* libRNVectorIcons.a */; };
 		332C6ACC1BEA0B3D00A9921C /* EnvironmentManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 332C6ACB1BEA0B3D00A9921C /* EnvironmentManager.m */; };
-		339471211C53776800F0AFCE /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = 339471201C53776800F0AFCE /* main.jsbundle */; };
 		33970B461C42E41E00526283 /* sofia-black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 33970B451C42E41E00526283 /* sofia-black.ttf */; };
 		33970B4D1C42FFFE00526283 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 33970B4F1C42FFFE00526283 /* Launch Screen.storyboard */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
@@ -179,7 +178,6 @@
 		332C6ABC1BEA090500A9921C /* RNKeyboardEvents.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNKeyboardEvents.xcodeproj; path = "../node_modules/react-native-keyboardevents/RNKeyboardEvents.xcodeproj"; sourceTree = "<group>"; };
 		332C6AC21BEA092500A9921C /* RNVectorIcons.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNVectorIcons.xcodeproj; path = "../node_modules/react-native-vector-icons/RNVectorIcons.xcodeproj"; sourceTree = "<group>"; };
 		332C6ACB1BEA0B3D00A9921C /* EnvironmentManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EnvironmentManager.m; sourceTree = "<group>"; };
-		339471201C53776800F0AFCE /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		33970B451C42E41E00526283 /* sofia-black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "sofia-black.ttf"; sourceTree = "<group>"; };
 		33970B4E1C42FFFE00526283 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "Base.lproj/Launch Screen.storyboard"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
@@ -410,7 +408,6 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				339471201C53776800F0AFCE /* main.jsbundle */,
 				332C6A9D1BEA07C200A9921C /* Fonts */,
 				13B07FAE1A68108700A75B9A /* whoup */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
@@ -459,6 +456,7 @@
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
+				3385B9461C54F72000DF1CB7 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -681,7 +679,6 @@
 				332C6AAC1BEA07C200A9921C /* Octicons.ttf in Resources */,
 				332C6AA91BEA07C200A9921C /* Foundation.ttf in Resources */,
 				332C6AAA1BEA07C200A9921C /* Ionicons.ttf in Resources */,
-				339471211C53776800F0AFCE /* main.jsbundle in Resources */,
 				33970B461C42E41E00526283 /* sofia-black.ttf in Resources */,
 				332C6AA61BEA07C200A9921C /* Entypo.ttf in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
@@ -694,6 +691,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		3385B9461C54F72000DF1CB7 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "../node_modules/react-native/packager/react-native-xcode.sh";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		00E356EA1AD99517003FC87E /* Sources */ = {

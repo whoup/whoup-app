@@ -61,13 +61,13 @@ var ChatRoomList = React.createClass({
 
    reloadList: function() {
     console.log("reloading friends: ");
-      FriendActions.fetchList(CurrentUserStore.get().data.id, function(error) {
-        // TODO: handle error
-        if (error) {
-          alert(error.message);
-          this.setState({noFriends: true})
-        }
-      }.bind(this));
+      // FriendActions.fetchList(CurrentUserStore.get().data.id, function(error) {
+      //   // TODO: handle error
+      //   if (error) {
+      //     alert(error.message);
+      //     this.setState({noFriends: true})
+      //   }
+      // }.bind(this));
   },
 
   imUp: function() {
@@ -119,7 +119,7 @@ var ChatRoomList = React.createClass({
 
   getNavBarState: function() {
     var title = this.props.navBarTitle ? this.props.navBarTitle : "";
-    return { title: title, navColor:  cssVar('thm1')};
+    return { title: title };
   },
 
   getUsername: function() {
@@ -209,7 +209,7 @@ var ChatRoomList = React.createClass({
             <View style={[styles.flex, styles.container, styles.offsetBottom]}>
               <Image
                 style={styles.logo}
-                source={require('../Images/sleepy-owl.gif')}
+                source={{uri: 'sleepy_owl'}}
                 />
                   <Text style={[styles.question]}>
                     {'You Up?'}
@@ -223,14 +223,8 @@ var ChatRoomList = React.createClass({
   },
 
   render: function() {
-    var content;
-    var d0 = new Date("01/01/2001 " + "12:00 AM");
-    var d1 = new Date("01/01/2001 " + "6:00 AM");
-    var d = new Date("01/01/2001");
-    d.setHours(new Date().getHours());
-    d.setMinutes(new Date().getMinutes());
-    var itsTime = d0 < d1  ? (d0 <= d && d < d1) : (d1 <= d && d < d0) == false;
-    if (itsTime) {
+    console.log(this.props)
+    if (this.props.currentRoute.passProps.itsTime) {
       if (this.state.userIsUp) {
         content = this.renderList();
       } else {
