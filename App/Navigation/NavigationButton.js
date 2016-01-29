@@ -149,10 +149,10 @@ var styles = StyleSheet.create({
     marginVertical: 8,
   },
   navBarLeftButton: {
-    paddingLeft: 15,
+    marginLeft: 18,
   },
   navBarRightButton: {
-    paddingRight: 15,
+    marginRight: 18,
   },
   navBarButtonText: {
     color: cssVar('thm2'),

@@ -46,7 +46,7 @@ var Routes = {
   },
   Dashboard: function(username) {
     var d0 = new Date("01/01/2001 " + "12:00 AM");
-    var d1 = new Date("01/01/2001 " + "6:00 AM");
+    var d1 = new Date("01/01/2001 " + "6:00 PM");
     var d = new Date("01/01/2001");
     d.setHours(new Date().getHours());
     d.setMinutes(new Date().getMinutes());

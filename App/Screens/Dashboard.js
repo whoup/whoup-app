@@ -23,98 +23,100 @@ var ChatActions = require('../Actions/ChatActions');
 var CurrentUserStore = require('../Stores/CurrentUserStore');
 var CURRENT_USER = CurrentUserStore.get().data;
 
+var Rebase = require('re-base');
+var base = Rebase.createClass('https://whoup.firebaseio.com/');
+
+//var ref = new Firebase("https://whoup.firebaseio.com/presence");
+
 
 var ChatRoomList = React.createClass({
   mixins: [NavigationListener, NavBarHelper],
 
+  getInitialState: function() {
+    return { users: [], up: {} }
+  },
+
   getDefaultProps: function() {
     return {
-      store: FriendListStore,
       listProps: {
         nextIcon: true
       },
     };
   },
 
-  getListItems: function() {
-   // uid = this.getUserId();
-    //FriendActions.mountFriendAdd(uid);
-    return FriendListStore.get('friend');
-  },
-
-  isListChange: function(username) {
-    return this.getUsername() == username;
-  },
+  // isUserUp: function(key) {
+  //   var up = ref.child(key).getValue();
+  //   //console.log(up);
+  //   return up;
+  //   // var up;
+  //   // base.fetch('presence/' + key, {
+  //   //   context: this,
+  //   //   asArray: false,
+  //   //   then(data){
+  //   //     if (data == null)
+  //   //       up = false;
+  //   //     else
+  //   //       up = data;
+  //   //   }
+  //   // });
+  //   // return up;
+  // },
 
   getItemProps: function(friend) {
+    //console.log(this.state.up[friend.key]);
     return {
-      key: friend.data.id,
-      title: friend.data.username,
-      online: friend.data.online,
-      subPath: friend.data.username,
+      name: friend.username,
+      type: 'dashboardFriend',
+      id: friend.key,
+      up: this.state.up[friend.key],
+      subPath: friend.username,
       passProps: {
-        id: friend.data.id,
-        username: friend.data.username
+        id: friend.key,
+        username: friend.username
       }
     }
   },
 
-   reloadList: function() {
-    console.log("reloading friends: ");
-      // FriendActions.fetchList(CurrentUserStore.get().data.id, function(error) {
-      //   // TODO: handle error
-      //   if (error) {
-      //     alert(error.message);
-      //     this.setState({noFriends: true})
-      //   }
-      // }.bind(this));
-  },
+  //  reloadList: function() {
+  //   console.log("reloading friends: ");
+  //     // FriendActions.fetchList(CurrentUserStore.get().data.id, function(error) {
+  //     //   // TODO: handle error
+  //     //   if (error) {
+  //     //     alert(error.message);
+  //     //     this.setState({noFriends: true})
+  //     //   }
+  //     // }.bind(this));
+  // },
 
   imUp: function() {
     ChatActions.goOnline(CURRENT_USER.id,);
     this.setState({userIsUp: true});
-    this.reloadList();
   },
 
-  getInitialState: function() {
-    this.getUserStatus();
-    return this.getListState();
-  },
-
-  getListState: function() {
-    return {
-      items: this.getListItems(),
-      noFriends: false,
-    };
-  },
-
-  onListChange: function(arg) {
-    if (!this.isListChange || this.isListChange(arg)) {
-      this.setState(this.getListState());
-    }
-  },
-  _onChange: function() {
-    this.setState(this.getListState());
-  },
 
   onDidFocusNavigation: function() {
     // items may have changed
-    this.setState(this.getListState());
-  },
-
-  getUserStatus: function() {
-    return
+    //this.setState(this.getListState());
   },
 
   componentDidMount: function() {
-    this.props.store.addChangeListener(this._onChange);
-    // if (this.props.navBarHidden) {
-    //   AppActions.hideNavBar();
-    // };
+    this.ref = base.syncState('users/' + CURRENT_USER.id + '/friends', {
+      context: this,
+      state: 'users',
+      asArray: true
+    });
+    this.ups = base.bindToState('presence', {
+      context: this,
+      state: 'up',
+      asArray: false,
+    });
   },
 
   componentWillUnmount: function() {
-    this.props.store.removeChangeListener(this._onChange);
+    //this.props.store.removeChangeListener(this._onChange);
+    base.removeBinding(this.ref);
+    base.removeBinding(this.ups);
+    // console.log(this.state);
   },
 
   getNavBarState: function() {
@@ -133,16 +135,18 @@ var ChatRoomList = React.createClass({
   },
 
 
+
   renderItems: function() {
     return (
+    <View style={styles.marLeftRight}>
       <SimpleList
         style={styles.flex}
         currentRoute={this.props.currentRoute}
         getItemProps={this.getItemProps}
-        items={this.state.items}
-        reloadList={this.reloadList}
+        items={this.state.users}
         {...this.props.listProps}
       />
+      </View>
     );
   },
 
@@ -156,17 +160,10 @@ var ChatRoomList = React.createClass({
     );
   },
   renderContent: function() {
-    var content;
-    var empty;
-    if (this.state.items.length === 0) {
-      content = this.renderEmpty();
-    }
-    else {
-      content = this.renderItems();
-    }
+    var content = this.renderItems();
     return (
-      <Image style={[styles.flex, styles.paddTop]} source={{uri: 'black'}}>
-        <View style={[styles.center, styles.qflex, styles.copyOffset]}>
+      <Image style={[styles.flex,]} source={{uri: 'black'}}>
+        <View style={[styles.center, styles.qflex, styles.copyOffset, styles.black, styles.paddTop]}>
           <Image style={styles.icon} source={{uri: 'owl'}} />
             <Text style={styles.copy}>
              Who Up?
@@ -188,7 +185,7 @@ var ChatRoomList = React.createClass({
 
   renderList: function() {
 
-      if (this.state.items === null) {
+      if (this.state.users === null) {
         return (<View style={[styles.flex, styles.container]}>
                   <Text style={[styles.description]}>
                    { "No Friends :(" }
@@ -196,7 +193,7 @@ var ChatRoomList = React.createClass({
                 </View>
                 );
       }
-      else if (this.state.items === undefined) {
+      else if (this.state.users === undefined) {
         return <Loading />;
       }
       else {
@@ -224,7 +221,6 @@ var ChatRoomList = React.createClass({
   },
 
   render: function() {
-    console.log(this.props)
     if (this.props.currentRoute.passProps.itsTime) {
       if (this.state.userIsUp) {
         content = this.renderList();
@@ -251,6 +247,9 @@ var styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
     color: cssVar('thm1')
+  },
+  black: {
+    backgroundColor: 'rgba(0,0,0,0.5)',
   },
   notTime: {
     width: 300,
@@ -299,6 +298,11 @@ var styles = StyleSheet.create({
   },
   qflex: {
     flex: 0.25
+  },
+  marLeftRight: {
+    flex: 1,
+    marginLeft: 15,
+    marginRight: 15
   },
   copyOffset: {
     paddingBottom: 20
