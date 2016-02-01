@@ -37,12 +37,15 @@ var InvertedList = React.createClass({
 
   render: function() {
     var Component = this.props.reloadList ? RefreshableListView : ListView;
+    var rowIds = this.props.items.map((row, index) => index).reverse();
     return (
       <Component
         initialListSize={10}
+        style={{paddingTop: 30}}
         automaticallyAdjustContentInsets={true}
         renderScrollComponent={(props) => (<InvertibleScrollView {...props} inverted />)}
-        dataSource={ds.cloneWithRows(this.props.items)}
+        scrollRenderAheadDistance={300}
+        dataSource={ds.cloneWithRows(this.props.items, rowIds)}
         renderRow={this.renderRow}
         loadData={this.props.reloadList}
         minBetweenTime={2000}

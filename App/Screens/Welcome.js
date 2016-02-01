@@ -19,6 +19,9 @@ var Welcome = React.createClass({
   launch_login: function() {
     AppActions.launchRoutePath('login');
   },
+  launch_signup: function() {
+    AppActions.launchRoutePath('signup');
+  },
 
   render: function() {
     return (
@@ -36,7 +39,7 @@ var Welcome = React.createClass({
             Log In
           </Text>
         </TouchableHighlight>
-        <TouchableHighlight style={[styles.signup, styles.buttonStyle]} >
+        <TouchableHighlight style={[styles.signup, styles.buttonStyle]} onPress={this.launch_signup} >
           <Text style={styles.buttonText}>
             Sign Up
           </Text>

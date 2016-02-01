@@ -45,8 +45,8 @@ var Routes = {
     };
   },
   Dashboard: function(username) {
-    var d0 = new Date("01/01/2001 " + "12:00 AM");
-    var d1 = new Date("01/01/2001 " + "6:00 PM");
+    var d0 = new Date("01/01/2001 " + "12:00 PM");
+    var d1 = new Date("01/01/2001 " + "6:00 AM");
     var d = new Date("01/01/2001");
     d.setHours(new Date().getHours());
     d.setMinutes(new Date().getMinutes());
@@ -57,7 +57,6 @@ var Routes = {
       component: require('../Screens/Dashboard'),
       title: '',
       passProps: {
-        username: username,
         itsTime: itsTime,
       },
       navLeft: {
@@ -82,29 +81,26 @@ var Routes = {
   },
 
 
-  // ActivityRoom: function() {
-  //   return {
-  //     component: require('../Screens/ActivityRoom'),
-  //     title: 'Activity Team',
-  //     navBack: {
-  //       mixIcon: {
-  //         label: 'Messages',
-  //         icon: 'ios-arrow-back'
-  //       }
-  //     }
-  //   }
-  // }
+  Chat: function() {
+    return {
+      component: require('../Screens/Chat'),
+      left: true,
+    }
+  }
 
 
 };
 
 
 var listRoute = function(route, defaultRoute) {
+
   var username = route.passProps ? route.passProps.username : null;
   route.parse = function(path) {
     switch(path) {
       case 'friends':
         return Routes.FriendList(username);
+      case '_chat':
+        return Routes.Chat();
       case '_settings':
         return Routes.Settings();
       case '_friendAdd':
@@ -127,9 +123,8 @@ var userRoute = function(username) {
       case 'dashboard':
         return listRoute(Routes.Dashboard(username), function(room) {
           // unsure
-            return userRoute(room);
+            return null
         });
-
       default:
         return null;
     };

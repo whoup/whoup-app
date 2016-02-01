@@ -48,7 +48,7 @@ var NavigationButton = React.createClass({
     }
     else if (item.icon) {
       comp = (
-              <Icon name={item.icon} size={40} color={cssVar('thm3')} style={[styles.navBarIcon, styles[item.label + 'NavBar'], item.disabled && styles.disabledText]} />
+              <Icon name={item.icon} size={30} color={cssVar('thm3')} style={[styles.navBarIcon, styles[item.label + 'NavBar'], item.disabled && styles.disabledText]} />
               )
     }
     else if (item.image) {
@@ -94,7 +94,7 @@ var NavigationButton = React.createClass({
       return null;
     }
     if (route.left == undefined) {
-      var backLabel = route.navBack || {icon: 'ios-arrow-back'}; //{icon: 'caret-left-semi'};
+      var backLabel = route.navBack || {icon: 'ios-arrow-left'}; //{icon: 'caret-left-semi'};
       return this.makeButton(backLabel, styles.navBarRightButton, this.goBack);
     } else {
       return null;
@@ -113,7 +113,7 @@ var NavigationButton = React.createClass({
       return null;
     }
     if (route.left) {
-      var backLabel = route.navBack || {icon: 'ios-arrow-back'}; //{icon: 'caret-left-semi'};
+      var backLabel = route.navBack || {icon: 'ios-arrow-left'}; //{icon: 'caret-left-semi'};
       return this.makeButton(backLabel, styles.navBarLeftButton, this.goBack);
     } else {
       return null;
@@ -146,7 +146,9 @@ var styles = StyleSheet.create({
     justifyContent: 'center'
   },
   navBarIcon: {
+    opacity: 0.9,
     marginVertical: 8,
+    //color: cssVar('thm2'),
   },
   navBarLeftButton: {
     marginLeft: 18,
@@ -166,6 +168,7 @@ var styles = StyleSheet.create({
   imageIcon: {
     width: 30,
     height: 30,
+    marginTop: 5,
     backgroundColor: 'transparent'
   },
 });

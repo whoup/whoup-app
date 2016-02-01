@@ -53,15 +53,17 @@ var ListHelper = {
   },
 
   componentDidMount: function() {
-    this.props.store.addChangeListener(this._onChange);
-    if (this.reloadList) {
-      this.reloadList();
-    };
+    this.bindData();
+    // this.props.store.addChangeListener(this._onChange);
+    // if (this.reloadList) {
+    //   this.reloadList();
+    // };
 
   },
 
   componentWillUnmount: function() {
-    this.props.store.removeChangeListener(this._onChange);
+    this.unbindData();
+    // this.props.store.removeChangeListener(this._onChange);
   },
 
   getNavBarState: function() {

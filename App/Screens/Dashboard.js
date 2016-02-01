@@ -69,7 +69,7 @@ var ChatRoomList = React.createClass({
       type: 'dashboardFriend',
       id: friend.key,
       up: this.state.up[friend.key],
-      subPath: friend.username,
+      subPath: '_chat',
       passProps: {
         id: friend.key,
         username: friend.username
@@ -193,7 +193,7 @@ var ChatRoomList = React.createClass({
                 </View>
                 );
       }
-      else if (this.state.users === undefined) {
+      else if (this.state.users == null) {
         return <Loading />;
       }
       else {
@@ -301,8 +301,8 @@ var styles = StyleSheet.create({
   },
   marLeftRight: {
     flex: 1,
-    marginLeft: 15,
-    marginRight: 15
+    marginLeft: 10,
+    marginRight: 10
   },
   copyOffset: {
     paddingBottom: 20

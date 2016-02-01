@@ -111,7 +111,7 @@ var styles = StyleSheet.create({
     borderRadius: 2
   },
   blue: {
-    backgroundColor: cssVar('blue50')
+    backgroundColor: cssVar('thm1')
   },
   transparent: {
     backgroundColor: 'transparent',

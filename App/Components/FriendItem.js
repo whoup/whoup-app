@@ -14,7 +14,7 @@ var AppActions = require('../Actions/AppActions');
 var Rebase = require('re-base');
 var base = Rebase.createClass('https://whoup.firebaseio.com/');
 
-var DashboardItem = React.createClass({
+var FriendItem = React.createClass({
 
   // getInitialState: function() {
   //   return {up: false}
@@ -51,13 +51,6 @@ var DashboardItem = React.createClass({
     );
   },
 
-  renderRightIcon: function() {
-    if (!this.props.nextIcon) return null;
-    return (
-      <Icon name={'ios-arrow-right'} size={30} color={'black'} style={styles.icon}/>
-    );
-  },
-
   renderContent: function() {
     var name = this.renderName();
     var up = this.props.up == true;
@@ -65,11 +58,10 @@ var DashboardItem = React.createClass({
     return (
       <View style={[styles.row, styles.notUpBackground, up && styles.upBackground]}>
         <View style={[styles.left, styles.rowFlex]}>
-          <View style={[styles.notUpIcon, up && styles.upIcon]} />
           {name}
         </View>
         <View style={styles.right, styles.center}>
-          {this.renderRightIcon()}
+
         </View>
       </View>
     );
@@ -160,4 +152,4 @@ var styles = StyleSheet.create({
   }
 });
 
-module.exports = DashboardItem;
+module.exports = FriendItem;

@@ -14,9 +14,7 @@ module.exports = {
   gray5:  '#F5F6F6',
 
 
-  heartActive: '#df1f1f',
-
-  blue50: '#642B6B',
+  gray1: '#E4E4E4',
 
   thm1: '#eded00',
   thm2: '#000000',

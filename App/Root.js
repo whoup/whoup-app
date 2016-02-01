@@ -8,6 +8,7 @@ var {
 var assign = require('object-assign');
 var Firebase = require('firebase');
 var FirebaseRef = require('./Api/FirebaseRef');
+var Network = require('./Api/Network');
 
 
 var Routes     = require('./Navigation/Routes');
@@ -71,7 +72,11 @@ var Root = React.createClass({
   renderContent: function() {
     var routeStack = this.state.routeStack;
     if(this.state.user.isLoggedIn()) {
-      FirebaseRef.ref().authWithCustomToken(this.state.user.token, function(error, result) {return;});
+      Network.started();
+      FirebaseRef.ref().authWithCustomToken(this.state.user.token, function(error, result) {
+        Network.completed();
+        return;
+      });
       return(<LoggedIn ref="current" routeStack={routeStack} />);
     }
     else {

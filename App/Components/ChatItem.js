@@ -2,7 +2,8 @@ var React  = require('react-native');
 var {
   View,
   StyleSheet,
-  TouchableHighlight
+  TouchableHighlight,
+  Image
 } = React;
 
 var cssVar = require('../Lib/cssVar');
@@ -12,15 +13,11 @@ var AppActions = require('../Actions/AppActions');
 
 var ChatItem = React.createClass({
 
-  onSelection: function() {
-    AppActions.launchRelativeItem(this.props.currentRoute, this.props);
-  },
-
   renderTitle: function() {
     if (!this.props.title) return null;
 
     return (
-      <Text style={[styles.title, this.props.answered && styles.answer]}>
+      <Text style={[styles.title, this.props.received && styles.received]}>
         {this.props.title}
       </Text>
     );
@@ -35,47 +32,28 @@ var ChatItem = React.createClass({
       </Text>
     );
   },
-
-  renderRightIcon: function() {
-    if (!this.props.nextIcon) return null;
-
-    // caret-right-semi
-    return (
-      <Text style={styles.rightIcon}>
-        >
-      </Text>
-    );
-  },
-
   renderContent: function() {
+    multiLine = this.props.body.length > 20;
+    icon1 = this.props.received ? <Image style={styles.icon1} source={{uri: 'owl_y'}} /> : null;
+    icon2 = this.props.received ? null : <Image style={styles.icon2} source={{uri: 'owl_b'}} />;
     return (
-      <View style={[styles.row, this.props.noTap && styles.touch]}>
+      <View style={[this.props.noTap && styles.touch]}>
         <View style={styles.left}>
-          {this.renderTitle()}
-          {this.renderSubtitle()}
-        </View>
-        <View style={styles.right}>
-          {this.renderRightIcon()}
+          {icon1}
+          <Text style={[styles.body, this.props.received && styles.received, multiLine && styles.multiLine]}>
+            {this.props.body}
+          </Text>
+          {icon2}
         </View>
       </View>
     );
   },
 
   render: function() {
-    if (this.props.noTap) {
-      return this.renderContent();
-    }
-
     return (
-      <View>
-        <TouchableHighlight
-              style={styles.touch}
-              underlayColor={cssVar('gray10')}
-              onPress={this.onSelection}
-        >
+      <View style={[styles.row, this.props.received && styles.leftAlign]}>
+
           {this.renderContent()}
-        </TouchableHighlight>
-        <View style={cssVar('listFullLine')} />
       </View>
     );
   }
@@ -87,16 +65,39 @@ var styles = StyleSheet.create({
   },
   row: {
     flex: 1,
+    padding: 8,
     flexDirection: 'row',
     alignItems: 'center',
-    padding:20
+    justifyContent: 'flex-end',
+    borderColor: 'white'
   },
-  title: {
+  leftAlign: {
+    justifyContent: 'flex-start',
+  },
+  body: {
     fontSize: 18,
-    textAlign: 'right'
+    backgroundColor: cssVar('thm2'),
+    paddingTop: 8,
+    paddingBottom: 8,
+    paddingLeft: 10,
+    paddingRight: 10,
+    flexDirection: 'column',
+    fontFamily: 'Helvetica',
+    color: cssVar('thm1'),
   },
-  answer: {
-    textAlign: 'left',
+  received: {
+    backgroundColor: cssVar('thm1'),
+    color: cssVar('thm2'),
+  },
+  icon1: {
+    width: 35,
+    height: 35,
+    marginRight: 8,
+  },
+  icon2: {
+    width: 35,
+    height: 35,
+    marginLeft: 8,
   },
   subtitle: {
     paddingTop: 5,
@@ -105,15 +106,14 @@ var styles = StyleSheet.create({
   },
   left: {
     flex: 1,
+    flexDirection: 'row',
+  },
+  multiLine: {
+    width: 250,
   },
   right: {
 
   },
-  rightIcon: {
-    fontFamily: cssVar('fontIcon'),
-    color: cssVar('gray30'),
-    fontSize: 12,
-  }
 });
 
 module.exports = ChatItem;

@@ -169,32 +169,22 @@ var NavigationBar = {
     }
   },
 
-  renderYellowNavBar: function() {
-    return (
-        <Navigator.NavigationBar
-          navigationStyles={NavBarStylesIOS}
-          routeMapper={new NavigationBarRouteMapper()}
-          style={[styles.navBarYellow]}
-        />
-      );
-  },
+  // renderYellowNavBar: function() {
+  //   return (
+  //       <Navigator.NavigationBar
+  //         navigationStyles={NavBarStylesIOS}
+  //         routeMapper={new NavigationBarRouteMapper()}
+  //         style={[styles.navBarYellow]}
+  //       />
+  //     );
+  // },
   renderNavBar: function() {
-    var paths = this.props.routeStack.path;
-    var path = paths[paths.length-1];
-    if (this.state.navBarHidden){
-      return null;
-    }
-    if (path.navBar == 'yellow') {
-      return this.renderYellowNavBar();
-    } else {
       return (
         <Navigator.NavigationBar
           navigationStyles={NavBarStylesIOS}
           routeMapper={new NavigationBarRouteMapper()}
           style={[styles.navBar]}
-        />
-      );
-    }
+        />);
   },
   render: function() {
     var paths = this.props.routeStack.path;
@@ -222,7 +212,8 @@ var styles = StyleSheet.create({
     backgroundColor: 'transparent'//cssVar('thm1')
   },
   navBar: {
-    height: 64//NavigatorNavigationBarStyles.General.TotalNavHeight
+    height: 64,//NavigatorNavigationBarStyles.General.TotalNavHeight
+    justifyContent: 'center'
   },
   navBarColor: {
     backgroundColor: 'transparent',

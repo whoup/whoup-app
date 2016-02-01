@@ -64,6 +64,7 @@ jsCodeLocation = [NSURL URLWithString:@"http://localhost:8081/index.ios.bundle?p
   UIViewController *rootViewController = [[UIViewController alloc] init];
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
+  self.window.tintColor = [UIColor blackColor];
   [self.window makeKeyAndVisible];
   return YES;
 }
