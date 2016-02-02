@@ -5,14 +5,12 @@ var Routes = {
   LogIn: function() {
     return {
       component: require('../Screens/LogIn'),
-      title: 'Log in'
     };
   },
 
   Welcome: function() {
     return {
       component: require('../Screens/Welcome'),
-      title: 'Welcome',
       subPath: 'login'
     };
   },
@@ -20,14 +18,13 @@ var Routes = {
   SignUp: function() {
     return {
       component: require('../Screens/SignUp'),
-      title: 'Sign Up'
     };
   },
 
   FriendAdd: function() {
     return{
       component: require('../Screens/FriendAdd'),
-      title: 'Add Friend', // set to name
+      left: true
     };
   },
 
@@ -98,7 +95,7 @@ var listRoute = function(route, defaultRoute) {
   route.parse = function(path) {
     switch(path) {
       case 'friends':
-        return Routes.FriendList(username);
+        return listRoute(Routes.FriendList(username));
       case '_chat':
         return Routes.Chat();
       case '_settings':

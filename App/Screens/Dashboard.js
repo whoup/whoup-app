@@ -166,7 +166,7 @@ var ChatRoomList = React.createClass({
         <View style={[styles.center, styles.qflex, styles.copyOffset, styles.black, styles.paddTop]}>
           <Image style={styles.icon} source={{uri: 'owl'}} />
             <Text style={styles.copy}>
-             Who Up?
+              Who Up?
             </Text>
           </View>
         {content}

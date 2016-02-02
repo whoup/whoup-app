@@ -2,7 +2,8 @@ var React = require('react-native');
 var {
   View,
   StyleSheet,
-  Image
+  Image,
+  TouchableOpacity
 } = React;
 
 
@@ -12,13 +13,13 @@ var Text       = require('../Components/Text');
 var FriendListStore = require('../Stores/FriendListStore');
 var FriendRequestStore = require('../Stores/FriendRequestStore');
 var FriendActions   = require('../Actions/FriendActions');
-
+var Icon = require('react-native-vector-icons/Ionicons');
 
 var Loading          = require('../Screens/Loading');
 var Text             = require('../Components/Text');
 var SimpleList       = require('../Components/SimpleList');
 
-
+var AppActions = require('../Actions/AppActions');
 var CurrentUserStore = require('../Stores/CurrentUserStore');
 var CURRENT_USER = CurrentUserStore.get().data;
 
@@ -179,6 +180,14 @@ var FriendList = React.createClass({
 
 
 var FriendAndRequestList = React.createClass({
+  getDefaultProps: function() {
+    return {
+      subPath: '_friendAdd'
+    };
+  },
+  friendAdd: function(){
+    AppActions.launchRelativeItem(this.props.currentRoute, this.props);
+  },
 
   render: function() {
     var noReqs;
@@ -202,6 +211,11 @@ var FriendAndRequestList = React.createClass({
         <View style={[styles.container, styles.flex]}>
           <FriendList store={FriendListStore} {...this.props} />
         </View>
+        <View style={[styles.qflex, styles.centered]}>
+          <TouchableOpacity style={styles.button} onPress={this.friendAdd}>
+            <Image style={[styles.add]} source={{uri: 'plus_b'}} />
+          </TouchableOpacity>
+        </View>
       </Image>
             );
   }
@@ -218,7 +232,33 @@ var styles = StyleSheet.create({
     marginTop: 20
   },
   qflex: {
-    flex: 0.20
+    flex: 0.1
+  },
+  add: {
+    width: 20,
+    height: 20
+  },
+  centered: {
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  button: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    borderColor: cssVar('thm1'),
+    borderWidth: 1,
+    shadowColor: "black",
+    shadowOpacity: 0.4,
+    shadowRadius: 5,
+    shadowOffset: {
+      height: 5,
+      width: 3
+    },
+    backgroundColor: cssVar('thm1'),
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 50,
   },
   container: {
     backgroundColor: 'transparent',

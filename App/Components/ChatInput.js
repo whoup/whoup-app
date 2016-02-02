@@ -43,15 +43,6 @@ var ChatInput = React.createClass({
     this.setState({submitting: (!this.state.submitting)})
   },
 
-  // getFormData: function() {
-  //   data = new FormData();
-  //   for (var i in this.state.content) {
-  //     data.append(i, this.state.content[i]);
-  //   }
-
-  //   return data;
-  // },
-
   onSubmitButton: function() {
     if (!this.state.submitting) {
       postEnd = 'users/' + this.props.friendId + '/messages/' + this.props.currUid;
@@ -59,7 +50,7 @@ var ChatInput = React.createClass({
       this.props.toggleSubmitting();
       this.toggleSubmitting();
       body = this.state.body;
-      clearText = this.clearText;
+      this.clearText();
       toggleSub = this.toggleSubmitting;
       togglePropSub = this.props.toggleSubmitting;
       base.push(postEnd, {
@@ -68,7 +59,6 @@ var ChatInput = React.createClass({
           base.push(currUsrEnd, {
             data: {body: body, received: false, timestamp: Firebase.ServerValue.TIMESTAMP},
             then(){
-                clearText();
                 toggleSub();
                 togglePropSub();
             }
@@ -77,26 +67,6 @@ var ChatInput = React.createClass({
       });
     };
   },
-      // var data = {};
-      // data.params = this.getFormData();
-      // data.room_id = this.props.roomId;
-
-      // ChatActions.createMessage(data, function(e) {
-      //   this.props.updateProgress(e);
-      // }.bind(this),
-      // function(error) {
-      //   if (error) {
-      //     // TODO: better error handling
-      //     alert(error.message);
-      //   }
-      //   else {
-      //     this.props.messageAdded();
-      //     this.clearText();
-      //     this.toggleSubmitting();
-      //     this.props.toggleSubmitting();
-      //   }
-      // }.bind(this));
-
 
   render: function() {
     return (

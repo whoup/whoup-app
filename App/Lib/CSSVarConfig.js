@@ -19,7 +19,7 @@ module.exports = {
   thm1: '#eded00',
   thm2: '#000000',
   thm3: '#FFFFFF',
-  thm4: '#E7E7E7',
+  thm4: '#E4E4E4',
   thm5: '#E7E7E7',
 
 

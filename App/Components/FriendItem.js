@@ -16,17 +16,6 @@ var base = Rebase.createClass('https://whoup.firebaseio.com/');
 
 var FriendItem = React.createClass({
 
-  // getInitialState: function() {
-  //   return {up: false}
-  // },
-
-  // componentDidMount: function() {
-  // },
-
-  // componentWillUnmount: function() {
-  //   //this.props.store.removeChangeListener(this._onChange);
-  //   base.removeBinding(this.ref);
-  // },
 
   onSelection: function() {
     console.log(this.props)

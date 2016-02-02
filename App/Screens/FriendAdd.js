@@ -2,24 +2,27 @@ var React = require('react-native');
 var {
   View,
   StyleSheet,
-  TouchableWithoutFeedback
+  Image,
+  TextInput,
+  TouchableWithoutFeedback,
 } = React;
-
-var TextInput   = require('../Components/TextInput');
-var Text = require('../Components/Text');
+var cssVar = require('../Lib/cssVar');
+//var TextInput   = require('../Components/TextInput');
 var Button      = require('../Components/Button');
 var FriendActions = require('../Actions/FriendActions');
 var AppActions  = require('../Actions/AppActions');
 var NavBarHelper = require('../Mixins/NavBarHelper');
 var Icon = require('react-native-vector-icons/Ionicons');
+var Text             = require('../Components/Text');
 
+//var SearchBar = require('react-native-search-bar');
 var KeyboardListener = require('../Mixins/KeyboardListener');
 
 var Firebase = require('firebase');
 var users = new Firebase('https://whoup.firebaseIO.com/usernames')
 
 var FriendAdd = React.createClass({
-  mixins: [KeyboardListener, NavBarHelper],
+  mixins: [KeyboardListener],
 
   getInitialState: function() {
     return {
@@ -32,10 +35,6 @@ var FriendAdd = React.createClass({
 
   onButtonSelect: function(label) {
 
-  },
-  getNavBarState: function() {
-    var title = this.state.loading ? 'Searching...' : 'Add Friend';
-    return { title: title };
   },
 
   onSubmitButton: function() {
@@ -75,12 +74,23 @@ var FriendAdd = React.createClass({
     this.setState({text: text, loading: true});
   },
 
+  renderTitle: function() {
+    return (
+      <View style={styles.titleView} >
+        <Text style={styles.username} >
+          Add Username
+        </Text>
+      </View>
+    );
+  },
+
   render: function() {
     var button = this.addButton();
     return (
-      <View style={styles.flex} >
+      <View style={[styles.flex]} >
+        {this.renderTitle()}
         <TextInput ref="username-input"
-          placeholder={"Username..."}
+          placeholder={"Search"}
           keyboardType={ "twitter" }
           autoCapitalize={'none'}
           multiline={true}
@@ -92,8 +102,7 @@ var FriendAdd = React.createClass({
           onChangeText={this.updateText}
           value={this.state.text}
           />
-
-      <View style={[styles.flex, styles.inline]}>
+      <View style={[styles.flex, styles.inline, styles.gray]}>
         <Text style={[styles.username, styles.left, styles.mar_left]}>
           {this.state.username}
         </Text>
@@ -103,7 +112,7 @@ var FriendAdd = React.createClass({
           </TouchableWithoutFeedback>
         </View>
       </View>
-      <View style={{height: this.state.keyboardSpace}}></View>
+      <View style={{height: this.state.keyboardSpace, backgroundColor: cssVar('thm2')}}></View>
 
       </View>
     );
@@ -115,10 +124,25 @@ var styles = StyleSheet.create({
     flex: 1
   },
   input: {
-    height: 60,
+    height: 30,
+    fontSize: 12,
+    backgroundColor: cssVar('thm3'),
+    paddingBottom: 3
+  },
+  paddTop: {
+    paddingTop: 64
+  },
+  username: {
+    color: cssVar('thm1'),
     fontSize: 16,
-    backgroundColor: 'white',
-    padding: 20
+  },
+  titleView: {
+    height: 64,
+    paddingTop: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row',
+    backgroundColor: cssVar('thm2')
   },
   inline: {
     flexDirection: 'row',
@@ -154,10 +178,6 @@ var styles = StyleSheet.create({
   },
   mar_left: {
     marginLeft: 10,
-  },
-  username: {
-    fontSize: 25,
-    fontWeight: 'bold'
   },
   footer: {
     padding: 10,
