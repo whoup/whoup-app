@@ -3,7 +3,7 @@ var {
   View,
   StyleSheet,
   Image,
-  TouchableOpacity
+  TouchableOpacity,
 } = React;
 
 
@@ -66,6 +66,8 @@ var FriendList = React.createClass({
       name: friend.username,
     }
   },
+
+
 
   renderItems: function() {
     return (
@@ -188,6 +190,25 @@ var FriendAndRequestList = React.createClass({
   friendAdd: function(){
     AppActions.launchRelativeItem(this.props.currentRoute, this.props);
   },
+  goBack: function() {
+    console.log('poo');
+    AppActions.goBack(this.props.navigator);
+  },
+
+  renderTitle: function() {
+    //var name = this.props.passProps == undefined ? null : this.props.passProps.username
+    return (
+      <View style={styles.navBar} >
+
+          <Text style={styles.eyesIcon} onPress={this.goBack}>
+            Friends
+          </Text>
+          <TouchableOpacity onPress={this.goBack} >
+            <Image style={[styles.imageIcon]} source={{uri: 'owl_b'}} />
+          </TouchableOpacity>
+      </View>
+    );
+  },
 
   render: function() {
     var noReqs;
@@ -203,7 +224,7 @@ var FriendAndRequestList = React.createClass({
 
     return (
       <Image style={[styles.flex, styles.paddTop]} source={{uri: 'yellow'}}>
-        <View style={styles.navBar} />
+        {this.renderTitle()}
         <View style={[styles.container, noReqs && styles.qflex]}>
 
         </View>
@@ -227,6 +248,12 @@ var styles = StyleSheet.create({
   },
   navBar: {
     height: 44,
+
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row',
+    backgroundColor: 'transparent',
+    backgroundColor: cssVar('thm1')
   },
   paddTop: {
     marginTop: 20
@@ -259,6 +286,17 @@ var styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 50,
+  },
+  eyesIcon: {
+    flex: 1,
+  },
+  imageIcon: {
+    width: 30,
+    height: 30,
+    marginRight: 17,
+    marginTop: -3,
+    backgroundColor: 'transparent',
+    alignSelf: 'flex-end'
   },
   container: {
     backgroundColor: 'transparent',

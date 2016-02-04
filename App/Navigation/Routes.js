@@ -32,13 +32,13 @@ var Routes = {
     return {
       component: require('../Screens/FriendList'),
       title: '', // set to name
-      background: 'yellow',
       passProps: {
         username: username,
       },
-      navBack: {
-        image:   'owl_b'//'ios-personadd' // TODO: icon font
-      },
+      display: false,
+      // navBack: {
+      //   image:   'owl_b',//'ios-personadd' // TODO: icon font
+      // },
     };
   },
   Dashboard: function(username) {
@@ -49,7 +49,7 @@ var Routes = {
     d.setMinutes(new Date().getMinutes());
     var itsTime = d0 < d1  ? (d0 <= d && d < d1) : (d1 <= d && d < d0) == false;
     var leftImage = itsTime == true ? 'owl_plus' : 'owl_plus_b';
-    var rightImage = itsTime ==true ? 'settings' : 'settings_b';
+    var rightImage = itsTime == true ? 'settings' : 'settings_b';
     return {
       component: require('../Screens/Dashboard'),
       title: '',
@@ -71,9 +71,6 @@ var Routes = {
       component: require('../Screens/Settings'),
       title: 'Settings',
       left: true,
-      navBack: {
-        image:   'owl_b'//'ios-personadd' // TODO: icon font
-      },
     };
   },
 
@@ -120,7 +117,7 @@ var userRoute = function(username) {
       case 'dashboard':
         return listRoute(Routes.Dashboard(username), function(room) {
           // unsure
-            return null
+            return Routes.Dashboard();
         });
       default:
         return null;

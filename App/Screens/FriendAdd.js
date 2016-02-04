@@ -15,8 +15,13 @@ var NavBarHelper = require('../Mixins/NavBarHelper');
 var Icon = require('react-native-vector-icons/Ionicons');
 var Text             = require('../Components/Text');
 
-//var SearchBar = require('react-native-search-bar');
+var SearchBar = require('react-native-search-bar');
 var KeyboardListener = require('../Mixins/KeyboardListener');
+
+var RCTUIManager = require('NativeModules').UIManager;
+
+var CurrentUserStore = require('../Stores/CurrentUserStore');
+var CURRENT_USER = CurrentUserStore.get().data;
 
 var Firebase = require('firebase');
 var users = new Firebase('https://whoup.firebaseIO.com/usernames')
@@ -52,7 +57,7 @@ var FriendAdd = React.createClass({
   addButton: function() {
     if (this.state.username) {
       return (
-               <Icon name={'plus'} size={30} color={'black'} style={styles.button} />
+        <Image style={styles.plus} source={{uri: 'plus_b'}}/>
       );
     } else {
       return ( <View/>)
@@ -62,6 +67,7 @@ var FriendAdd = React.createClass({
   updateText: function(text) {
 
   if (text !== ''){
+    text = text.toLowerCase();
     users.child(text).once('value', function(snapshot) {
       var data = snapshot.val();
       if (data !== null) {
@@ -77,41 +83,66 @@ var FriendAdd = React.createClass({
   renderTitle: function() {
     return (
       <View style={styles.titleView} >
-        <Text style={styles.username} >
+        <Text style={styles.title} >
           Add Username
         </Text>
       </View>
     );
   },
 
-  render: function() {
+  renderBody: function(){
     var button = this.addButton();
+    if (this.state.username){
+      return (
+              <View style={[styles.row, styles.inline]}>
+                <Image style={styles.owl} source={{uri: 'owl_b'}}/>
+                <Text style={[styles.username, styles.left, styles.mar_left]}>
+                  @{this.state.username}
+                </Text>
+                <View style={[styles.mar_left, styles.right]}>
+                  <TouchableWithoutFeedback onPress={this.onSubmitButton}>
+                    {button}
+                  </TouchableWithoutFeedback>
+                </View>
+              </View>
+            )
+    } else {
+      return (
+              <View style={[styles.flex, styles.gray]}>
+                <Text style={[styles.curr_username]}>
+                  @{CURRENT_USER.username}
+                </Text>
+                <Text style={styles.subtitle} >
+                  is your username
+                </Text>
+              </View>
+              )
+    }
+  },
+
+  // <TextInput ref="username-input"
+  //         placeholder={"Search"}
+  //         keyboardType={ "twitter" }
+  //         autoCapitalize={'none'}
+  //         multiline={true}
+  //         clearTextOnFocus={true}
+  //         autoGrow={true}
+  //         autoFocus={false}
+  //         style={styles.input}
+  //         returnKeyType={'send'}
+  //         onChangeText={this.updateText}
+  //         value={this.state.text}
+  //         /><View style={[styles.flex, styles.gray]}>
+  render: function() {
     return (
       <View style={[styles.flex]} >
         {this.renderTitle()}
-        <TextInput ref="username-input"
-          placeholder={"Search"}
-          keyboardType={ "twitter" }
-          autoCapitalize={'none'}
-          multiline={true}
-          clearTextOnFocus={true}
-          autoGrow={true}
-          autoFocus={false}
-          style={styles.input}
-          returnKeyType={'send'}
-          onChangeText={this.updateText}
-          value={this.state.text}
-          />
-      <View style={[styles.flex, styles.inline, styles.gray]}>
-        <Text style={[styles.username, styles.left, styles.mar_left]}>
-          {this.state.username}
-        </Text>
-        <View style={[styles.mar_left, styles.right]}>
-          <TouchableWithoutFeedback onPress={this.onSubmitButton}>
-            {button}
-          </TouchableWithoutFeedback>
+        <View style={[styles.flex, styles.gray]}>
+            <SearchBar ref='searchBar'
+            placeholder='Search'
+            onChangeText={this.updateText} />
+          {this.renderBody()}
         </View>
-      </View>
       <View style={{height: this.state.keyboardSpace, backgroundColor: cssVar('thm2')}}></View>
 
       </View>
@@ -123,18 +154,39 @@ var styles = StyleSheet.create({
   flex: {
     flex: 1
   },
+  plus: {
+    width: 20,
+    height: 20,
+    marginRight: 15
+  },
   input: {
-    height: 30,
-    fontSize: 12,
+    height: 35,
+    fontSize: 15,
     backgroundColor: cssVar('thm3'),
-    paddingBottom: 3
   },
-  paddTop: {
-    paddingTop: 64
+  curr_username: {
+    fontSize: 20,
+    marginTop: 10,
+    alignSelf: 'center',
+    color: cssVar('thm2'),
   },
+  subtitle: {
+    fontSize: 14,
+    alignSelf: 'center',
+    fontFamily: 'Helvetica'
+  },
+  gray: {
+    backgroundColor: cssVar('thm4')
+  },
+
   username: {
-    color: cssVar('thm1'),
-    fontSize: 16,
+    color: cssVar('thm2'),
+    fontSize: 20,
+    lineHeight: 0
+  },
+  title: {
+    fontSize: 18,
+    color: cssVar('thm1')
   },
   titleView: {
     height: 64,
@@ -146,18 +198,21 @@ var styles = StyleSheet.create({
   },
   inline: {
     flexDirection: 'row',
-    backgroundColor: 'white'
+  },
+  row: {
+    marginTop: 20,
+    backgroundColor: 'white',
+    alignItems: 'center',
+    height: 54,
+  },
+  owl: {
+    width: 32,
+    height: 32,
+    marginLeft: 10,
+    marginRight: 5
   },
   durationLabel: {
     fontSize: 18
-  },
-  row: {
-    height: 30,
-    paddingTop: 5,
-    paddingBottom: 5,
-    borderWidth: 1,
-    borderColor: 'black'
-
   },
   durationEdit: {
     height: 50,

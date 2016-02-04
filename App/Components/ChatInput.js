@@ -12,6 +12,8 @@ var CurrentUserStore = require('../Stores/CurrentUserStore');
 var cssVar = require('../Lib/cssVar');
 var KeyboardListener = require('../Mixins/KeyboardListener');
 
+var dismissKeyboard = require('dismissKeyboard');
+
 var Rebase = require('re-base');
 var base = Rebase.createClass('https://whoup.firebaseio.com/');
 
@@ -73,7 +75,7 @@ var ChatInput = React.createClass({
       <View style={styles.container}>
         <View style={styles.footer}>
           <View style={styles.inputContainer}>
-            <TextInput ref={"message"}
+            <TextInput ref={"chat"}
               placeholder={"Chat"}
               placeholderStyle={styles.placeholder}
               keyboardType={"default"}

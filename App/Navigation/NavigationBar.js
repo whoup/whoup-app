@@ -92,6 +92,22 @@ var Container = React.createClass({
   }
 });
 
+class NavBar extends Navigator.NavigationBar {
+  render() {
+    var routes = this.props.navState.routeStack;;
+
+    if (routes.length) {
+      var route = routes[routes.length - 1];
+
+      if (route.display === false) {
+        return null;
+      }
+    }
+
+    return super.render();
+  }
+}
+
 var NavigationBar = {
 
   renderScene: function(route, navigator) {
@@ -180,7 +196,7 @@ var NavigationBar = {
   // },
   renderNavBar: function() {
       return (
-        <Navigator.NavigationBar
+        <NavBar
           navigationStyles={NavBarStylesIOS}
           routeMapper={new NavigationBarRouteMapper()}
           style={[styles.navBar]}

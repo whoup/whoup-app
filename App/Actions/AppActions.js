@@ -2,6 +2,7 @@ var Dispatcher   = require('../Dispatcher');
 var AppConstants = require('../Constants/AppConstants');
 var assign       = require('object-assign');
 
+
 var AppActions = {
   appLaunched: function() {
     Dispatcher.dispatch({

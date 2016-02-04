@@ -11,6 +11,7 @@ var cssVar = require('../Lib/cssVar');
 var DispatcherListener = require('../Mixins/DispatcherListener');
 var AppConstants       = require('../Constants/AppConstants');
 var AppActions         = require('../Actions/AppActions');
+var dismissKeyboard = require('dismissKeyboard');
 
 var Text = require('../Components/Text');
 var Icon = require('react-native-vector-icons/Ionicons');
@@ -37,7 +38,10 @@ var NavigationButton = React.createClass({
     var styleType;
     var comp;
 
-    if (item.mixIcon) {
+    if (item.disabled) {
+      comp = <Image style={styles.imageIcon}/>
+    }
+    else if (item.mixIcon) {
       comp = (
                 <Icon name={item.mixIcon.icon} size={50} color={cssVar('thm3')} style={[styles[item.label + 'NavBar'], item.disabled && styles.disabledText]}>
                     <Text style={[styles.navBarText, styles.navBarIconText, styles.navBarButtonText, styles[item.mixIcon.label + 'NavBar'], item.disabled && styles.disabledText]}>
@@ -72,7 +76,7 @@ var NavigationButton = React.createClass({
       return button;
     }
     else {
-      return (
+      return(
         <TouchableOpacity style={[this.props.direction === 'left' && styles.leftButton]} onPress={callback}>
           {button}
         </TouchableOpacity>
@@ -121,6 +125,7 @@ var NavigationButton = React.createClass({
   },
 
   goBack: function() {
+    dismissKeyboard();
     AppActions.goBack(this.props.navigator);
   },
 

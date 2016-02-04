@@ -289,7 +289,8 @@ var styles = StyleSheet.create({
     height: 64,
     alignItems: 'center',
     justifyContent: 'center',
-    flexDirection: 'row'
+    flexDirection: 'row',
+    backgroundColor: cssVar('thm2')
   },
   flex: {
     flex: 1
