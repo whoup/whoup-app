@@ -81,7 +81,7 @@ Dispatcher.register(function(action) {
       saveSingleton();
       break;
     case AppConstants.LOGOUT_REQUESTED:
-      FirebaseRef.unauth();
+      FirebaseRef.signOut(SingletonStore.get().data.id);
       clearData();
       SingletonStore.emitChange();
       break;

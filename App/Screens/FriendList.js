@@ -14,10 +14,10 @@ var FriendListStore = require('../Stores/FriendListStore');
 var FriendRequestStore = require('../Stores/FriendRequestStore');
 var FriendActions   = require('../Actions/FriendActions');
 var Icon = require('react-native-vector-icons/Ionicons');
-
+var ActivityView = require('react-native-activity-view');
 var Loading          = require('../Screens/Loading');
 var Text             = require('../Components/Text');
-var SimpleList       = require('../Components/SimpleList');
+var SectionedList       = require('../Components/SectionedList');
 
 var AppActions = require('../Actions/AppActions');
 var CurrentUserStore = require('../Stores/CurrentUserStore');
@@ -37,18 +37,27 @@ var FriendList = React.createClass({
     };
   },
   getInitialState: function() {
-    return { users: [] }
+    return{
+            friends: [],
+            requests: [],
+          }
   },
 
   componentDidMount: function(){
-    this.ref = base.bindToState('users/' + CURRENT_USER.id + '/friends', {
+    this.friendRef = base.bindToState('users/' + CURRENT_USER.id + '/friends', {
       context: this,
-      state: 'users',
+      state: 'friends',
+      asArray: true
+    });
+    this.reqRef = base.bindToState('users/' + CURRENT_USER.id + '/requests', {
+      context: this,
+      state: 'requests',
       asArray: true
     });
   },
   componentWillUnmount: function(){
-    base.removeBinding(this.ref);
+    base.removeBinding(this.friendRef);
+    base.removeBinding(this.reqRef);
   },
 
   renderEmpty: function() {
@@ -57,25 +66,21 @@ var FriendList = React.createClass({
     );
   },
 
-  getItemProps: function(friend) {
+  getItemProps: function(friend){
     return {
       key: friend.key,
       type: 'friend',
-      up: false,
-      id: friend.key,
       name: friend.username,
     }
   },
 
-
-
   renderItems: function() {
     return (
-      <SimpleList
+      <SectionedList
         style={styles.flex}
         currentRoute={this.props.currentRoute}
         getItemProps={this.getItemProps}
-        items={this.state.users}
+        items={{requests: this.state.requests, friends: this.state.friends}}
         {...this.props.listProps}
       />
     );
@@ -85,8 +90,8 @@ var FriendList = React.createClass({
    renderContent: function() {
     var content;
     var empty;
-    if (this.state.users.length === 0) {
-      content = this.renderEmpty();
+    if (this.state.friends.length === 0) {
+      content = this.renderItems();//this.renderEmpty();
     }
     else {
       content = this.renderItems();
@@ -99,87 +104,22 @@ var FriendList = React.createClass({
   },
 
   renderList: function() {
-    if (this.state.users === null) {
-      return (<View/>
-              );
-    }
-    else if (this.state.users === undefined) {
-      return <Loading />;
-    }
-    else {
+    // if (this.state.users === null) {
+    //   return (<View/>
+    //           );
+    // }
+    // else if (this.state. === undefined) {
+    //   return <Loading />;
+    // }
+    // else {
       return this.renderContent();
-    }
+    // }
   },
 
   render: function() {
     return this.renderList();
   }
 });
-
-
-
-// var RequestList = React.createClass({
-//   mixins: [ListHelper],
-
-//   getDefaultProps: function() {
-//     return {
-//       navBarTitle: '',
-//       listProps: {
-//         nextIcon: true
-//       },
-//     };
-//   },
-
-//   getListItems: function() {
-//     uid = this.getUserId();
-//     return FriendRequestStore.get('request');
-//   },
-
-//   isListChange: function(username) {
-//     return this.getUsername() == username;
-//   },
-
-//   blankContent: function() {
-//     return(
-//       <View/>
-//     );
-//   },
-
-//   // watchData: function() {
-//   //  return FriendActions.mountFriendReq();
-//   // },
-//   // unwatchData: function() {
-//   //   return FriendActions.unmountFriendReq();
-//   // },
-
-//   getItemProps: function(friend) {
-//     return {
-//       key: friend.data.id,
-//       type: 'request',
-//       action: 'accept',
-//       id: friend.data.id,
-//       title: friend.data.username,
-//       reloadList: this.reloadList
-//     }
-//   },
-
-//   // reloadList: function() {
-//   //   console.log("reloading follows: " + this.getUserId());
-//   //   this.setTimeout( () => {
-//   //     FriendActions.fetchRequestList(this.getUserId(), function(error) {
-//   //       // TODO: handle error
-//   //       if (error) {
-//   //         alert(error.message);
-//   //       }
-//   //     });
-//   //   },1000);
-//   // },
-
-//   render: function() {
-//     return this.renderList();
-//   }
-// });
-
 
 var FriendAndRequestList = React.createClass({
   getDefaultProps: function() {
@@ -191,20 +131,29 @@ var FriendAndRequestList = React.createClass({
     AppActions.launchRelativeItem(this.props.currentRoute, this.props);
   },
   goBack: function() {
-    console.log('poo');
     AppActions.goBack(this.props.navigator);
+  },
+
+  launchActivityView: function(){
+    ActivityView.show({
+      text: "You Up? I am.",
+      url: "http://whoup.club",
+      image: "app_icon",
+    });
   },
 
   renderTitle: function() {
     //var name = this.props.passProps == undefined ? null : this.props.passProps.username
     return (
       <View style={styles.navBar} >
-
-          <Text style={styles.eyesIcon} onPress={this.goBack}>
-            Friends
-          </Text>
+          <TouchableOpacity onPress={this.launchActivityView} >
+            <Image style={[styles.imageLIcon]} source={{uri: 'invite'}} />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.flex} onPress={this.goBack} >
+            <Image style={[styles.imageCIcon]} source={{uri: 'eyes'}} />
+          </TouchableOpacity>
           <TouchableOpacity onPress={this.goBack} >
-            <Image style={[styles.imageIcon]} source={{uri: 'owl_b'}} />
+            <Image style={[styles.imageRIcon]} source={{uri: 'owl_b'}} />
           </TouchableOpacity>
       </View>
     );
@@ -248,12 +197,11 @@ var styles = StyleSheet.create({
   },
   navBar: {
     height: 44,
-
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row',
     backgroundColor: 'transparent',
-    backgroundColor: cssVar('thm1')
+    //backgroundColor: cssVar('thm1')
   },
   paddTop: {
     marginTop: 20
@@ -290,13 +238,25 @@ var styles = StyleSheet.create({
   eyesIcon: {
     flex: 1,
   },
-  imageIcon: {
+  imageRIcon: {
     width: 30,
     height: 30,
     marginRight: 17,
     marginTop: -3,
     backgroundColor: 'transparent',
-    alignSelf: 'flex-end'
+  },
+  imageLIcon: {
+    width: 30,
+    height: 30,
+    marginLeft: 17,
+    marginTop: -3,
+    backgroundColor: 'transparent',
+  },
+  imageCIcon: {
+    width: 50,
+    height: 25,
+    alignSelf: 'center',
+    backgroundColor: 'transparent',
   },
   container: {
     backgroundColor: 'transparent',

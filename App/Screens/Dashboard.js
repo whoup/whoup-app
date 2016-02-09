@@ -12,7 +12,7 @@ var NavBarHelper       = require('../Mixins/NavBarHelper');
 var Loading          = require('../Screens/Loading');
 var Text             = require('../Components/Text');
 var Button     = require('../Components/Button');
-var SimpleList       = require('../Components/SimpleList');
+var SimpleList       = require('../Components/SectionedList');
 var AppActions       = require('../Actions/AppActions');
 var cssVar = require('../Lib/cssVar');
 var FriendListStore = require('../Stores/FriendListStore');
@@ -33,7 +33,12 @@ var ChatRoomList = React.createClass({
   mixins: [NavigationListener, NavBarHelper],
 
   getInitialState: function() {
-    return { users: [], up: {} }
+    return {
+              users: [],
+              up: {},
+              users_up:[],
+              users_not_up: []
+          }
   },
 
   getDefaultProps: function() {
@@ -43,24 +48,6 @@ var ChatRoomList = React.createClass({
       },
     };
   },
-
-  // isUserUp: function(key) {
-  //   var up = ref.child(key).getValue();
-  //   //console.log(up);
-  //   return up;
-  //   // var up;
-  //   // base.fetch('presence/' + key, {
-  //   //   context: this,
-  //   //   asArray: false,
-  //   //   then(data){
-  //   //     if (data == null)
-  //   //       up = false;
-  //   //     else
-  //   //       up = data;
-  //   //   }
-  //   // });
-  //   // return up;
-  // },
 
   getItemProps: function(friend) {
     //console.log(this.state.up[friend.key]);
@@ -76,17 +63,6 @@ var ChatRoomList = React.createClass({
       }
     }
   },
-
-  //  reloadList: function() {
-  //   console.log("reloading friends: ");
-  //     // FriendActions.fetchList(CurrentUserStore.get().data.id, function(error) {
-  //     //   // TODO: handle error
-  //     //   if (error) {
-  //     //     alert(error.message);
-  //     //     this.setState({noFriends: true})
-  //     //   }
-  //     // }.bind(this));
-  // },
 
   imUp: function() {
     ChatActions.goOnline(CURRENT_USER.id,);
@@ -119,6 +95,21 @@ var ChatRoomList = React.createClass({
     // console.log(this.state);
   },
 
+  sortUsers: function(){
+    var up = [];
+    var notUp = [];
+    for (var i in this.state.users) {
+      user = this.state.users[i]
+      if (this.state.up[user.key]) {
+        up.push(user)
+      }
+      else {
+        notUp.push(user);
+      }
+    }
+    return {up, notUp}
+  },
+
   getNavBarState: function() {
     var title = this.props.navBarTitle ? this.props.navBarTitle : "";
     return { title: title };
@@ -143,7 +134,7 @@ var ChatRoomList = React.createClass({
         style={styles.flex}
         currentRoute={this.props.currentRoute}
         getItemProps={this.getItemProps}
-        items={this.state.users}
+        items={this.sortUsers()}
         {...this.props.listProps}
       />
       </View>

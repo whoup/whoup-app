@@ -1,6 +1,8 @@
 var React  = require('react-native');
 var {
   ListView,
+  View,
+  Text
 } = React;
 
 var RefreshableListView = require('react-native-refreshable-listview');
@@ -10,10 +12,20 @@ var SettingsItem = require('../Components/SettingsItem');
 var DashboardItem = require('../Components/DashboardItem');
 var FriendItem = require('../Components/FriendItem');
 
-var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+//var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
 
-var SimpleList = React.createClass({
+var SectionedList = React.createClass({
+
+  getInitialState: function() {
+    return {
+        loaded : false,
+        dataSource : new ListView.DataSource({
+            rowHasChanged           : (row1, row2) => row1 !== row2,
+            sectionHeaderHasChanged : (s1, s2) => s1 !== s2
+        })
+    }
+  },
 
   renderRow: function(item, sectionId, rowId) {
     var passAlong = {};
@@ -39,14 +51,25 @@ var SimpleList = React.createClass({
     );
   },
 
+  renderSectionHeader: function(sectionData, sectionID){
+    if (sectionID == 'up' || sectionID == 'requests') {
+      return <View/>
+    }
+    else {
+       return (<View style={{height: 30}}/>)
+    }
+
+  },
+
   render: function() {
     var Component = this.props.reloadList ? RefreshableListView : ListView;
     return (
       <Component
         initialListSize={2}
         automaticallyAdjustContentInsets={true}
-        dataSource={ds.cloneWithRows(this.props.items)}
+        dataSource={this.state.dataSource.cloneWithRowsAndSections(this.props.items)}
         renderRow={this.renderRow}
+        renderSectionHeader={this.renderSectionHeader}
         minBetweenTime={2000}
       />
     );
@@ -54,4 +77,4 @@ var SimpleList = React.createClass({
 });
 
 
-module.exports = SimpleList;
+module.exports = SectionedList;

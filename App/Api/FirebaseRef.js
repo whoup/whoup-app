@@ -1,6 +1,9 @@
 var Firebase = require('firebase');
 var ref = new Firebase('https://whoup.firebaseIO.com/');
 
+// var CurrentUserStore = require('../Stores/CurrentUserStore');
+// var CURRENT_USER = CurrentUserStore.get().data;
+
 var FirebaseRef = {
 
   ref: function() {
@@ -19,9 +22,11 @@ var FirebaseRef = {
     return ref.child('users').child(uid).child('friend_reqs')
   },
 
-  unauth: function() {
+  signOut: function(uid) {
+     var userRef = new Firebase('https://whoup.firebaseio.com/presence/' + uid);
+     userRef.remove()
     return ref.unauth();
-  }
+  },
 
 };
 
