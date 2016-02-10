@@ -26,6 +26,9 @@ var CURRENT_USER = CurrentUserStore.get().data;
 var Firebase = require('firebase');
 var users = new Firebase('https://whoup.firebaseIO.com/usernames')
 
+var Rebase = require('re-base');
+var base = Rebase.createClass('https://whoup.firebaseio.com/');
+
 var FriendAdd = React.createClass({
   mixins: [KeyboardListener],
 
@@ -35,8 +38,31 @@ var FriendAdd = React.createClass({
       username: '',
       userId: '',
       loading: false,
+      friends: {},
+      reqs: {}
     };
   },
+
+  componentDidMount: function(){
+   this.friends = base.bindToState('users/' + CURRENT_USER.id + '/friends/', {
+      context: this,
+      asArray: false,
+      state: 'friends'
+    });
+   this.reqs = base.bindToState('users/' + CURRENT_USER.id + '/sent_reqs/', {
+      context: this,
+      asArray: false,
+      state: 'reqs'
+    });
+  },
+
+  componentWillUnmount: function() {
+    //this.props.store.removeChangeListener(this._onChange);
+    base.removeBinding(this.reqs);
+    base.removeBinding(this.friends);
+    // console.log(this.state);
+  },
+
 
   updateText: function(text) {
     text = text.replace(/[\[\].#/]/g, '').toLowerCase();;
@@ -65,8 +91,11 @@ var FriendAdd = React.createClass({
 
   renderBody: function(){
     if (this.state.username){
+      var isFriend = this.state.friends[this.state.userId] !== undefined || this.state.reqs[this.state.userId];
       return (
-              <RequestItem username={this.state.username} id={this.state.userId} currUid={CURRENT_USER.id} />
+              <RequestItem username={this.state.username} id={this.state.userId} currUid={CURRENT_USER.id}
+                isFriend={isFriend} loading={this.state.loading}
+                />
             )
     } else {
       return (

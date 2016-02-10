@@ -19,7 +19,9 @@ var base = Rebase.createClass('https://whoup.firebaseio.com/');
 var RequestItem = React.createClass({
 
   getInitialState: function() {
-    return { loading: true}
+    return {  loading: this.props.loading,
+              sent: this.props.sent
+            }
   },
 
   onSubmitButton: function() {
@@ -36,29 +38,6 @@ var RequestItem = React.createClass({
 
   },
 
-  componentDidMount: function(){
-   base.fetch('users/' + this.props.currUid + '/friends/' + this.props.id, {
-      context: this,
-      asArray: false,
-      then(data){
-        if (data){
-          this.setState({isFriend: true, loading: false})
-        }
-      }
-    });
-   base.fetch('users/' + this.props.currUid + '/sent_reqs/' + this.props.id, {
-      context: this,
-      asArray: false,
-      then(data){
-        if (data){
-          this.setState({sent: true, loading: false})
-        } else {
-          this.setState({loading: false})
-        }
-      }
-    });
-  },
-
 
   addButton: function() {
     if (this.state.loading) {
@@ -66,7 +45,7 @@ var RequestItem = React.createClass({
         <View style={styles.loading}>
           <ActivityIndicatorIOS color={cssVar('thm2')} />
         </View>)
-    } else if (this.state.isFriend || this.state.sent) {
+    } else if (this.props.isFriend || this.state.sent) {
       return (<Image style={styles.plus} source={{uri: 'check'}}/>);
     }
     else {
