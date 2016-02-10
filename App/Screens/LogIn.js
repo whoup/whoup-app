@@ -33,9 +33,9 @@ var Login = React.createClass({
       if (error) {
         // TODO: better errors
         alert(error.message);
+        this.setState({submitted: false})
       }
-    });
-    // TODO: setState to denote busy
+    }.bind(this));
   },
 
   render: function() {

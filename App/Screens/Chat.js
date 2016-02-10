@@ -126,10 +126,14 @@ var Chat = React.createClass({
   componentDidMount: function() {
     messages = 'users/' + CURRENT_USER.id + '/messages/' + this.props.passProps.id;
     this.messageRef = base.bindToState(messages, {
-    context: this,
-    state: 'messages',
-    asArray: true
-  });
+      context: this,
+      state: 'messages',
+      asArray: true,
+      queries: {
+        orderByChild: 'timestamp',
+        startAt: ((new Date().getTime()) - 25200000)
+      }
+    });
     // this.getListState();
     // InteractionManager.runAfterInteractions(() => {
     //   this.setState({renderPlaceHolder: false});

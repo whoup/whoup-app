@@ -140,7 +140,6 @@ var styles = StyleSheet.create({
    backgroundColor: cssVar('thm1')
   },
   upIcon: {
-   //paddingLeft: 3,
    backgroundColor: '#18BF17',
   },
   icon: {

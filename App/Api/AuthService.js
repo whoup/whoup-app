@@ -53,6 +53,7 @@ var AuthService = {
   },
 
   login: function(email, password, callback) {
+    ref.unauth();
     ref.authWithPassword({
       email: email,
       password: password
