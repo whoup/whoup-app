@@ -33,7 +33,7 @@ var ChatItem = React.createClass({
     );
   },
   renderContent: function() {
-    multiLine = this.props.body.length > 20;
+    multiLine = this.props.body.length > 30;
     icon1 = this.props.received ? <Image style={styles.icon1} source={{uri: 'owl_y'}} /> : null;
     icon2 = this.props.received ? null : <Image style={styles.icon2} source={{uri: 'owl_b'}} />;
     return (

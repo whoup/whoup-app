@@ -18,7 +18,6 @@ var FriendItem = React.createClass({
 
 
   onSelection: function() {
-    console.log(this.props)
     AppActions.launchRelativeItem(this.props.currentRoute, this.props);
   },
 
@@ -40,12 +39,11 @@ var FriendItem = React.createClass({
     );
   },
 
-  renderContent: function() {
+  renderFriend: function() {
     var name = this.renderName();
-    var up = this.props.up == true;
 
     return (
-      <View style={[styles.row, styles.notUpBackground, up && styles.upBackground]}>
+      <View style={[styles.row, styles.notUpBackground]}>
         <View style={[styles.left, styles.rowFlex]}>
           {name}
         </View>
@@ -57,23 +55,7 @@ var FriendItem = React.createClass({
   },
 
   render: function() {
-    //console.log(this.state);
-    if (this.props.noTap) {
-      return this.renderContent();
-    }
-
-    return (
-      <View style={styles.marBottom} >
-        <TouchableHighlight
-              style={styles.touch}
-              underlayColor={cssVar('gray10')}
-              onPress={this.onSelection}
-        >
-          {this.renderContent()}
-        </TouchableHighlight>
-        <View style={cssVar('listFullLine')} />
-      </View>
-    );
+    return this.renderFriend();
   }
 });
 
@@ -89,7 +71,7 @@ var styles = StyleSheet.create({
     flexDirection: 'row',
     paddingTop: 10,
     paddingBottom: 10,
-    //marginBottom: 15,
+    marginBottom: 15,
     paddingLeft: 15,
     paddingRight: 15
   },

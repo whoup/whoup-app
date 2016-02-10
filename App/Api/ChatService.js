@@ -1,4 +1,4 @@
-var client = require('../Api/HTTPClient')
+var client = require('../Api/HTTPClient');
 
 var ChatService = {
   parseMessage: function(response) {
@@ -21,8 +21,10 @@ var ChatService = {
   parseMessages: function(response, room_id) {
     if (!response) return null;
 
-    var out = {messages: []};
-    for(var i in response) {
+    var out = {
+      messages: []
+    };
+    for (var i in response) {
       out.messages.push(ChatService.parseMessage(response[i]));
     }
     out.room_id = room_id;

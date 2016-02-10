@@ -2,7 +2,7 @@ var Dispatcher = require('../Dispatcher');
 
 var DispatcherListener = {
   unregisterDispatcher: function() {
-    if(this.dispatchToken) {
+    if (this.dispatchToken) {
       Dispatcher.unregister(this.dispatchToken);
       this.dispatchToken = null;
     }
@@ -14,8 +14,7 @@ var DispatcherListener = {
         if (this.props.currentRoute && this.props.currentRoute.routePath === action.targetPath) {
           this.dispatchAction(action);
         }
-      }
-      else {
+      } else {
         this.dispatchAction(action);
       }
     }

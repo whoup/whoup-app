@@ -11,18 +11,17 @@ var HTTPClient = {
     return function(error, response) {
       Network.completed();
 
-      if(!inner) return;
+      if (!inner) return;
       // chance to wrap and call original
 
       var parsed = null;
-      if(response && response.text && response.text.length > 0) {
+      if (response && response.text && response.text.length > 0) {
         try {
-           parsed = JSON.parse(response.text);
-        }
-        catch (e) {
-           parsed = null;
-           // TODO: some other error?
-           console.log("HTTPClient could not parse:\n\n" + response.text);
+          parsed = JSON.parse(response.text);
+        } catch (e) {
+          parsed = null;
+          // TODO: some other error?
+          console.log("HTTPClient could not parse:\n\n" + response.text);
         }
       }
 
@@ -34,21 +33,19 @@ var HTTPClient = {
         errorObj = {};
         if (error.status) {
           errorObj.status = error.status; // 422
-        }
-        else {
+        } else {
           errorObj.status = 520; // Unknown error
         }
 
         errorObj.errors = [];
         if (parsed && parsed.error) {
-          errorObj.message = parsed.error
+          errorObj.message = parsed.error;
         }
         if (!errorObj.message) {
           errorObj.message = 'Server Error: ' + errorObj.status;
         }
         console.log("http error (" + errorObj.status + "): " + errorObj.message);
-      }
-      else {
+      } else {
         valueObj = parsed;
       }
       inner(errorObj, valueObj);

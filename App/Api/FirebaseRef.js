@@ -15,20 +15,19 @@ var FirebaseRef = {
   },
 
   userFriendRef: function(uid) {
-    return ref.child('users').child(uid).child('friends')
+    return ref.child('users').child(uid).child('friends');
   },
 
   userFriendReqRef: function(uid) {
-    return ref.child('users').child(uid).child('friend_reqs')
+    return ref.child('users').child(uid).child('friend_reqs');
   },
 
   signOut: function(uid) {
-     var userRef = new Firebase('https://whoup.firebaseio.com/presence/' + uid);
-     userRef.remove()
+    var userRef = new Firebase('https://whoup.firebaseio.com/presence/' + uid);
+    userRef.remove();
     return ref.unauth();
   },
 
 };
 
 module.exports = FirebaseRef;
-

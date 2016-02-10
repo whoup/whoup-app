@@ -1,4 +1,4 @@
-var Dispatcher   = require('../Dispatcher');
+var Dispatcher = require('../Dispatcher');
 var AppConstants = require('../Constants/AppConstants');
 
 var _httpCount = 0; // TODO: immutable?

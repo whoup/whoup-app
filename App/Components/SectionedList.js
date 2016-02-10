@@ -11,6 +11,8 @@ var SimpleListItem = require('../Components/SimpleListItem');
 var SettingsItem = require('../Components/SettingsItem');
 var DashboardItem = require('../Components/DashboardItem');
 var FriendItem = require('../Components/FriendItem');
+var RequestAcceptItem = require('../Components/RequestAcceptItem');
+
 
 //var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
@@ -40,10 +42,14 @@ var SectionedList = React.createClass({
     }
 
     var ListItem;
-    if (item.type === 'request') ListItem = RequestItem;
+    if (sectionId === 'requests') {
+      ListItem = RequestAcceptItem;
+    }
+    else if (sectionId === 'friends') {
+      ListItem = FriendItem;
+    }
     else if (item.type === 'settings') ListItem = SettingsItem;
-    else if (item.type === 'dashboardFriend') ListItem = DashboardItem;
-    else if (item.type === 'friend') ListItem = FriendItem;
+    else if (sectionId === 'up' || sectionId === 'notUp') ListItem = DashboardItem;
     else ListItem = SimpleListItem;
 
     return (

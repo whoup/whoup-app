@@ -36,9 +36,9 @@ var Routes = {
         username: username,
       },
       display: false,
-      // navBack: {
-      //   image:   'owl_b',//'ios-personadd' // TODO: icon font
-      // },
+      navBack: {
+        image:   '',//'ios-personadd' // TODO: icon font
+      },
     };
   },
   Dashboard: function(username) {
@@ -130,7 +130,7 @@ var userRoute = function(username) {
 var LoggedIn = {
   parse: function(host) {
     switch (host) {
-      case 'dashboard':
+      case 'whoup':
         return userRoute(null);
       default:
         return null;
@@ -159,7 +159,7 @@ module.exports = {
     var found = Router.parse(str, parent, defaulted, passProps);
     if (!found && defaulted) {
       if (loggedIn) {
-        found = this.parse('dashboard', true, false, passProps);
+        found = this.parse('whoup', true, false, passProps);
       }
       else {
         found = this.parse('welcome', false, false, passProps);

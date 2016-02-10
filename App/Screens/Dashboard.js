@@ -12,7 +12,7 @@ var NavBarHelper       = require('../Mixins/NavBarHelper');
 var Loading          = require('../Screens/Loading');
 var Text             = require('../Components/Text');
 var Button     = require('../Components/Button');
-var SimpleList       = require('../Components/SectionedList');
+var SectionedList       = require('../Components/SectionedList');
 var AppActions       = require('../Actions/AppActions');
 var cssVar = require('../Lib/cssVar');
 var FriendListStore = require('../Stores/FriendListStore');
@@ -25,9 +25,6 @@ var CURRENT_USER = CurrentUserStore.get().data;
 
 var Rebase = require('re-base');
 var base = Rebase.createClass('https://whoup.firebaseio.com/');
-
-//var ref = new Firebase("https://whoup.firebaseio.com/presence");
-
 
 var ChatRoomList = React.createClass({
   mixins: [NavigationListener, NavBarHelper],
@@ -130,7 +127,7 @@ var ChatRoomList = React.createClass({
   renderItems: function() {
     return (
     <View style={styles.marLeftRight}>
-      <SimpleList
+      <SectionedList
         style={styles.flex}
         currentRoute={this.props.currentRoute}
         getItemProps={this.getItemProps}

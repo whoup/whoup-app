@@ -7,7 +7,7 @@ var {
   TouchableWithoutFeedback,
 } = React;
 var cssVar = require('../Lib/cssVar');
-//var TextInput   = require('../Components/TextInput');
+
 var Button      = require('../Components/Button');
 var FriendActions = require('../Actions/FriendActions');
 var AppActions  = require('../Actions/AppActions');
@@ -18,7 +18,7 @@ var Text             = require('../Components/Text');
 var SearchBar = require('react-native-search-bar');
 var KeyboardListener = require('../Mixins/KeyboardListener');
 
-var RCTUIManager = require('NativeModules').UIManager;
+RequestItem = require('../Components/RequestItem.js')
 
 var CurrentUserStore = require('../Stores/CurrentUserStore');
 var CURRENT_USER = CurrentUserStore.get().data;
@@ -38,36 +38,9 @@ var FriendAdd = React.createClass({
     };
   },
 
-  onButtonSelect: function(label) {
-
-  },
-
-  onSubmitButton: function() {
-    FriendActions.addFriend(this.state.userId, this.state.username, function(error) {
-      if (error) {
-        // TODO: better error handling
-        alert(error.message);
-      }
-      else {
-        AppActions.goBack(this.props.navigator);
-      }
-    }.bind(this));
-  },
-
-  addButton: function() {
-    if (this.state.username) {
-      return (
-        <Image style={styles.plus} source={{uri: 'plus_b'}}/>
-      );
-    } else {
-      return ( <View/>)
-    }
-  },
-
   updateText: function(text) {
-
-  if (text !== ''){
-    text = text.toLowerCase();
+    text = text.replace(/[\[\].#/]/g, '').toLowerCase();;
+  if (text !== '' && text !== CURRENT_USER.username){
     users.child(text).once('value', function(snapshot) {
       var data = snapshot.val();
       if (data !== null) {
@@ -91,20 +64,9 @@ var FriendAdd = React.createClass({
   },
 
   renderBody: function(){
-    var button = this.addButton();
     if (this.state.username){
       return (
-              <View style={[styles.row, styles.inline]}>
-                <Image style={styles.owl} source={{uri: 'owl_b'}}/>
-                <Text style={[styles.username, styles.left, styles.mar_left]}>
-                  @{this.state.username}
-                </Text>
-                <View style={[styles.mar_left, styles.right]}>
-                  <TouchableWithoutFeedback onPress={this.onSubmitButton}>
-                    {button}
-                  </TouchableWithoutFeedback>
-                </View>
-              </View>
+              <RequestItem username={this.state.username} id={this.state.userId} currUid={CURRENT_USER.id} />
             )
     } else {
       return (
@@ -154,11 +116,6 @@ var styles = StyleSheet.create({
   flex: {
     flex: 1
   },
-  plus: {
-    width: 20,
-    height: 20,
-    marginRight: 15
-  },
   input: {
     height: 35,
     fontSize: 15,
@@ -178,12 +135,6 @@ var styles = StyleSheet.create({
   gray: {
     backgroundColor: cssVar('thm4')
   },
-
-  username: {
-    color: cssVar('thm2'),
-    fontSize: 20,
-    lineHeight: 0
-  },
   title: {
     fontSize: 18,
     color: cssVar('thm1')
@@ -196,48 +147,6 @@ var styles = StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: cssVar('thm2')
   },
-  inline: {
-    flexDirection: 'row',
-  },
-  row: {
-    marginTop: 20,
-    backgroundColor: 'white',
-    alignItems: 'center',
-    height: 54,
-  },
-  owl: {
-    width: 32,
-    height: 32,
-    marginLeft: 10,
-    marginRight: 5
-  },
-  durationLabel: {
-    fontSize: 18
-  },
-  durationEdit: {
-    height: 50,
-    width: 50,
-    borderRadius: 5,
-    borderWidth: 1,
-    fontSize: 18,
-
-  },
-  button: {
-    paddingRight: 10
-  },
-  left: {
-    flex: 1,
-  },
-  right: {
-
-  },
-  mar_left: {
-    marginLeft: 10,
-  },
-  footer: {
-    padding: 10,
-    flexDirection: 'row'
-  }
 });
 
 module.exports = FriendAdd;

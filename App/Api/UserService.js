@@ -12,9 +12,14 @@ var UserService = {
   parseFriends: function(response, key) {
     if (!response) return null;
 
-    var out = {friends: []};
-    for(var i in response) {
-      out.friends.push({id: i, username: response[i].username});
+    var out = {
+      friends: []
+    };
+    for (var i in response) {
+      out.friends.push({
+        id: i,
+        username: response[i].username
+      });
     }
     out.key = key;
     return out;
@@ -22,9 +27,14 @@ var UserService = {
   parseFriendReq: function(response, key) {
     if (!response) return null;
 
-    var out = {friendReq: []};
-    for(var i in response) {
-      out.friendReq.push({id: i, username: response[i].username});
+    var out = {
+      friendReq: []
+    };
+    for (var i in response) {
+      out.friendReq.push({
+        id: i,
+        username: response[i].username
+      });
     }
     out.key = key;
     return out;
@@ -34,9 +44,11 @@ var UserService = {
     FirebaseRef.userFriendRef(uid).on('value', function(snapdata) {
       var data = snapdata.val();
       if (data === null || data === 'undefined') {
-        callback(null, {friends: [], key: 'friend'})
-      }
-      else {
+        callback(null, {
+          friends: [],
+          key: 'friend'
+        });
+      } else {
         var listProps = UserService.parseFriends(data, 'friend');
         callback(null, listProps);
       }
@@ -46,9 +58,11 @@ var UserService = {
     FirebaseRef.userFriendReqRef(uid).on('value', function(snapdata) {
       var data = snapdata.val();
       if (data === null || data === 'undefined') {
-        callback(null, {friendReq: [], key: 'request'})
-      }
-      else {
+        callback(null, {
+          friendReq: [],
+          key: 'request'
+        });
+      } else {
         var listProps = UserService.parseFriendReq(data, 'request');
         callback(null, listProps);
       }
@@ -56,7 +70,9 @@ var UserService = {
   },
   getUser: function(authData, callback, error) {
 
-    if (!authData) return callback({message: "An error occurred, please try again"})
+    if (!authData) return callback({
+      message: "An error occurred, please try again"
+    });
     FirebaseRef.userRef(authData.uid).once('value', function(snapshot) {
       var dbData = snapshot.val();
       var data = {};
@@ -73,4 +89,3 @@ var UserService = {
 
 
 module.exports = UserService;
-

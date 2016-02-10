@@ -28,36 +28,34 @@ var base = Rebase.createClass('https://whoup.firebaseio.com/');
 
 var FriendList = React.createClass({
 
-  getDefaultProps: function() {
-    return {
-      navBarTitle: '',
-      listProps: {
-        nextIcon: false
-      },
-    };
-  },
   getInitialState: function() {
     return{
             friends: [],
             requests: [],
+            loading: true,
           }
   },
 
   componentDidMount: function(){
-    this.friendRef = base.bindToState('users/' + CURRENT_USER.id + '/friends', {
+
+    base.fetch('users/' + CURRENT_USER.id + '/friends', {
       context: this,
-      state: 'friends',
-      asArray: true
+      asArray: true,
+      then(data){
+        if (data){
+          this.setState({friends: data, loading: false})
+        }
+      }
     });
-    this.reqRef = base.bindToState('users/' + CURRENT_USER.id + '/requests', {
+    base.fetch('users/' + CURRENT_USER.id + '/friend_reqs', {
       context: this,
-      state: 'requests',
-      asArray: true
+      asArray: true,
+      then(data){
+        if (data){
+          this.setState({requests: data, loading: false})
+        }
+      }
     });
-  },
-  componentWillUnmount: function(){
-    base.removeBinding(this.friendRef);
-    base.removeBinding(this.reqRef);
   },
 
   renderEmpty: function() {
@@ -69,7 +67,7 @@ var FriendList = React.createClass({
   getItemProps: function(friend){
     return {
       key: friend.key,
-      type: 'friend',
+      id: friend.key,
       name: friend.username,
     }
   },
@@ -90,7 +88,7 @@ var FriendList = React.createClass({
    renderContent: function() {
     var content;
     var empty;
-    if (this.state.friends.length === 0) {
+    if (this.state.loading) {
       content = this.renderItems();//this.renderEmpty();
     }
     else {
