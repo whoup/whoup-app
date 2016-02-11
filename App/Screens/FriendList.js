@@ -4,14 +4,13 @@ var {
   StyleSheet,
   Image,
   TouchableOpacity,
+  TouchableHighlight,
 } = React;
 
 
-var ListHelper = require('../Mixins/ListHelper');
+
 var cssVar = require('../Lib/cssVar');
 var Text       = require('../Components/Text');
-var FriendListStore = require('../Stores/FriendListStore');
-var FriendRequestStore = require('../Stores/FriendRequestStore');
 var FriendActions   = require('../Actions/FriendActions');
 var Icon = require('react-native-vector-icons/Ionicons');
 var ActivityView = require('react-native-activity-view');
@@ -19,12 +18,17 @@ var Loading          = require('../Screens/Loading');
 var Text             = require('../Components/Text');
 var SectionedList       = require('../Components/SectionedList');
 
+
 var AppActions = require('../Actions/AppActions');
 var CurrentUserStore = require('../Stores/CurrentUserStore');
 var CURRENT_USER = CurrentUserStore.get().data;
 
 var Rebase = require('re-base');
 var base = Rebase.createClass('https://whoup.firebaseio.com/');
+
+import Dimensions from 'Dimensions';
+
+
 
 var FriendList = React.createClass({
 
@@ -72,13 +76,19 @@ var FriendList = React.createClass({
     }
   },
 
+  getItems: function() {
+    if (this.state.requests.length === 0 )
+     return {friends: this.state.friends };
+    else return { requests: this.state.requests, friends: this.state.friends};
+  },
+
   renderItems: function() {
     return (
       <SectionedList
-        style={styles.flex}
+        style={[styles.flex]}
         currentRoute={this.props.currentRoute}
         getItemProps={this.getItemProps}
-        items={{requests: this.state.requests, friends: this.state.friends}}
+        items={this.getItems()}
         {...this.props.listProps}
       />
     );
@@ -119,6 +129,13 @@ var FriendList = React.createClass({
   }
 });
 
+
+
+
+
+
+
+
 var FriendAndRequestList = React.createClass({
   getDefaultProps: function() {
     return {
@@ -140,6 +157,9 @@ var FriendAndRequestList = React.createClass({
     });
   },
 
+  // <TouchableOpacity style={styles.flex} onPress={this.goBack} >
+            // <Image style={[styles.imageCIcon]} source={{uri: 'eyes'}} />
+          // </TouchableOpacity>
   renderTitle: function() {
     //var name = this.props.passProps == undefined ? null : this.props.passProps.username
     return (
@@ -147,39 +167,38 @@ var FriendAndRequestList = React.createClass({
           <TouchableOpacity onPress={this.launchActivityView} >
             <Image style={[styles.imageLIcon]} source={{uri: 'invite'}} />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.flex} onPress={this.goBack} >
-            <Image style={[styles.imageCIcon]} source={{uri: 'eyes'}} />
-          </TouchableOpacity>
+          <Text style={styles.title} >
+            My Friends
+          </Text>
           <TouchableOpacity onPress={this.goBack} >
-            <Image style={[styles.imageRIcon]} source={{uri: 'owl_b'}} />
+            <Icon name={'ios-arrow-right'} size={25} color={cssVar('thm3')} style={[styles.imageRIcon]} />
           </TouchableOpacity>
       </View>
     );
   },
 
+
+
   render: function() {
-    var noReqs;
-    var reqStore = FriendRequestStore;
-    var anyRequests = reqStore.get('request');
-    var anyFriends = reqStore.get('friend');
-    if (anyRequests === null || anyRequests === 'undefined'|| anyRequests.length === 0) {
-      noReqs = false;
-    }
-    else {
-      noReqs = true;
-    }
+    // var noReqs;
+    // var reqStore = FriendRequestStore;
+    // var anyRequests = reqStore.get('request');
+    // var anyFriends = reqStore.get('friend');
+    // if (anyRequests === null || anyRequests === 'undefined'|| anyRequests.length === 0) {
+    //   noReqs = false;
+    // }
+    // else {
+    //   noReqs = true;
+    // }
 
     return (
       <Image style={[styles.flex, styles.paddTop]} source={{uri: 'yellow'}}>
         {this.renderTitle()}
-        <View style={[styles.container, noReqs && styles.qflex]}>
-
+        <View style={[styles.header]}>
+          <Image style={[styles.imageCIcon]} source={{uri: 'eyes'}} />
         </View>
-        <View style={styles.spacer}/>
         <View style={[styles.container, styles.flex]}>
-          <FriendList store={FriendListStore} {...this.props} />
-        </View>
-        <View style={[styles.qflex, styles.centered]}>
+          <FriendList {...this.props} />
           <TouchableOpacity style={styles.button} onPress={this.friendAdd}>
             <Image style={[styles.add]} source={{uri: 'plus_b'}} />
           </TouchableOpacity>
@@ -188,18 +207,18 @@ var FriendAndRequestList = React.createClass({
             );
   }
 });
-
+var SCR_WDTH = Dimensions.get('window').width;
+var SCR_HGTH = Dimensions.get('window').height;
 var styles = StyleSheet.create({
   flex: {
     flex: 1
   },
   navBar: {
-    height: 44,
+    height: 34,
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row',
-    backgroundColor: 'transparent',
-    //backgroundColor: cssVar('thm1')
+    backgroundColor: cssVar('thm2'),
   },
   paddTop: {
     marginTop: 20
@@ -216,9 +235,11 @@ var styles = StyleSheet.create({
     justifyContent: 'center'
   },
   button: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
+    width: SCR_WDTH * .13,
+    height: SCR_WDTH * .13,
+    left: SCR_WDTH / 2 - SCR_WDTH * .065 ,
+    //top: SCR_HGTH * 0.75,
+    borderRadius: SCR_WDTH * .13,
     borderColor: cssVar('thm1'),
     borderWidth: 1,
     shadowColor: "black",
@@ -231,17 +252,18 @@ var styles = StyleSheet.create({
     backgroundColor: cssVar('thm1'),
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 50,
+    bottom: 50
   },
-  eyesIcon: {
+   title: {
+    fontSize: 18,
+    color: cssVar('thm1'),
     flex: 1,
+    textAlign: 'center',
+    marginBottom: 5
   },
   imageRIcon: {
-    width: 30,
-    height: 30,
     marginRight: 17,
     marginTop: -3,
-    backgroundColor: 'transparent',
   },
   imageLIcon: {
     width: 30,
@@ -261,17 +283,13 @@ var styles = StyleSheet.create({
     paddingLeft: 10,
     paddingRight: 10
   },
-  section: {
-    fontSize: 12,
-    color: 'rgba(0, 122, 255, 1)',
-    paddingTop: 25,
-    paddingBottom: 8,
-    paddingLeft: 12
+  header: {
+    backgroundColor: 'transparent',
+    paddingTop: 10,
   },
   spacer: {
     height: 25,
-  }
-
+  },
 });
 
 

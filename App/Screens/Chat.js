@@ -45,8 +45,6 @@ var Chat = React.createClass({
   //   };
   // },
   getListItems: function() {
-    console.log(this.props);
-
     return ChatListStore.get(this.props.room_id);
   },
 
@@ -232,11 +230,13 @@ var Chat = React.createClass({
     // else {
 
     // }
+
+
+    //{progress}
     return (
       <View style={[styles.flex, {backgroundColor: 'black'}]}>
         {title}
         <View style={[styles.flex, styles.white]} >
-          {progress}
           {content}
         </View>
           <ChatInput toggleSubmitting={this.toggleSending} updateProgress={this.updateProgress}
@@ -247,9 +247,9 @@ var Chat = React.createClass({
   },
 
   render: function() {
-    if (!this.state.items) {
+    if (!this.state.friends) {
       // TODO: load error?
-      return this.renderContent();//<Loading />;
+      <Loading />;
     }
     else {
       return this.renderContent();

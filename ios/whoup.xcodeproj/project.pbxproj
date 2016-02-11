@@ -35,6 +35,7 @@
 		332C6ACA1BEA09B800A9921C /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 332C6AC71BEA092500A9921C /* libRNVectorIcons.a */; };
 		332C6ACC1BEA0B3D00A9921C /* EnvironmentManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 332C6ACB1BEA0B3D00A9921C /* EnvironmentManager.m */; };
 		333446701C659D610052FDBF /* libActivityView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3334466F1C659D520052FDBF /* libActivityView.a */; };
+		3343264D1C6B1C1100BC2939 /* sleepy.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3343263B1C6B0F1B00BC2939 /* sleepy.gif */; };
 		33970B4D1C42FFFE00526283 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 33970B4F1C42FFFE00526283 /* Launch Screen.storyboard */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 /* End PBXBuildFile section */
@@ -198,6 +199,7 @@
 		332C6ACB1BEA0B3D00A9921C /* EnvironmentManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EnvironmentManager.m; sourceTree = "<group>"; };
 		3334464A1C659C2D0052FDBF /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		3334466A1C659D510052FDBF /* ActivityView.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ActivityView.xcodeproj; path = "../node_modules/react-native-activity-view/ActivityView.xcodeproj"; sourceTree = "<group>"; };
+		3343263B1C6B0F1B00BC2939 /* sleepy.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = sleepy.gif; sourceTree = "<group>"; };
 		33970B4E1C42FFFE00526283 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "Base.lproj/Launch Screen.storyboard"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
@@ -448,6 +450,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				3343263B1C6B0F1B00BC2939 /* sleepy.gif */,
 				332C6A9D1BEA07C200A9921C /* Fonts */,
 				13B07FAE1A68108700A75B9A /* whoup */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
@@ -738,6 +741,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3343264D1C6B1C1100BC2939 /* sleepy.gif in Resources */,
 				332C6AAC1BEA07C200A9921C /* Octicons.ttf in Resources */,
 				332C6AA91BEA07C200A9921C /* Foundation.ttf in Resources */,
 				332C6AAA1BEA07C200A9921C /* Ionicons.ttf in Resources */,

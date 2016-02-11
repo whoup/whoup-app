@@ -3,7 +3,8 @@ var {
   View,
   StyleSheet,
   ListView,
-  Image
+  Image,
+  AppStateIOS
 } = React;
 
 var CurrentUserStore   = require('../Stores/CurrentUserStore');
@@ -33,8 +34,7 @@ var ChatRoomList = React.createClass({
     return {
               users: [],
               up: {},
-              users_up:[],
-              users_not_up: []
+              appState: 'active'
           }
   },
 
@@ -83,6 +83,8 @@ var ChatRoomList = React.createClass({
       state: 'up',
       asArray: false,
     });
+
+    AppStateIOS.addEventListener('change', this._handleAppStateChange);
   },
 
   componentWillUnmount: function() {
@@ -90,6 +92,14 @@ var ChatRoomList = React.createClass({
     base.removeBinding(this.ref);
     base.removeBinding(this.ups);
     // console.log(this.state);
+
+   AppStateIOS.removeEventListener('change', this._handleAppStateChange);
+  },
+
+
+  _handleAppStateChange: function(currentAppState) {
+    console.log(currentAppState);
+    this.setState({ appState: currentAppState  });
   },
 
   sortUsers: function(){
@@ -103,9 +113,20 @@ var ChatRoomList = React.createClass({
       else {
         notUp.push(user);
       }
+    };
+    if (up.length === 0){
+      up = notUp;
+      return { up: notUp };
     }
-    return {up, notUp}
+    else
+      return { up: up, notUp: notUp };
   },
+
+  // getUsers: function() {
+  //   users = this.sortUsers();
+  //   return {up: users.notUp };
+  //   else return { up: users.up, notUp: users.notUp};
+  // },
 
   getNavBarState: function() {
     var title = this.props.navBarTitle ? this.props.navBarTitle : "";
@@ -149,17 +170,18 @@ var ChatRoomList = React.createClass({
   },
   renderContent: function() {
     var content = this.renderItems();
-    return (
-      <Image style={[styles.flex,]} source={{uri: 'black'}}>
-        <View style={[styles.center, styles.qflex, styles.copyOffset, styles.black, styles.paddTop]}>
-          <Image style={styles.icon} source={{uri: 'owl'}} />
-            <Text style={styles.copy}>
-              Who Up?
-            </Text>
-          </View>
-        {content}
-      </Image>
-    );
+        return (
+          <Image style={[styles.flex,]} source={{uri: 'black'}}>
+            <View style={[styles.center, styles.qflex, styles.copyOffset, styles.black, styles.paddTop]}>
+              <Image style={styles.icon} source={{uri: 'owl'}} />
+                <Text style={styles.copy}>
+                  Who Up?
+                </Text>
+              </View>
+            {content}
+          </Image>
+          );
+
   },
 
   renderNotTime: function() {
@@ -191,21 +213,39 @@ var ChatRoomList = React.createClass({
   },
 
   renderYouUp: function() {
-    return (<Image style={[styles.flex, styles.paddTop]} source={{uri: 'black'}}>
-            <View style={[styles.flex, styles.container, styles.offsetBottom]}>
-              <Image
-                style={styles.logo}
-                source={{uri: 'sleepy_owl'}}
-                />
-                  <Text style={[styles.question]}>
-                    {'You Up?'}
-                  </Text>
-                  <Button onPress={this.imUp} style={styles.button}>
-                      {'YES'}
-                  </Button>
-                </View>
-                </Image>
-            );
+   if (this.state.appState === 'active') {
+      return (<Image style={[styles.flex, styles.paddTop]} source={{uri: 'black'}}>
+              <View style={[styles.flex, styles.container, styles.offsetBottom]}>
+                <Image
+                  style={styles.logo}
+                  source={{uri: 'sleepy.gif'}}
+                  />
+                    <Text style={[styles.question]}>
+                      {'You Up?'}
+                    </Text>
+                    <Button onPress={this.imUp} style={styles.button}>
+                        {'YES'}
+                    </Button>
+                  </View>
+                  </Image>
+              );
+    } else {
+       return (<Image style={[styles.flex, styles.paddTop]} source={{uri: 'black'}}>
+              <View style={[styles.flex, styles.container, styles.offsetBottom]}>
+                <Image
+                  style={styles.logo}
+                  source={{uri: 'sleepy_owl'}}
+                  />
+                    <Text style={[styles.question]}>
+                      {'You Up?'}
+                    </Text>
+                    <Button onPress={this.imUp} style={styles.button}>
+                        {'YES'}
+                    </Button>
+                  </View>
+                  </Image>
+              );
+    }
   },
 
   render: function() {
@@ -237,7 +277,7 @@ var styles = StyleSheet.create({
     color: cssVar('thm1')
   },
   black: {
-    backgroundColor: 'rgba(0,0,0,0.5)',
+    backgroundColor: cssVar('thm2')//'rgba(0,0,0,0.5)',
   },
   notTime: {
     width: 300,

@@ -91,17 +91,19 @@ var styles = StyleSheet.create({
   row: {
     flex: 1,
     flexDirection: 'row',
-    alignItems: 'center',
-    height: 54,
+    paddingTop: 10,
+    paddingBottom: 10,
+    marginBottom: 15,
     paddingLeft: 15,
-    paddingRight: 15
+    paddingRight: 15,
+    alignItems: 'center',
   },
   marBottom: {
     marginBottom: 15,
   },
   rowFlex: {
     flexDirection: 'row',
-    alignItems: 'center',
+
   },
   container: {
     flex: 1,
@@ -151,8 +153,8 @@ var styles = StyleSheet.create({
     marginRight: 15
   },
   loading: {
-    width: 50,
-    height: 50,
+    width: 30,
+    height: 30,
     justifyContent: 'center',
   },
 });

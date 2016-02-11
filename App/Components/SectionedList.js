@@ -36,6 +36,7 @@ var SectionedList = React.createClass({
     if (this.props.nextIcon)     passAlong.nextIcon     = this.props.nextIcon;
     if (this.props.noTap)        passAlong.noTap        = this.props.noTap;
 
+
     if (this.props.getItemProps) {
       // swtich it out
       item = this.props.getItemProps(item);
@@ -57,12 +58,12 @@ var SectionedList = React.createClass({
     );
   },
 
-  renderSectionHeader: function(sectionData, sectionID){
-    if (sectionID == 'up' || sectionID == 'requests') {
+  renderSectionHeader: function(sectionData, sectionId){
+    if (sectionId === 'up') {
       return <View/>
     }
     else {
-       return (<View style={{height: 30}}/>)
+       return (<View style={{height: 25}}/>)
     }
 
   },
