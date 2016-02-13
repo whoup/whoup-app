@@ -10,7 +10,7 @@ var FirebaseRef    = require('../Api/FirebaseRef');
 
 var CHANGE_EVENT     = 'change';
 var LOCAL_STORE_KEY  = 'CurrentUser';
-var KEYCHAIN_SERVICE = 'Sample';
+var KEYCHAIN_SERVICE = 'WhoUp';
 
 // null so we know to initialize on app launch
 var _singleton = null;

@@ -237,10 +237,10 @@ var styles = StyleSheet.create({
   button: {
     width: SCR_WDTH * .14,
     height: SCR_WDTH * .14,
-    left: (SCR_WDTH / 2) - (SCR_WDTH * .085) ,
+    left: (SCR_WDTH / 2) - (SCR_WDTH * .07) ,
+    bottom: 50,
+    position: 'absolute',
     borderRadius: SCR_WDTH * .13,
-    borderColor: cssVar('thm1'),
-    borderWidth: 1,
     shadowColor: "black",
     shadowOpacity: 0.4,
     shadowRadius: 5,
@@ -251,7 +251,6 @@ var styles = StyleSheet.create({
     backgroundColor: cssVar('thm1'),
     justifyContent: 'center',
     alignItems: 'center',
-    bottom: 50
   },
    title: {
     fontSize: 18,
