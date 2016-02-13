@@ -171,7 +171,7 @@ var FriendAndRequestList = React.createClass({
             My Friends
           </Text>
           <TouchableOpacity onPress={this.goBack} >
-            <Icon name={'ios-arrow-right'} size={25} color={cssVar('thm3')} style={[styles.imageRIcon]} />
+            <Icon name={'ios-arrow-right'} size={30} color={cssVar('thm3')} style={[styles.imageRIcon]} />
           </TouchableOpacity>
       </View>
     );
@@ -214,7 +214,7 @@ var styles = StyleSheet.create({
     flex: 1
   },
   navBar: {
-    height: 34,
+    height: 44,
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row',
@@ -235,10 +235,9 @@ var styles = StyleSheet.create({
     justifyContent: 'center'
   },
   button: {
-    width: SCR_WDTH * .13,
-    height: SCR_WDTH * .13,
-    left: SCR_WDTH / 2 - SCR_WDTH * .065 ,
-    //top: SCR_HGTH * 0.75,
+    width: SCR_WDTH * .14,
+    height: SCR_WDTH * .14,
+    left: (SCR_WDTH / 2) - (SCR_WDTH * .085) ,
     borderRadius: SCR_WDTH * .13,
     borderColor: cssVar('thm1'),
     borderWidth: 1,

@@ -4,7 +4,6 @@ var {
   StyleSheet,
   ListView,
   Image,
-  AppStateIOS
 } = React;
 
 var CurrentUserStore   = require('../Stores/CurrentUserStore');
@@ -12,6 +11,7 @@ var NavigationListener = require('../Mixins/NavigationListener');
 var NavBarHelper       = require('../Mixins/NavBarHelper');
 var Loading          = require('../Screens/Loading');
 var Text             = require('../Components/Text');
+var AnimatedImage    = require('../Components/AnimatedImage');
 var Button     = require('../Components/Button');
 var SectionedList       = require('../Components/SectionedList');
 var AppActions       = require('../Actions/AppActions');
@@ -34,7 +34,6 @@ var ChatRoomList = React.createClass({
     return {
               users: [],
               up: {},
-              appState: 'active'
           }
   },
 
@@ -83,8 +82,6 @@ var ChatRoomList = React.createClass({
       state: 'up',
       asArray: false,
     });
-
-    AppStateIOS.addEventListener('change', this._handleAppStateChange);
   },
 
   componentWillUnmount: function() {
@@ -92,8 +89,6 @@ var ChatRoomList = React.createClass({
     base.removeBinding(this.ref);
     base.removeBinding(this.ups);
     // console.log(this.state);
-
-   AppStateIOS.removeEventListener('change', this._handleAppStateChange);
   },
 
 
@@ -121,12 +116,6 @@ var ChatRoomList = React.createClass({
     else
       return { up: up, notUp: notUp };
   },
-
-  // getUsers: function() {
-  //   users = this.sortUsers();
-  //   return {up: users.notUp };
-  //   else return { up: users.up, notUp: users.notUp};
-  // },
 
   getNavBarState: function() {
     var title = this.props.navBarTitle ? this.props.navBarTitle : "";
@@ -213,39 +202,23 @@ var ChatRoomList = React.createClass({
   },
 
   renderYouUp: function() {
-   if (this.state.appState === 'active') {
-      return (<Image style={[styles.flex, styles.paddTop]} source={{uri: 'black'}}>
-              <View style={[styles.flex, styles.container, styles.offsetBottom]}>
-                <Image
-                  style={styles.logo}
-                  source={{uri: 'sleepy.gif'}}
-                  />
-                    <Text style={[styles.question]}>
-                      {'You Up?'}
-                    </Text>
-                    <Button onPress={this.imUp} style={styles.button}>
-                        {'YES'}
-                    </Button>
-                  </View>
-                  </Image>
-              );
-    } else {
-       return (<Image style={[styles.flex, styles.paddTop]} source={{uri: 'black'}}>
-              <View style={[styles.flex, styles.container, styles.offsetBottom]}>
-                <Image
-                  style={styles.logo}
-                  source={{uri: 'sleepy_owl'}}
-                  />
-                    <Text style={[styles.question]}>
-                      {'You Up?'}
-                    </Text>
-                    <Button onPress={this.imUp} style={styles.button}>
-                        {'YES'}
-                    </Button>
-                  </View>
-                  </Image>
-              );
-    }
+    return (<Image style={[styles.flex, styles.paddTop]} source={{uri: 'black'}}>
+            <View style={[styles.flex, styles.container, styles.offsetBottom]}>
+              <AnimatedImage
+                style={styles.logo}
+                resizeMode={'contain'}
+                active={'sleepy.gif'}
+                inactive={'sleepy_owl'}
+                />
+                  <Text style={[styles.question]}>
+                    {'You Up?'}
+                  </Text>
+                  <Button onPress={this.imUp} style={styles.button}>
+                      {'YES'}
+                  </Button>
+                </View>
+                </Image>
+            );
   },
 
   render: function() {
@@ -277,7 +250,7 @@ var styles = StyleSheet.create({
     color: cssVar('thm1')
   },
   black: {
-    backgroundColor: cssVar('thm2')//'rgba(0,0,0,0.5)',
+    backgroundColor: cssVar('thm2')
   },
   notTime: {
     width: 300,
