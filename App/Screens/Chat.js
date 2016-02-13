@@ -247,13 +247,7 @@ var Chat = React.createClass({
   },
 
   render: function() {
-    if (!this.state.friends) {
-      // TODO: load error?
-      <Loading />;
-    }
-    else {
-      return this.renderContent();
-    }
+    return this.renderContent();
   }
 });
 
