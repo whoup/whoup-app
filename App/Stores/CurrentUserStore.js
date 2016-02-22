@@ -17,7 +17,7 @@ var _singleton = null;
 
 function initSingleton(storedProps, token, username) {
   if (storedProps && token && username) {
-    if (storedProps.id && storedProps.id.toString() === username.toString()) {
+    if (storedProps.id && storedProps.id === username.toString()) {
       // matches
       setUserProps(storedProps, token);
       return;
@@ -34,7 +34,7 @@ function saveSingleton() {
   if(_singleton) {
     LocalKeyStore.setKey(LOCAL_STORE_KEY, _singleton.data);
     if (_singleton.data.id && _singleton.getToken()) {
-      Keychain.setGenericPassword(_singleton.data.id.toString(), _singleton.getToken(), KEYCHAIN_SERVICE);
+      Keychain.setGenericPassword(_singleton.data.id, _singleton.getToken(), KEYCHAIN_SERVICE);
     }
   }
 }
@@ -67,12 +67,19 @@ var SingletonStore = assign({}, EventEmitter.prototype, {
 Dispatcher.register(function(action) {
   switch(action.actionType) {
     case AppConstants.APP_LAUNCHED:
-      Keychain.getGenericPassword(KEYCHAIN_SERVICE, function(keychainError, username, token) {
-        LocalKeyStore.getKey(LOCAL_STORE_KEY, function(storeError, props) {
-          initSingleton(props, token, username);
-          SingletonStore.emitChange();
-        });
-      });
+      Keychain.
+        getGenericPassword(KEYCHAIN_SERVICE)
+        .then((credentials) => {
+          LocalKeyStore.getKey(LOCAL_STORE_KEY, function(storeError, props) {
+            initSingleton(props, credentials.password, credentials.username);
+            SingletonStore.emitChange();
+          });
+        })
+        .catch((err) => {
+            initSingleton(null, null, null);
+            SingletonStore.emitChange();
+        }
+      );
       break;
     case AppConstants.LOGIN_USER:
     case AppConstants.USER_UPDATED:
@@ -81,7 +88,7 @@ Dispatcher.register(function(action) {
       saveSingleton();
       break;
     case AppConstants.LOGOUT_REQUESTED:
-      FirebaseRef.signOut(SingletonStore.get().data.id);
+      FirebaseRef.signOut(_singleton.data.id);
       clearData();
       SingletonStore.emitChange();
       break;
