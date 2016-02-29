@@ -21,6 +21,7 @@ var AppActions         = require('./Actions/AppActions');
 var CurrentUserStore   = require('./Stores/CurrentUserStore');
 var EnvironmentStore   = require('./Stores/EnvironmentStore');
 var DispatcherListener = require('./Mixins/DispatcherListener');
+var RemotePushIOS = require("./../RemotePushIOS");
 
 function getUserState() {
   return {
@@ -67,6 +68,17 @@ var Root = React.createClass({
   componentWillUnmount: function() {
     EnvironmentStore.removeChangeListener(this.onEnvChange);
     CurrentUserStore.removeChangeListener(this.onUserChange);
+  },
+  registerForPushNotifs: function(uid){
+    RemotePushIOS.requestPermissions(function(err, data) {
+      if (err) {
+        console.log("shit")
+      } else {
+        // On success, data will contain your device token. You're probably going to want to send this to your server.
+        FirebaseRef.userRef(uid).child('deviceToken').push({token: data.token})
+      }
+    });
+
   },
 
   renderContent: function() {

@@ -16,19 +16,17 @@ var Button     = require('../Components/Button');
 var SectionedList       = require('../Components/SectionedList');
 var AppActions       = require('../Actions/AppActions');
 var cssVar = require('../Lib/cssVar');
-var FriendListStore = require('../Stores/FriendListStore');
-var CurrentUserStore = require('../Stores/CurrentUserStore');
 var FriendActions = require('../Actions/FriendActions');
 var ChatActions = require('../Actions/ChatActions');
-
-var CurrentUserStore = require('../Stores/CurrentUserStore');
-var CURRENT_USER = CurrentUserStore.get().data;
-
+var TimerMixin = require('react-timer-mixin');
 var Rebase = require('re-base');
+
+
+var CURRENT_USER = CurrentUserStore.get().data;
 var base = Rebase.createClass('https://whoup.firebaseio.com/');
 
 var ChatRoomList = React.createClass({
-  mixins: [NavigationListener, NavBarHelper],
+  mixins: [TimerMixin],
 
   getInitialState: function() {
     return {
@@ -52,7 +50,7 @@ var ChatRoomList = React.createClass({
       type: 'dashboardFriend',
       id: friend.key,
       up: this.state.up[friend.key],
-      subPath: '_chat',
+      subPath: friend.key,
       passProps: {
         id: friend.key,
         username: friend.username
@@ -66,12 +64,34 @@ var ChatRoomList = React.createClass({
   },
 
 
-  onDidFocusNavigation: function() {
-    // items may have changed
-    //this.setState(this.getListState());
+  setUpNotUpTimers: function() {
+    var now = new Date();
+      var sixAm = new Date(
+          now.getFullYear(),
+          now.getMonth(),
+          now.getDate(),
+          24,0,0);
+
+    if (now < sixAm) {
+      this.setTimeout(
+        () => { AppActions.launchRoutePath('whoup/dashboard'); },
+        (sixAm.getTime() - now.getTime())
+      );
+    } else {
+      var itsTime = new Date(
+          now.getFullYear(),
+          now.getMonth(),
+          now.getDate(),
+          24,0,0);
+      this.setTimeout(
+        () => { AppActions.launchRoutePath('whoup/dashboard'); },
+        (itsTime.getTime() - now.getTime())
+      );
+    }
   },
 
   componentDidMount: function() {
+    this.setUpNotUpTimers();
     this.ref = base.syncState('users/' + CURRENT_USER.id + '/friends', {
       context: this,
       state: 'users',
@@ -85,16 +105,8 @@ var ChatRoomList = React.createClass({
   },
 
   componentWillUnmount: function() {
-    //this.props.store.removeChangeListener(this._onChange);
     base.removeBinding(this.ref);
     base.removeBinding(this.ups);
-    // console.log(this.state);
-  },
-
-
-  _handleAppStateChange: function(currentAppState) {
-    console.log(currentAppState);
-    this.setState({ appState: currentAppState  });
   },
 
   sortUsers: function(){
@@ -176,7 +188,12 @@ var ChatRoomList = React.createClass({
   renderNotTime: function() {
     return (
     <Image style={[styles.container]} source={{uri: 'white'}}>
-      <Image style={styles.icon} source={{uri: 'owl'}} />
+      <AnimatedImage
+                style={styles.notTimeIcon}
+                resizeMode={'contain'}
+                active={'bored.gif'}
+                inactive={'bored_owl'}
+                />
       <Image style={[styles.notTime]} source={{uri: 'not_time'}}>
       </Image>
     </Image>)
@@ -290,6 +307,11 @@ var styles = StyleSheet.create({
   icon: {
     width: 75,
     height: 75,
+    backgroundColor: 'transparent'
+  },
+  notTimeIcon: {
+    width: 150,
+    height: 150,
     backgroundColor: 'transparent'
   },
   center: {

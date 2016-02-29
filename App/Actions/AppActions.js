@@ -40,7 +40,6 @@ var AppActions = {
       Dispatcher.dispatch(props);
     }
     else if (props.routePath) {
-      console.log(props.routePath);
       this.launchRoutePath(props.routePath, props.passProps);
     }
     else {
@@ -50,6 +49,7 @@ var AppActions = {
 
   launchRelativeItem: function(currentRoute, item) {
     var navItem = assign({}, item); // clone so we can mess with it
+    console.log(navItem);
 
     if(!navItem.routePath && navItem.replacePath) {
       var pieces = currentRoute.routePath.split("/");

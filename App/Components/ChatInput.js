@@ -46,7 +46,7 @@ var ChatInput = React.createClass({
   },
 
   onSubmitButton: function() {
-    if (!this.state.submitting) {
+    if (!this.state.submitting && this.state.body !== '') {
       postEnd = 'users/' + this.props.friendId + '/messages/' + this.props.currUid;
       currUsrEnd = 'users/' + this.props.currUid + '/messages/' + this.props.friendId;
       this.props.toggleSubmitting();

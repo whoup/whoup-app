@@ -25,7 +25,7 @@ var Login = React.createClass({
     }
   },
 
-  submit_login: function() {
+  submitLogin: function() {
     this.setState({submitted: true})
     var password = this.state.password;
     var email = this.state.email;
@@ -47,7 +47,7 @@ var Login = React.createClass({
     }
     else {
       button =
-      (<TouchableHighlight style={styles.button} onPress={this.submit_login}>
+      (<TouchableHighlight style={styles.button} onPress={this.submitLogin}>
           <Icon name={'ios-arrow-forward'} size={30} color={'#000000'} style={[styles.next]} />
         </TouchableHighlight>)
     };

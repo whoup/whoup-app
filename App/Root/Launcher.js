@@ -28,9 +28,11 @@ var Launcher = {
         break;
       case AppConstants.RELOAD_PATH:
         // TODO
-        //root.setState({loading: true}, function() {
+        // root.setState({loading: true}, function() {
+        //   console.log(root.state.routeStack)
+        //   root.setState({routeStack: root.state.routeStack});
         //  root.setState({loading: false});
-        //});
+        // });
         break;
       default:
         break;

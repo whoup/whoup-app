@@ -6,16 +6,21 @@
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  */
-
+#import "RemotePushDelegate.h"
 #import "AppDelegate.h"
 
 #import "RCTRootView.h"
 
 @implementation AppDelegate
 
+- (id) init {
+  return self;
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
   NSURL *jsCodeLocation;
+
 
   /**
    * Loading JavaScript code - uncomment the one you want.
@@ -30,7 +35,10 @@
    * `inet` value under `en0:`) and make sure your computer and iOS device are
    * on the same Wi-Fi network.
    */
-jsCodeLocation = [NSURL URLWithString:@"http://localhost:8081/index.ios.bundle?platform=ios&dev=true"];
+  
+  jsCodeLocation = [NSURL URLWithString:@"http://10.0.0.9:8081/index.ios.bundle?platform=ios&dev=true"];
+
+  //jsCodeLocation = [NSURL URLWithString:@"http://localhost:8081/index.ios.bundle?platform=ios&dev=true"];
   
 //  for (NSString* family in [UIFont familyNames])
 //  {
@@ -51,7 +59,7 @@ jsCodeLocation = [NSURL URLWithString:@"http://localhost:8081/index.ios.bundle?p
    * see http://facebook.github.io/react-native/docs/runningondevice.html
    */
 
- // jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
+//  jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
 
   RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
                                                       moduleName:@"whoup"

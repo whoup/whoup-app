@@ -26,6 +26,7 @@ var CURRENT_USER = CurrentUserStore.get().data;
 var Rebase = require('re-base');
 var base = Rebase.createClass('https://whoup.firebaseio.com/');
 
+
 import Dimensions from 'Dimensions';
 
 
@@ -130,12 +131,6 @@ var FriendList = React.createClass({
 });
 
 
-
-
-
-
-
-
 var FriendAndRequestList = React.createClass({
   getDefaultProps: function() {
     return {
@@ -192,7 +187,7 @@ var FriendAndRequestList = React.createClass({
     // }
 
     return (
-      <Image style={[styles.flex, styles.paddTop]} source={{uri: 'yellow'}}>
+      <Image style={[styles.flex]} source={{uri: 'yellow'}}>
         {this.renderTitle()}
         <View style={[styles.header]}>
           <Image style={[styles.imageCIcon]} source={{uri: 'eyes'}} />
@@ -214,14 +209,12 @@ var styles = StyleSheet.create({
     flex: 1
   },
   navBar: {
-    height: 44,
+    height: 64,
+    paddingTop: 20,
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row',
     backgroundColor: cssVar('thm2'),
-  },
-  paddTop: {
-    marginTop: 20
   },
   qflex: {
     flex: 0.1
@@ -261,7 +254,10 @@ var styles = StyleSheet.create({
   },
   imageRIcon: {
     marginRight: 17,
+    textAlign: 'right',
     marginTop: -3,
+    width: 30,
+    height: 30,
   },
   imageLIcon: {
     width: 30,
@@ -284,6 +280,7 @@ var styles = StyleSheet.create({
   header: {
     backgroundColor: 'transparent',
     paddingTop: 10,
+    paddingBottom: 10,
   },
   spacer: {
     height: 25,

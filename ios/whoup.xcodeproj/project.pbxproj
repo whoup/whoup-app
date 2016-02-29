@@ -37,6 +37,10 @@
 		333446701C659D610052FDBF /* libActivityView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3334466F1C659D520052FDBF /* libActivityView.a */; };
 		336DD3191C6EE42800DF160F /* sleepy.gif in Resources */ = {isa = PBXBuildFile; fileRef = 336DD3181C6EE42800DF160F /* sleepy.gif */; };
 		33970B4D1C42FFFE00526283 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 33970B4F1C42FFFE00526283 /* Launch Screen.storyboard */; };
+		33DF305C1C82704F00F0BFBA /* libRCTRemotePushManager.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 330273E51BFC5E470012D429 /* libRCTRemotePushManager.a */; };
+		33DF306F1C8270EA00F0BFBA /* RemotePushDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 33DF306D1C8270EA00F0BFBA /* RemotePushDelegate.m */; };
+		33DF30721C82B36400F0BFBA /* bored.gif in Resources */ = {isa = PBXBuildFile; fileRef = 33DF30711C82B36400F0BFBA /* bored.gif */; };
+		33DF30741C82B37700F0BFBA /* eyes.gif in Resources */ = {isa = PBXBuildFile; fileRef = 33DF30731C82B37700F0BFBA /* eyes.gif */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 /* End PBXBuildFile section */
 
@@ -200,7 +204,12 @@
 		3334464A1C659C2D0052FDBF /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		3334466A1C659D510052FDBF /* ActivityView.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ActivityView.xcodeproj; path = "../node_modules/react-native-activity-view/ActivityView.xcodeproj"; sourceTree = "<group>"; };
 		336DD3181C6EE42800DF160F /* sleepy.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = sleepy.gif; sourceTree = "<group>"; };
+		33781C891C7D7C7C00E6BBB2 /* Bored.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Bored.gif; sourceTree = "<group>"; };
 		33970B4E1C42FFFE00526283 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "Base.lproj/Launch Screen.storyboard"; sourceTree = "<group>"; };
+		33DF306C1C8270EA00F0BFBA /* RemotePushDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemotePushDelegate.h; sourceTree = "<group>"; };
+		33DF306D1C8270EA00F0BFBA /* RemotePushDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RemotePushDelegate.m; sourceTree = "<group>"; };
+		33DF30711C82B36400F0BFBA /* bored.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = bored.gif; sourceTree = "<group>"; };
+		33DF30731C82B37700F0BFBA /* eyes.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = eyes.gif; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -226,6 +235,7 @@
 				00C302E91ABCBA2D00DB3ED1 /* libRCTNetwork.a in Frameworks */,
 				00C302E81ABCBA2D00DB3ED1 /* libRCTImage.a in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
+				33DF305C1C82704F00F0BFBA /* libRCTRemotePushManager.a in Frameworks */,
 				33009EEC1C609E3000FD2CDE /* libRNSearchBar.a in Frameworks */,
 				133E29F31AD74F7200F7D852 /* libRCTLinking.a in Frameworks */,
 				832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */,
@@ -314,6 +324,8 @@
 		13B07FAE1A68108700A75B9A /* whoup */ = {
 			isa = PBXGroup;
 			children = (
+				33DF306C1C8270EA00F0BFBA /* RemotePushDelegate.h */,
+				33DF306D1C8270EA00F0BFBA /* RemotePushDelegate.m */,
 				33009EA61C60983200FD2CDE /* sofia-black.ttf */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -450,6 +462,9 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				33DF30731C82B37700F0BFBA /* eyes.gif */,
+				33DF30711C82B36400F0BFBA /* bored.gif */,
+				33781C891C7D7C7C00E6BBB2 /* Bored.gif */,
 				336DD3181C6EE42800DF160F /* sleepy.gif */,
 				332C6A9D1BEA07C200A9921C /* Fonts */,
 				13B07FAE1A68108700A75B9A /* whoup */,
@@ -525,7 +540,12 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = ZMRN4KXSEJ;
+						DevelopmentTeam = VLMXMVKCDJ;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -742,6 +762,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				336DD3191C6EE42800DF160F /* sleepy.gif in Resources */,
+				33DF30721C82B36400F0BFBA /* bored.gif in Resources */,
+				33DF30741C82B37700F0BFBA /* eyes.gif in Resources */,
 				332C6AAC1BEA07C200A9921C /* Octicons.ttf in Resources */,
 				332C6AA91BEA07C200A9921C /* Foundation.ttf in Resources */,
 				332C6AAA1BEA07C200A9921C /* Ionicons.ttf in Resources */,
@@ -789,6 +811,7 @@
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				332C6ACC1BEA0B3D00A9921C /* EnvironmentManager.m in Sources */,
+				33DF306F1C8270EA00F0BFBA /* RemotePushDelegate.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -881,7 +904,7 @@
 					"$(PROJECT_DIR)/build/Debug-iphoneos",
 				);
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.whoup.whoup;
+				PRODUCT_BUNDLE_IDENTIFIER = com.WhoUp.club;
 				PRODUCT_NAME = whoup;
 				PROVISIONING_PROFILE = "";
 			};
@@ -907,7 +930,7 @@
 					"$(PROJECT_DIR)/build/Debug-iphoneos",
 				);
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.whoup.whoup;
+				PRODUCT_BUNDLE_IDENTIFIER = com.WhoUp.club;
 				PRODUCT_NAME = whoup;
 				PROVISIONING_PROFILE = "";
 			};

@@ -14,7 +14,8 @@ var NavigationBarRouteMapper     = require('../Navigation/NavigationBarRouteMapp
 var NavBarStylesIOS = require('../Navigation/NavBarStylesIOS');
 var DispatcherListener = require('../Mixins/DispatcherListener');
 var AppConstants = require('../Constants/AppConstants');
-
+var StatusBar = require('../Platform/StatusBar');
+var PushInAppContainer = require('../Components/PushInAppContainer');
 
 var stacksEqual = function(one, two, length) {
   if (one.length < length) return false;
@@ -69,15 +70,10 @@ var LeftSceneConfig = Object.assign({}, LeftBaseConfig, {
 
 var Container = React.createClass({
   render: function() {
-    var statBar;
-    if (this.props.navBarHidden) {
-      statBar =  (<View style={styles.navBarSmall}/>);
-    }
     var Component = this.props.route.component;
-
     return (
       <View
-        style={[styles.scene, this.props.navBarHidden && styles.sceneHidden]}
+        style={[styles.scene]}
         ref={this.props.onLoadedScene}
       >
 
@@ -112,6 +108,7 @@ var NavigationBar = {
 
   renderScene: function(route, navigator) {
     console.log('renderScene: ' + route.routePath);
+    StatusBar.setStyle(route.statBar);
     return(
       <Container
         ref={this.onLoadedScene}
@@ -206,15 +203,17 @@ var NavigationBar = {
     var paths = this.props.routeStack.path;
     var path = paths[paths.length-1];
     return (
-        <Navigator
-          ref="navigator"
-          debugOverlay={false}
-          renderScene={this.renderScene}
-          navBarHidden={this.state.navbarHidden}
-          initialRouteStack={this.props.routeStack.path}
-          navigationBar={this.renderNavBar()}
-          configureScene={this._configureScene}
-        />
+        <View style={{flex: 1}}>
+          <Navigator
+            ref="navigator"
+            renderScene={this.renderScene}
+            navBarHidden={this.state.navbarHidden}
+            initialRouteStack={this.props.routeStack.path}
+            navigationBar={this.renderNavBar()}
+            configureScene={this._configureScene}
+          />
+          <PushInAppContainer routePath={path.routePath}/>
+          </View>
     );
   }
 }

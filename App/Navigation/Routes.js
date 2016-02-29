@@ -5,36 +5,38 @@ var Routes = {
   LogIn: function() {
     return {
       component: require('../Screens/LogIn'),
+      statBar: 'light-content'
     };
   },
 
   Welcome: function() {
     return {
       component: require('../Screens/Welcome'),
-      subPath: 'login'
+      subPath: 'login',
+      statBar: 'light-content'
     };
   },
 
   SignUp: function() {
     return {
       component: require('../Screens/SignUp'),
+      statBar: 'light-content',
     };
   },
 
   FriendAdd: function() {
     return{
       component: require('../Screens/FriendAdd'),
-      left: true
+      left: true,
+      statBar: 'light-content'
     };
   },
 
-  FriendList: function(username) {
+  FriendList: function() {
     return {
       component: require('../Screens/FriendList'),
       title: '', // set to name
-      passProps: {
-        username: username,
-      },
+      statBar: 'light-content',
       display: false,
       navBack: {
         image:   '',//'ios-personadd' // TODO: icon font
@@ -42,17 +44,21 @@ var Routes = {
     };
   },
   Dashboard: function(username) {
-    var d0 = new Date("01/01/2001 " + "12:00 PM");
-    var d1 = new Date("01/01/2001 " + "6:00 AM");
-    var d = new Date("01/01/2001");
-    d.setHours(new Date().getHours());
-    d.setMinutes(new Date().getMinutes());
-    var itsTime = d0 < d1  ? (d0 <= d && d < d1) : (d1 <= d && d < d0) == false;
-    var leftImage = itsTime == true ? 'owl_plus' : 'owl_plus_b';
-    var rightImage = itsTime == true ? 'settings' : 'settings_b';
+    //console.log(username);
+    var now = new Date();
+    var sixAm = new Date(
+          now.getFullYear(),
+          now.getMonth(),
+          now.getDate(),
+          24,0,0);
+    var itsTime = now < sixAm;
+    var leftImage = itsTime ? 'owl_plus' : 'owl_plus_b';
+    var rightImage = itsTime ? 'settings' : 'settings_b';
+    var statBar = itsTime ? 'light-content' : 'default';
     return {
       component: require('../Screens/Dashboard'),
       title: '',
+      statBar: statBar,
       passProps: {
         itsTime: itsTime,
       },
@@ -71,14 +77,17 @@ var Routes = {
       component: require('../Screens/Settings'),
       title: 'Settings',
       left: true,
+      statBar: 'default'
     };
   },
 
 
-  Chat: function() {
+  Chat: function(username) {
     return {
       component: require('../Screens/Chat'),
       left: true,
+      statBar: 'light-content',
+      passProps: username
     }
   }
 
@@ -88,13 +97,10 @@ var Routes = {
 
 var listRoute = function(route, defaultRoute) {
 
-  var username = route.passProps ? route.passProps.username : null;
   route.parse = function(path) {
     switch(path) {
       case 'friends':
-        return listRoute(Routes.FriendList(username));
-      case '_chat':
-        return Routes.Chat();
+        return listRoute(Routes.FriendList());
       case '_settings':
         return Routes.Settings();
       case '_friendAdd':
@@ -107,6 +113,23 @@ var listRoute = function(route, defaultRoute) {
   return route;
 };
 
+// var chatRoute = function(username) {
+//   var route = {}
+//   route._notAddressable = true;
+//   route._routerAppend = '_chat';
+
+//   route.parse = function(path) {
+//     switch(path) {
+//       case 'dashboard':
+//         return listRoute(Routes.chat(username), function(user) {
+//         });
+//       default:
+//         return null;
+//     };
+//   };
+//   return route;
+// };
+
 var userRoute = function(username) {
   var route = {}
   route._notAddressable = true;
@@ -115,9 +138,9 @@ var userRoute = function(username) {
   route.parse = function(path) {
     switch(path) {
       case 'dashboard':
-        return listRoute(Routes.Dashboard(username), function(room) {
-          // unsure
-            return Routes.Dashboard();
+        return listRoute(Routes.Dashboard(username), function(user) {
+          console.log(user);
+          return Routes.Chat(username);
         });
       default:
         return null;

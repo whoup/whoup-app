@@ -10,26 +10,9 @@ var Icon = require('react-native-vector-icons/Ionicons');
 var Text       = require('../Components/Text');
 var AppActions = require('../Actions/AppActions');
 
-
-var Rebase = require('re-base');
-var base = Rebase.createClass('https://whoup.firebaseio.com/');
-
 var DashboardItem = React.createClass({
-
-  // getInitialState: function() {
-  //   return {up: false}
-  // },
-
-  // componentDidMount: function() {
-  // },
-
-  // componentWillUnmount: function() {
-  //   //this.props.store.removeChangeListener(this._onChange);
-  //   base.removeBinding(this.ref);
-  // },
-
   onSelection: function() {
-    console.log(this.props)
+    //console.log(this.props)
     AppActions.launchRelativeItem(this.props.currentRoute, this.props);
   },
 
@@ -153,7 +136,7 @@ var styles = StyleSheet.create({
   },
   upIcon: {
    //paddingLeft: 3,
-   backgroundColor: '#18BF17',
+   backgroundColor: cssVar('thm4'),
   },
   icon: {
     paddingTop: 3

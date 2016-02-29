@@ -162,7 +162,7 @@ var styles = StyleSheet.create({
     fontFamily: 'Helvetica'
   },
   gray: {
-    backgroundColor: cssVar('thm4')
+    backgroundColor: cssVar('thm5')
   },
   title: {
     fontSize: 18,

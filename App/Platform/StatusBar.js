@@ -9,6 +9,9 @@ var StatusBar = {
   },
   setStyle: function(style) {
     StatusBarIOS.setStyle(style, true)
+  },
+  setHidden: function(hidden){
+    StatusBarIOS.setHidden(hidden, 'slide')
   }
 };
 
