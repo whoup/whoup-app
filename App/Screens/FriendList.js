@@ -21,7 +21,7 @@ var SectionedList       = require('../Components/SectionedList');
 
 var AppActions = require('../Actions/AppActions');
 var CurrentUserStore = require('../Stores/CurrentUserStore');
-var CURRENT_USER = CurrentUserStore.get().data;
+// var CURRENT_USER = CurrentUserStore.get().data;
 
 var Rebase = require('re-base');
 var base = Rebase.createClass('https://whoup.firebaseio.com/');
@@ -42,8 +42,8 @@ var FriendList = React.createClass({
   },
 
   componentDidMount: function(){
-
-    base.fetch('users/' + CURRENT_USER.id + '/friends', {
+    userId = this.getUserId();
+    base.fetch('users/' + userId + '/friends', {
       context: this,
       asArray: true,
       then(data){
@@ -52,7 +52,7 @@ var FriendList = React.createClass({
         }
       }
     });
-    base.fetch('users/' + CURRENT_USER.id + '/friend_reqs', {
+    base.fetch('users/' + userId + '/friend_reqs', {
       context: this,
       asArray: true,
       then(data){
@@ -73,7 +73,8 @@ var FriendList = React.createClass({
     return {
       key: friend.key,
       id: friend.key,
-      name: friend.username,
+      username: friend.username,
+      name: friend.username
     }
   },
 
@@ -83,6 +84,13 @@ var FriendList = React.createClass({
     else return { requests: this.state.requests, friends: this.state.friends};
   },
 
+  getUsername: function() {
+    return CurrentUserStore.get().data.username;
+  },
+  getUserId: function() {
+    return CurrentUserStore.get().data.id;
+  },
+
   renderItems: function() {
     return (
       <SectionedList
@@ -90,6 +98,8 @@ var FriendList = React.createClass({
         currentRoute={this.props.currentRoute}
         getItemProps={this.getItemProps}
         items={this.getItems()}
+        currUid={this.getUserId()}
+        currUsername={this.getUsername()}
         {...this.props.listProps}
       />
     );

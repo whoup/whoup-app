@@ -47,14 +47,16 @@ var ChatInput = React.createClass({
 
   onSubmitButton: function() {
     if (!this.state.submitting && this.state.body !== '') {
-      postEnd = 'users/' + this.props.friendId + '/messages/' + this.props.currUid;
-      currUsrEnd = 'users/' + this.props.currUid + '/messages/' + this.props.friendId;
-      this.props.toggleSubmitting();
-      this.toggleSubmitting();
-      body = this.state.body;
+      var body = this.state.body;
+      var friendId = this.props.friendId;
+      var fromUsername = this.props.username;
+      var fromId = this.props.currUid
+      var toggleSub = this.toggleSubmitting;
+      var togglePropSub = this.props.toggleSubmitting;
+      var postEnd = 'users/' + friendId + '/messages/' + fromId;
+      var currUsrEnd = 'users/' + fromId + '/messages/' + friendId;
       this.clearText();
-      toggleSub = this.toggleSubmitting;
-      togglePropSub = this.props.toggleSubmitting;
+      this.toggleSubmitting();
       base.push(postEnd, {
         data: {body: body, received: true, timestamp: Firebase.ServerValue.TIMESTAMP},
         then(){
@@ -62,7 +64,15 @@ var ChatInput = React.createClass({
             data: {body: body, received: false, timestamp: Firebase.ServerValue.TIMESTAMP},
             then(){
                 toggleSub();
-                togglePropSub();
+                base.push('/push-notifs/tasks', {
+                  data: {
+                    to: friendId,
+                    from: fromId,
+                    message: '@' + fromUsername + ' just messaged you',
+                    type: 'message',
+                    username: fromUsername
+                  }
+                })
             }
           })
         }

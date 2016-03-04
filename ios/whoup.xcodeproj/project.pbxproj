@@ -35,7 +35,9 @@
 		332C6ACA1BEA09B800A9921C /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 332C6AC71BEA092500A9921C /* libRNVectorIcons.a */; };
 		332C6ACC1BEA0B3D00A9921C /* EnvironmentManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 332C6ACB1BEA0B3D00A9921C /* EnvironmentManager.m */; };
 		333446701C659D610052FDBF /* libActivityView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3334466F1C659D520052FDBF /* libActivityView.a */; };
+		336D3A121C891A9100F3F284 /* libRCTPushNotification.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 336D3A101C89193800F3F284 /* libRCTPushNotification.a */; };
 		336DD3191C6EE42800DF160F /* sleepy.gif in Resources */ = {isa = PBXBuildFile; fileRef = 336DD3181C6EE42800DF160F /* sleepy.gif */; };
+		3380AB1F1C86BAFB0034E86C /* libRCTDeviceUUID.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3380AB101C86BAEC0034E86C /* libRCTDeviceUUID.a */; };
 		33970B4D1C42FFFE00526283 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 33970B4F1C42FFFE00526283 /* Launch Screen.storyboard */; };
 		33DF305C1C82704F00F0BFBA /* libRCTRemotePushManager.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 330273E51BFC5E470012D429 /* libRCTRemotePushManager.a */; };
 		33DF306F1C8270EA00F0BFBA /* RemotePushDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 33DF306D1C8270EA00F0BFBA /* RemotePushDelegate.m */; };
@@ -150,6 +152,20 @@
 			remoteGlobalIDString = 134814201AA4EA6300B7C361;
 			remoteInfo = ActivityView;
 		};
+		336D3A0F1C89193800F3F284 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 336D3A0B1C89193800F3F284 /* RCTPushNotification.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RCTPushNotification;
+		};
+		3380AB0F1C86BAEC0034E86C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3380AB091C86BAEC0034E86C /* RCTDeviceUUID.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F12AFB9B1ADAF8F800E0535D;
+			remoteInfo = RCTDeviceUUID;
+		};
 		78C398B81ACF4ADC00677621 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */;
@@ -203,8 +219,10 @@
 		332C6ACB1BEA0B3D00A9921C /* EnvironmentManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EnvironmentManager.m; sourceTree = "<group>"; };
 		3334464A1C659C2D0052FDBF /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		3334466A1C659D510052FDBF /* ActivityView.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ActivityView.xcodeproj; path = "../node_modules/react-native-activity-view/ActivityView.xcodeproj"; sourceTree = "<group>"; };
+		336D3A0B1C89193800F3F284 /* RCTPushNotification.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTPushNotification.xcodeproj; path = "../node_modules/react-native/Libraries/PushNotificationIOS/RCTPushNotification.xcodeproj"; sourceTree = "<group>"; };
 		336DD3181C6EE42800DF160F /* sleepy.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = sleepy.gif; sourceTree = "<group>"; };
 		33781C891C7D7C7C00E6BBB2 /* Bored.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Bored.gif; sourceTree = "<group>"; };
+		3380AB091C86BAEC0034E86C /* RCTDeviceUUID.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTDeviceUUID.xcodeproj; path = "../node_modules/react-native-device-uuid/RCTDeviceUUID.xcodeproj"; sourceTree = "<group>"; };
 		33970B4E1C42FFFE00526283 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "Base.lproj/Launch Screen.storyboard"; sourceTree = "<group>"; };
 		33DF306C1C8270EA00F0BFBA /* RemotePushDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemotePushDelegate.h; sourceTree = "<group>"; };
 		33DF306D1C8270EA00F0BFBA /* RemotePushDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RemotePushDelegate.m; sourceTree = "<group>"; };
@@ -230,12 +248,14 @@
 				332C6AC91BEA09B100A9921C /* libRNKeychain.a in Frameworks */,
 				332C6AC81BEA09AB00A9921C /* libRNKeyboardEvents.a in Frameworks */,
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
+				3380AB1F1C86BAFB0034E86C /* libRCTDeviceUUID.a in Frameworks */,
 				139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */,
 				00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */,
 				00C302E91ABCBA2D00DB3ED1 /* libRCTNetwork.a in Frameworks */,
 				00C302E81ABCBA2D00DB3ED1 /* libRCTImage.a in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
 				33DF305C1C82704F00F0BFBA /* libRCTRemotePushManager.a in Frameworks */,
+				336D3A121C891A9100F3F284 /* libRCTPushNotification.a in Frameworks */,
 				33009EEC1C609E3000FD2CDE /* libRNSearchBar.a in Frameworks */,
 				133E29F31AD74F7200F7D852 /* libRCTLinking.a in Frameworks */,
 				832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */,
@@ -410,6 +430,22 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		336D3A0C1C89193800F3F284 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				336D3A101C89193800F3F284 /* libRCTPushNotification.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		3380AB0A1C86BAEC0034E86C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3380AB101C86BAEC0034E86C /* libRCTDeviceUUID.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		68FB33C9F11B72D8148B3A6D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -431,6 +467,8 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				336D3A0B1C89193800F3F284 /* RCTPushNotification.xcodeproj */,
+				3380AB091C86BAEC0034E86C /* RCTDeviceUUID.xcodeproj */,
 				3334466A1C659D510052FDBF /* ActivityView.xcodeproj */,
 				33009EE61C609E1F00FD2CDE /* RNSearchBar.xcodeproj */,
 				330273E01BFC5E470012D429 /* RCTRemotePushManager.xcodeproj */,
@@ -570,6 +608,10 @@
 					ProjectRef = 00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */;
 				},
 				{
+					ProductGroup = 3380AB0A1C86BAEC0034E86C /* Products */;
+					ProjectRef = 3380AB091C86BAEC0034E86C /* RCTDeviceUUID.xcodeproj */;
+				},
+				{
 					ProductGroup = 00C302B61ABCB90400DB3ED1 /* Products */;
 					ProjectRef = 00C302B51ABCB90400DB3ED1 /* RCTGeolocation.xcodeproj */;
 				},
@@ -584,6 +626,10 @@
 				{
 					ProductGroup = 00C302D41ABCB9D200DB3ED1 /* Products */;
 					ProjectRef = 00C302D31ABCB9D200DB3ED1 /* RCTNetwork.xcodeproj */;
+				},
+				{
+					ProductGroup = 336D3A0C1C89193800F3F284 /* Products */;
+					ProjectRef = 336D3A0B1C89193800F3F284 /* RCTPushNotification.xcodeproj */;
 				},
 				{
 					ProductGroup = 330273E11BFC5E470012D429 /* Products */;
@@ -731,6 +777,20 @@
 			fileType = archive.ar;
 			path = libActivityView.a;
 			remoteRef = 3334466E1C659D520052FDBF /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		336D3A101C89193800F3F284 /* libRCTPushNotification.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRCTPushNotification.a;
+			remoteRef = 336D3A0F1C89193800F3F284 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		3380AB101C86BAEC0034E86C /* libRCTDeviceUUID.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRCTDeviceUUID.a;
+			remoteRef = 3380AB0F1C86BAEC0034E86C /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		78C398B91ACF4ADC00677621 /* libRCTLinking.a */ = {
@@ -895,6 +955,7 @@
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/../node_modules/react-native/React/**",
+					"$(SRCROOT)/../node_modules/react-native/Libraries/PushNotificationIOS/**",
 				);
 				INFOPLIST_FILE = whoup/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
@@ -921,6 +982,7 @@
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/../node_modules/react-native/React/**",
+					"$(SRCROOT)/../node_modules/react-native/Libraries/PushNotificationIOS/**",
 				);
 				INFOPLIST_FILE = whoup/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;

@@ -13,7 +13,7 @@ var TextInput  = require('../Components/TextInput');
 var AuthActions = require('../Actions/AuthActions');
 var cssVar = require('../Lib/cssVar');
 var Text = require('../Components/Text');
-
+//var FirebaseRef = require('../Api/FirebaseRef');
 
 var Login = React.createClass({
   mixins: [KeyboardListener],
@@ -25,11 +25,13 @@ var Login = React.createClass({
     }
   },
 
+
+
   submitLogin: function() {
     this.setState({submitted: true})
     var password = this.state.password;
     var email = this.state.email;
-    AuthActions.submitLogin(email, password, function(error) {
+    AuthActions.submitLogin(email, password, function(error, data) {
       if (error) {
         // TODO: better errors
         alert(error.message);
@@ -81,7 +83,7 @@ var Login = React.createClass({
           enablesReturnKeyAutomatically={true}
           returnKeyType={'done'}
           onChange={(event) => this.state.password = event.nativeEvent.text }
-          onSubmitEditing={this.submit_login}
+          onSubmitEditing={(event) => this.submitLogin()}
         />
         <View style={styles.spacer} />
         {button}

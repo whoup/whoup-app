@@ -1,6 +1,5 @@
 var UserService = require('../Api/UserService');
-var Firebase = require('firebase');
-var ref = new Firebase('https://whoup.firebaseio.com/');
+var FirebaseRef = require('../Api/FirebaseRef');
 
 var AuthService = {
   accountCallback: function(callback) {
@@ -11,12 +10,12 @@ var AuthService = {
 
   accountSignupCallback: function(callback, username) {
     return function(error, authData) {
-      if (!authData) return callback({
-        message: "Username: " + username + " already taken"
-      });
-      ref.child('usernames').child(username).transaction(function(data) {
+      if (!authData){
+        return callback({ message: "Username: " + username + " already taken"});
+      }
+      FirebaseRef.ref().child('usernames').child(username).transaction(function(data) {
         if (data === null) {
-          ref.child('users').child(authData.uid).set({
+          FirebaseRef.ref().child('users').child(authData.uid).set({
             email: authData.password.email,
             username: username
           });
@@ -39,11 +38,15 @@ var AuthService = {
   },
 
   signup: function(email, username, password, callback) {
+    var ref = FirebaseRef.ref();
     ref.createUser({
       email: email,
       password: password
-    }, (error, userData) => {
-      if (error) return callback(error);
+    },
+    function(error, userData) {
+      if (error){
+        return callback(error);
+      }
       ref.authWithPassword({
           email: email,
           password: password
@@ -53,8 +56,7 @@ var AuthService = {
   },
 
   login: function(email, password, callback) {
-    //ref.unauth();
-    ref.authWithPassword({
+    FirebaseRef.ref().authWithPassword({
       email: email,
       password: password
     }, AuthService.accountCallback(callback));

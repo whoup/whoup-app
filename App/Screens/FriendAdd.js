@@ -21,7 +21,7 @@ var KeyboardListener = require('../Mixins/KeyboardListener');
 RequestItem = require('../Components/RequestItem.js')
 
 var CurrentUserStore = require('../Stores/CurrentUserStore');
-var CURRENT_USER = CurrentUserStore.get().data;
+//var CURRENT_USER = CurrentUserStore.get().data;
 
 var Firebase = require('firebase');
 var users = new Firebase('https://whoup.firebaseIO.com/usernames')
@@ -44,12 +44,13 @@ var FriendAdd = React.createClass({
   },
 
   componentDidMount: function(){
-   this.friends = base.bindToState('users/' + CURRENT_USER.id + '/friends/', {
+    var userId = this.getUserId()
+    this.friends = base.bindToState('users/' + userId + '/friends/', {
       context: this,
       asArray: false,
       state: 'friends'
     });
-   this.reqs = base.bindToState('users/' + CURRENT_USER.id + '/sent_reqs/', {
+    this.reqs = base.bindToState('users/' + userId + '/sent_reqs/', {
       context: this,
       asArray: false,
       state: 'reqs'
@@ -66,7 +67,7 @@ var FriendAdd = React.createClass({
 
   updateText: function(text) {
     text = text.replace(/[\[\].#/]/g, '').toLowerCase();;
-  if (text !== '' && text !== CURRENT_USER.username){
+  if (text !== '' && text !== this.getUsername()){
     users.child(text).once('value', function(snapshot) {
       var data = snapshot.val();
       if (data !== null) {
@@ -93,7 +94,11 @@ var FriendAdd = React.createClass({
     if (this.state.username){
       var isFriend = this.state.friends[this.state.userId] !== undefined || this.state.reqs[this.state.userId];
       return (
-              <RequestItem username={this.state.username} id={this.state.userId} currUid={CURRENT_USER.id}
+              <RequestItem
+                username={this.state.username}
+                id={this.state.userId}
+                currUid={this.getUserId()}
+                currUsername={this.getUsername()}
                 isFriend={isFriend} loading={this.state.loading}
                 />
             )
@@ -101,7 +106,7 @@ var FriendAdd = React.createClass({
       return (
               <View style={[styles.flex, styles.gray]}>
                 <Text style={[styles.curr_username]}>
-                  @{CURRENT_USER.username}
+                  @{this.getUsername()}
                 </Text>
                 <Text style={styles.subtitle} >
                   is your username
@@ -109,6 +114,13 @@ var FriendAdd = React.createClass({
               </View>
               )
     }
+  },
+
+  getUsername: function() {
+    return CurrentUserStore.get().data.username;
+  },
+  getUserId: function() {
+    return CurrentUserStore.get().data.id;
   },
 
   // <TextInput ref="username-input"

@@ -26,7 +26,7 @@ var RequestItem = React.createClass({
 
   onSubmitButton: function() {
     this.setState({loading: true})
-    FriendActions.addFriend(this.props.id, this.props.username, function(error) {
+    FriendActions.addFriend(this.props.id, this.props.username, this.props.currUid, this.props.currUsername, function(error) {
       if (error) {
         // TODO: better error handling
         alert(error.message);

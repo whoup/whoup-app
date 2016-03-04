@@ -68,7 +68,7 @@ var Stages = {
 };
 
 
-var opacityRatio = 100;
+var opacityRatio = 10;
 
 function buildSceneInterpolators(startStyles, endStyles) {
   return {

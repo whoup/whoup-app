@@ -1,13 +1,11 @@
 var Dispatcher    = require('../Dispatcher');
 var AppConstants  = require('../Constants/AppConstants');
 var ChatService = require('../Api/ChatService');
-var amOnline = new Firebase('https://whoup.firebaseio.com/.info/connected');
-var CurrentUserStore = require('../Stores/CurrentUserStore');
-var CURRENT_USER = CurrentUserStore.get().data;
+var FirebaseRef = require('../Api/FirebaseRef');
 
 var ChatActions = {
   goOnline: function(uid, callback) {
-    var userRef = new Firebase('https://whoup.firebaseio.com/presence/' + uid);
+    var userRef = FirebaseRef.ref().child('presence').child(uid);
     amOnline.on('value', function(snapshot) {
       if (snapshot.val()) {
         userRef.onDisconnect().remove();

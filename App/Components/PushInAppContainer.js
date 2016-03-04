@@ -21,9 +21,11 @@ var PushInAppContainer = React.createClass({
    getInitialState: function(){
     this.height = new Animated.Value(0);
     return {
-      visible: false,
-      message: 'nmsall just accepted your request',
-      fromId: "38d07ba4-b159-4fa3-8ecf-8b1f56ff22ae"
+      message: '',
+      fromId: '',
+      from: '',
+      type: '',
+
     }
 
    },
@@ -36,7 +38,7 @@ var PushInAppContainer = React.createClass({
 
 
   componentWillMount: function() {
-     RemotePushIOS.setListenerForNotifications(this.receiveRemoteNotification);
+    RemotePushIOS.setListenerForNotifications(this.receiveRemoteNotification);
   },
 
   receiveRemoteNotification: function(notification) {
@@ -51,14 +53,14 @@ var PushInAppContainer = React.createClass({
        StatusBar.setHidden(true);
        this._setAnimation(true);
        this.setState({
-                      message: notification.fromId + ' ' + notification.message,
+                      message: notification.message,
                       type: notification.type,
                       fromId: notification.fromId,
                       from: notification.fromUser
                     })
        this.setTimeout(
           () => { this._setAnimation(false); StatusBar.setHidden(false); },
-          4000);
+          2000);
       }
   },
 
@@ -68,7 +70,7 @@ var PushInAppContainer = React.createClass({
     if (this.state.type === 'request') {
       AppActions.launchRoutePath('whoup/dashboard/friends');
     } else {
-      AppActions.launchRoutePath('whoup/dashboard/' + this.state.fromId, {id: this.state.from, username: this.state.from});
+      AppActions.launchRoutePath('whoup/dashboard/' + this.state.fromId, {id: this.state.fromId, username: this.state.from});
     }
   },
 
@@ -78,8 +80,8 @@ var PushInAppContainer = React.createClass({
       <Animated.View style={[{ height: this.height }, styles.container]}>
 
         <Animated.Image style={[styles.owl, {height: this.height}]} source={{uri: 'owl_b_notif'}}/>
-        <Animated.Text style={[styles.message, {height: (this.height -20)}]}>
-          @{this.state.message}
+        <Animated.Text style={[styles.message, {height: this.height - 20}]}>
+          {this.state.message}
           </Animated.Text>
 
       </Animated.View>
@@ -98,16 +100,18 @@ var styles = StyleSheet.create({
     flexDirection: 'row'
   },
   owl: {
-    width: 118,
+    width: 100,
+    marginLeft: 3,
     backgroundColor: 'transparent'
   },
   message: {
     color: cssVar('thm3'),
-    marginTop: 20,
+    marginTop: 10,
     marginLeft: 10,
-    fontSize: 15,
+    fontSize: 20,
+    lineHeight: 24,
     fontFamily: cssVar('fontRegular'),
-    width: SCR_WDTH * 0.6,
+    width: SCR_WDTH * 0.65,
 
   }
 });

@@ -12,6 +12,9 @@ var CHANGE_EVENT     = 'change';
 var LOCAL_STORE_KEY  = 'CurrentUser';
 var KEYCHAIN_SERVICE = 'WhoUp';
 
+
+var DeviceUUID = require("react-native-device-uuid");
+var RemotePushIOS = require("../../RemotePushIOS");
 // null so we know to initialize on app launch
 var _singleton = null;
 
@@ -40,9 +43,24 @@ function saveSingleton() {
 }
 
 function clearData() {
+  //FirebaseRef.signOut(_singleton.data.token);
   _singleton = new CurrentUser(null, null);
   LocalKeyStore.setKey(LOCAL_STORE_KEY, null);
   Keychain.resetGenericPassword(KEYCHAIN_SERVICE);
+}
+
+function registerForPushNotifs(uid){
+  DeviceUUID.getUUID().then(function(uuid) {
+    RemotePushIOS.requestPermissions(function(err, data) {
+      if (err) {
+        console.log('shit')
+      } else {
+        // On success, data will contain your device token. You're probably going to want to send this to your server.
+        FirebaseRef.registerForPush(uuid, uid, data.token);
+      }
+    });
+  });
+
 }
 
 var SingletonStore = assign({}, EventEmitter.prototype, {
@@ -82,15 +100,22 @@ Dispatcher.register(function(action) {
       );
       break;
     case AppConstants.LOGIN_USER:
+      registerForPushNotifs(action.userProps.id);
+      // FirebaseRef.auth(action.token, () => {
+
+      // });
     case AppConstants.USER_UPDATED:
       setUserProps(action.userProps, action.token);
       SingletonStore.emitChange();
       saveSingleton();
       break;
     case AppConstants.LOGOUT_REQUESTED:
-      FirebaseRef.signOut(_singleton.data.id);
-      clearData();
-      SingletonStore.emitChange();
+    //console.log(_singleton)
+      DeviceUUID.getUUID().then((uuid) => {
+        FirebaseRef.signOut(_singleton.data.id, uuid);
+        clearData();
+        SingletonStore.emitChange();
+      });
       break;
     default:
       // no op

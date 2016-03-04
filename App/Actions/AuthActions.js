@@ -6,10 +6,11 @@ var FirebaseRef = require('../Api/FirebaseRef');
 
 var AuthActions = {
 
+
   authCallback: function(callback) {
     return function(error, data) {
       Network.completed();
-      if(callback) callback(error);
+      if(callback) callback(error, data);
       if (!error) {
         Dispatcher.dispatch({
           actionType: AppConstants.LOGIN_USER,
@@ -25,7 +26,7 @@ var AuthActions = {
     AuthService.login(username, password, this.authCallback(callback));
   },
 
-  submitSignup: function(email, username, password, callback) {
+  submitSignUp: function(email, username, password, callback) {
     Network.started();
     AuthService.signup(email, username, password, this.authCallback(callback));
   }

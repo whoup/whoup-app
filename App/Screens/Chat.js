@@ -240,7 +240,7 @@ var Chat = React.createClass({
           {content}
         </View>
           <ChatInput toggleSubmitting={this.toggleSending} updateProgress={this.updateProgress}
-            currUid={CURRENT_USER.id} friendId={name} />
+            currUid={CURRENT_USER.id} username={this.getUsername()} friendId={name} />
 
       </View>
     );

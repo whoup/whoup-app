@@ -21,7 +21,11 @@ var Dimensions = require('Dimensions');
 var SignUp = React.createClass({
   mixins: [KeyboardListener],
   getInitialState: function() {
-    return {
+    return this.getStartState();
+  },
+
+  getStartState: function(){
+     return {
       username: '',
       email: '',
       password: '',
@@ -33,15 +37,17 @@ var SignUp = React.createClass({
     }
   },
 
-  submitSignUp: function() {
+  submitSignUp: function(password, email, username) {
     this.setState({submitted: true})
-    var password = this.state.password;
-    var email = this.state.email;
-    AuthActions.submitLogin(email, password, function(error) {
+    // var password = this.state.password;
+    // var email = this.state.email;
+    // var username = this.state.username;
+    AuthActions.submitSignUp(email, username, password,  function(error) {
       if (error) {
         // TODO: better errors
         alert(error.message);
-        this.setState({submitted: false})
+        var blank = this.getStartState();
+        this.setState({submitted: false, ...blank})
       }
     }.bind(this));
   },
@@ -54,9 +60,38 @@ var SignUp = React.createClass({
       this.refs.input.slideOutLeft(500).then((endState) => {this.setState({top: 'Enter a Email'}); this.refs.input.slideInRight(200)});
       this.refs.input2.slideOutLeft(500).then((endState) => {this.setState({bottom: 'So we know u r real'}); this.refs.input2.slideInRight(200)});
     }
-    // if (this.state.current === 'username') {
-    //   this.refs.input.setNativeProps({text: ''});
+    else if (this.state.step === 'email') {
+      var temp = this.state.current;
+        this.refs.container.blur();
+        this.setState({current: '', email: temp, step: 'password'})
+        this.refs.input.slideOutLeft(500).then((endState) => {this.setState({top: 'Enter a Password'}); this.refs.input.slideInRight(200)});
+        this.refs.input2.slideOutLeft(500).then((endState) => {this.setState({bottom: ';)', current: ''}); this.refs.input2.slideInRight(200)});
+    }
+    else if (this.state.step === 'password') {
+     //  // AuthActions.signUp(this.state.email, this.state.password, this.state.username, (error) => {
+     //  //   if (error) {
+     //  //     this.setState.
+     //  //   }
+     // // });
+     // this.submitSignUp();
+     //  //this.setState({current: '', step: 'username', submitted: true});
 
+
+      //var temp = this.state.current;
+        this.refs.container.blur();
+        //this.setState({current: '', password: temp})
+        this.submitSignUp(this.state.current, this.state.email, this.state.username);
+
+        //this.refs.input.slideOutLeft(500).then((endState) => {this.setState({top: 'One more time'}); this.refs.input.slideInRight(200)});
+        //this.refs.input2.slideOutLeft(500).then((endState) => {this.setState({bottom: '', }); this.refs.input2.slideInRight(200)});
+    }
+    // else if (this.state.step === 'password_confrim') {
+    //   var temp = this.state.current;
+    //     this.refs.container.blur();
+    //     console.loc(this.state.email, this.state.username, this.state.password, this.state.password_confrim)
+    //     // this.setState({current: 'email', email: temp, step: 'password'})
+    //     // this.refs.input.slideOutLeft(500).then((endState) => {this.setState({top: 'Enter a Password'}); this.refs.input.slideInRight(200)});
+    //     // this.refs.input2.slideOutLeft(500).then((endState) => {this.setState({bottom: ''}); this.refs.input2.slideInRight(200)});
     // }
   },
 
@@ -67,12 +102,12 @@ var SignUp = React.createClass({
         <ActivityIndicatorIOS color={cssVar('thm2')} />
         </View>)
     }
-    else if (this.state.current === 'passwordConfirm') {
-     button=
-      (<TouchableHighlight style={styles.button} onPress={this.onSubmit}>
-          <Icon name={'ios-arrow-forward'} size={30} color={'#000000'} style={[styles.next]} />
-        </TouchableHighlight>)
-    }
+    // else if (this.state.current === 'passwordConfirm') {
+    //  button=
+    //   (<TouchableHighlight style={styles.button} onPress={this.onSubmit}>
+    //       <Icon name={'ios-arrow-forward'} size={30} color={'#000000'} style={[styles.next]} />
+    //     </TouchableHighlight>)
+    // }
     else {
       button =
       (<TouchableHighlight style={styles.button} onPress={this.onSubmit}>
@@ -99,7 +134,7 @@ var SignUp = React.createClass({
             returnKeyType={'next'}
             value={this.state.current}
             onChange={(event) => this.setState({ current: event.nativeEvent.text })}
-            onSubmitEditing={(event) => this.refs.password.onSubmit()}
+            onSubmitEditing={(event) => this.onSubmit()}
             />
           <Animatable.View style={{alignItems: 'center', width: SCR_WDTH}} ref={'input2'}>
           <Text style={styles.copy}>

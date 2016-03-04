@@ -20,9 +20,8 @@ var FriendActions = require('../Actions/FriendActions');
 var ChatActions = require('../Actions/ChatActions');
 var TimerMixin = require('react-timer-mixin');
 var Rebase = require('re-base');
+var FirebaseRef = require('../Api/FirebaseRef');
 
-
-var CURRENT_USER = CurrentUserStore.get().data;
 var base = Rebase.createClass('https://whoup.firebaseio.com/');
 
 var ChatRoomList = React.createClass({
@@ -59,7 +58,7 @@ var ChatRoomList = React.createClass({
   },
 
   imUp: function() {
-    ChatActions.goOnline(CURRENT_USER.id,);
+    FirebaseRef.goOnline(this.getUserId());
     this.setState({userIsUp: true});
   },
 
@@ -70,7 +69,7 @@ var ChatRoomList = React.createClass({
           now.getFullYear(),
           now.getMonth(),
           now.getDate(),
-          24,0,0);
+          6,0,0);
 
     if (now < sixAm) {
       this.setTimeout(
@@ -92,7 +91,7 @@ var ChatRoomList = React.createClass({
 
   componentDidMount: function() {
     this.setUpNotUpTimers();
-    this.ref = base.syncState('users/' + CURRENT_USER.id + '/friends', {
+    this.ref = base.syncState('users/' + this.getUserId() + '/friends', {
       context: this,
       state: 'users',
       asArray: true
@@ -127,11 +126,6 @@ var ChatRoomList = React.createClass({
     }
     else
       return { up: up, notUp: notUp };
-  },
-
-  getNavBarState: function() {
-    var title = this.props.navBarTitle ? this.props.navBarTitle : "";
-    return { title: title };
   },
 
   getUsername: function() {

@@ -7,6 +7,7 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 #import "RemotePushDelegate.h"
+#import "RCTPushNotificationManager.h"
 #import "AppDelegate.h"
 
 #import "RCTRootView.h"
@@ -16,6 +17,28 @@
 - (id) init {
   return self;
 }
+
+// Required to register for notifications
+- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
+{
+  [RCTPushNotificationManager didRegisterUserNotificationSettings:notificationSettings];
+}
+// Required for the register event.
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
+{
+  [RCTPushNotificationManager didRegisterForRemoteNotificationsWithDeviceToken:deviceToken];
+}
+// Required for the notification event.
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)notification
+{
+  [RCTPushNotificationManager didReceiveRemoteNotification:notification];
+}
+// Required for the localNotification event.
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
+{
+  [RCTPushNotificationManager didReceiveLocalNotification:notification];
+}
+
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -36,9 +59,9 @@
    * on the same Wi-Fi network.
    */
   
-  jsCodeLocation = [NSURL URLWithString:@"http://10.0.0.9:8081/index.ios.bundle?platform=ios&dev=true"];
+ //jsCodeLocation = [NSURL URLWithString:@"http://10.0.0.9:8081/index.ios.bundle?platform=ios&dev=true"];
 
-  //jsCodeLocation = [NSURL URLWithString:@"http://localhost:8081/index.ios.bundle?platform=ios&dev=true"];
+  jsCodeLocation = [NSURL URLWithString:@"http://localhost:8081/index.ios.bundle?platform=ios&dev=true"];
   
 //  for (NSString* family in [UIFont familyNames])
 //  {

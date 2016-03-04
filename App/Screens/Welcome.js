@@ -65,7 +65,7 @@ var styles = StyleSheet.create({
   copy: {
     backgroundColor: 'transparent',
     fontSize: 60,
-    color: cssVar('thm4')
+    color: cssVar('thm5')
   },
   icon: {
     width: 75,
@@ -77,7 +77,7 @@ var styles = StyleSheet.create({
     flex: 1
   },
   login: {
-    backgroundColor: cssVar('thm4'),
+    backgroundColor: cssVar('thm5'),
     borderBottomWidth: 5,
   },
   signup: {

@@ -213,7 +213,7 @@ var NavigationBar = {
             configureScene={this._configureScene}
           />
           <PushInAppContainer routePath={path.routePath}/>
-          </View>
+        </View>
     );
   }
 }

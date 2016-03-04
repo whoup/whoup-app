@@ -35,6 +35,8 @@ var SectionedList = React.createClass({
     if (this.props.navigator)    passAlong.navigator    = this.props.navigator;
     if (this.props.nextIcon)     passAlong.nextIcon     = this.props.nextIcon;
     if (this.props.noTap)        passAlong.noTap        = this.props.noTap;
+    if (this.props.currUsername) passAlong.currUsername = this.props.currUsername;
+    if (this.props.currUid)      passAlong.currUid      = this.props.currUid;
 
 
     if (this.props.getItemProps) {
