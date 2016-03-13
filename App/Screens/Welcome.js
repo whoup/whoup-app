@@ -10,17 +10,12 @@ var AppConstants = require('../Constants/AppConstants');
 var cssVar = require('../Lib/cssVar');
 var Text = require('../Components/Text');
 
-
 var Welcome = React.createClass({
-  getInitialState() {
-    return {}
-  },
-
   launch_login: function() {
-    AppActions.launchRoutePath('login');
+    AppActions.launchRelativeItem(this.props.currentRoute, {subPath: 'login'});
   },
   launch_signup: function() {
-    AppActions.launchRoutePath('signup');
+    AppActions.launchRelativeItem(this.props.currentRoute, {subPath: 'signup'});
   },
 
   render: function() {

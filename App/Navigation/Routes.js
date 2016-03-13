@@ -5,7 +5,11 @@ var Routes = {
   LogIn: function() {
     return {
       component: require('../Screens/LogIn'),
-      statBar: 'light-content'
+      statBar: 'light-content',
+      left: true,
+      navBack: {
+        disabled: true
+      }
     };
   },
 
@@ -13,7 +17,7 @@ var Routes = {
     return {
       component: require('../Screens/Welcome'),
       subPath: 'login',
-      statBar: 'light-content'
+      statBar: 'light-content',
     };
   },
 
@@ -21,6 +25,10 @@ var Routes = {
     return {
       component: require('../Screens/SignUp'),
       statBar: 'light-content',
+      left: true,
+      navBack: {
+        disabled: true
+      }
     };
   },
 
@@ -39,8 +47,8 @@ var Routes = {
       statBar: 'light-content',
       display: false,
       navBack: {
-        image:   '',//'ios-personadd' // TODO: icon font
-      },
+        disabled: true
+      }
     };
   },
   Dashboard: function(username) {
@@ -75,9 +83,9 @@ var Routes = {
   Settings: function() {
     return {
       component: require('../Screens/Settings'),
-      title: 'Settings',
+      title: '',
       left: true,
-      statBar: 'default'
+      statBar: 'light-content',
     };
   },
 
@@ -165,15 +173,29 @@ var LoggedOut = {
   parse: function(host) {
     switch (host) {
       case 'welcome':
-        return Routes.Welcome();
+        return authRoute(Routes.Welcome());
+      default:
+        return null;
+    }
+  }
+};
+
+var authRoute = function (route, defaultRoute) {
+  route.parse = function(path) {
+    switch(path) {
       case 'signup':
         return Routes.SignUp();
       case 'login':
         return Routes.LogIn();
       default:
-        return null;
+        if (!defaultRoute) return null;
+        return defaultRoute(path);
     }
   }
+  return route;
+
+
+
 };
 
 module.exports = {

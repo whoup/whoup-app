@@ -23,7 +23,7 @@ var Text = React.createClass({
 var styles = React.StyleSheet.create({
   text: {
     fontFamily: cssVar('fontRegular'),
-    color: cssVar('gray90'),
+    color: cssVar('thm2'),
     fontSize: 8                           // make it small to know it's not set
   }
 });

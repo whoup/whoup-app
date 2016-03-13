@@ -37,6 +37,7 @@ var SectionedList = React.createClass({
     if (this.props.noTap)        passAlong.noTap        = this.props.noTap;
     if (this.props.currUsername) passAlong.currUsername = this.props.currUsername;
     if (this.props.currUid)      passAlong.currUid      = this.props.currUid;
+    if (this.props.refreshList)  passAlong.refreshList  = this.props.refreshList;
 
 
     if (this.props.getItemProps) {
@@ -74,7 +75,7 @@ var SectionedList = React.createClass({
     var Component = this.props.reloadList ? RefreshableListView : ListView;
     return (
       <Component
-        initialListSize={2}
+        initialListSize={1}
         automaticallyAdjustContentInsets={true}
         dataSource={this.state.dataSource.cloneWithRowsAndSections(this.props.items)}
         renderRow={this.renderRow}

@@ -70,7 +70,8 @@ var ChatInput = React.createClass({
                     from: fromId,
                     message: '@' + fromUsername + ' just messaged you',
                     type: 'message',
-                    username: fromUsername
+                    username: fromUsername,
+                    sound: "ping.aiff"
                   }
                 })
             }

@@ -8,8 +8,8 @@ var {
 var cssVar = require('../Lib/cssVar');
 var Icon = require('react-native-vector-icons/Ionicons');
 var Text       = require('../Components/Text');
-var AppActions = require('../Actions/AppActions');
-
+var FriendActions = require('../Actions/FriendActions');
+var Swipeout = require('react-native-swipeout')
 
 var Rebase = require('re-base');
 var base = Rebase.createClass('https://whoup.firebaseio.com/');
@@ -17,8 +17,16 @@ var base = Rebase.createClass('https://whoup.firebaseio.com/');
 var FriendItem = React.createClass({
 
 
-  onSelection: function() {
-    AppActions.launchRelativeItem(this.props.currentRoute, this.props);
+  deleteFriend: function() {
+    FriendActions.deleteFriend(this.props.id, this.props.currUid, this.friendDeleted);
+  },
+
+  friendDeleted: function(error){
+    if (error) {
+      alert(error.message);
+    } else {
+      this.props.refreshList();
+    }
   },
 
   renderName: function() {
@@ -43,14 +51,20 @@ var FriendItem = React.createClass({
     var name = this.renderName();
 
     return (
-      <View style={[styles.row, styles.notUpBackground]}>
-        <View style={[styles.left, styles.rowFlex]}>
-          {name}
-        </View>
-        <View style={styles.right, styles.center}>
 
-        </View>
+      <View style={[styles.flex, styles.seperate, styles.notUpBackground]}>
+        <Swipeout backgroundColor={cssVar('thm3')} right={[{text: 'Delete', backgroundColor: 'red', onPress: this.deleteFriend}]}>
+          <View style={styles.row}>
+            <View style={[styles.left, styles.rowFlex]}>
+              {name}
+            </View>
+            <View style={styles.right}>
+              <Icon name={'ios-arrow-right'} size={30} color={cssVar('thm2')} style={[styles.imageRIcon]} />
+            </View>
+            </View>
+        </Swipeout>
       </View>
+
     );
   },
 
@@ -60,20 +74,28 @@ var FriendItem = React.createClass({
 });
 
 var styles = StyleSheet.create({
+  flex: {
+    flex: 1
+  },
   upBackground: {
     backgroundColor: cssVar('thm1'),
   },
   notUpBackground: {
     backgroundColor: cssVar('thm3'),
   },
+  imageRIcon: {
+    alignSelf: 'flex-end'
+  },
   row: {
-    flex: 1,
     flexDirection: 'row',
     paddingTop: 10,
     paddingBottom: 10,
-    marginBottom: 15,
+
     paddingLeft: 15,
     paddingRight: 15
+  },
+  seperate: {
+    marginBottom: 15,
   },
   marBottom: {
     marginBottom: 15,

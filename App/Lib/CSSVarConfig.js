@@ -20,12 +20,14 @@ module.exports = {
   thm2: '#000000',
   thm3: '#FFFFFF',
   thm4: '#18BF17',
-  thm5: '#E7E7E7',
+  thm5: '#ececec',
+  thm6: '#989898',
 
 
   // http://iosfonts.com/
   fontRegular: "SofiaProBlack",
   fontIcon: "HelveticaNeue",
+  fontLight: "HelveticaNeue",
   fontLogo: "SofiaProBlack",
 
   listLine: {

@@ -10,7 +10,7 @@ var {
 var Text = require('../Components/Text');
 var cssVar = require('../Lib/cssVar');
 var TimerMixin = require('react-timer-mixin');
-var RemotePushIOS = require("./../../RemotePushIOS");
+var RemotePushIOS = require("../RemotePushIOS");
 var StatusBar = require('../Platform/StatusBar');
 var AppActions = require('../Actions/AppActions');
 //var Animatable = require('react-native-animatable');

@@ -14,14 +14,15 @@ var AuthActions = require('../Actions/AuthActions');
 var cssVar = require('../Lib/cssVar');
 var Text = require('../Components/Text');
 //var FirebaseRef = require('../Api/FirebaseRef');
-
+var Dimensions = require('Dimensions');
 var Login = React.createClass({
   mixins: [KeyboardListener],
   getInitialState: function() {
     return {
       email: '',
       password: '',
-      submitted: false
+      submitted: false,
+      error: false
     }
   },
 
@@ -34,8 +35,7 @@ var Login = React.createClass({
     AuthActions.submitLogin(email, password, function(error, data) {
       if (error) {
         // TODO: better errors
-        alert(error.message);
-        this.setState({submitted: false})
+        this.setState({submitted: false, error: true})
       }
     }.bind(this));
   },
@@ -55,7 +55,7 @@ var Login = React.createClass({
     };
     return (
       <Image style={styles.container} source={{uri: 'launch'}}>
-        <View style={styles.spacer} />
+      <View style={styles.top} >
         <View style={styles.center} >
           <Image style={styles.icon} source={{uri: 'owl'}} />
         </View>
@@ -66,10 +66,10 @@ var Login = React.createClass({
           autoCorrect={false}
           keyboardType={"email-address"}
           keyboardAppearance={"dark"}
-          style={[styles.input, styles.username]}
+          style={[styles.input, styles.username, this.state.error && styles.error]}
           enablesReturnKeyAutomatically={true}
           returnKeyType={'next'}
-          onChange={(event) => this.state.email = event.nativeEvent.text }
+          onChange={(event) => {this.setState({email: event.nativeEvent.text, error: false }) } }
           onSubmitEditing={(event) => this.refs.password.focus() }
           />
           <TextInput ref="password"
@@ -79,26 +79,42 @@ var Login = React.createClass({
           autoCorrect={false}
           keyboardType={"default"}
           keyboardAppearance={"dark"}
-          style={[styles.input, styles.password]}
+          style={[styles.input, styles.password, this.state.error && styles.error]}
           enablesReturnKeyAutomatically={true}
           returnKeyType={'done'}
-          onChange={(event) => this.state.password = event.nativeEvent.text }
+          onChange={(event) => {this.setState({password: event.nativeEvent.text, error: false }) } }
           onSubmitEditing={(event) => this.submitLogin()}
         />
-        <View style={styles.spacer} />
+      </View>
+        <View style={[styles.bottom, (this.state.keyboardSpace < 10) && styles.halfFlex]} >
         {button}
+        </View>
         <View style={{height: this.state.keyboardSpace}}></View>
       </Image>
     )
   }
 });
-
+var SCR_WDTH = Dimensions.get('window').width;
 var styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
     alignItems: 'center',
     flex: 1,
     //backgroundColor: cssVar('thm5'),
+  },
+  top: {
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'flex-end',
+    justifyContent: 'center',
+  },
+  bottom: {
+    justifyContent: 'center',
+    alignItems: 'center',
+
+  },
+  halfFlex: {
+    flex: 0.5,
   },
   button: {
     width: 50,
@@ -107,29 +123,32 @@ var styles = StyleSheet.create({
     backgroundColor: cssVar('thm1'),
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 50,
+    marginBottom: 2
   },
   center: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
+    alignSelf: 'center',
     backgroundColor: 'transparent',
   },
   icon: {
     width: 75,
     height: 75,
-    paddingBottom: 30,
-    backgroundColor: 'transparent'
+    backgroundColor: 'transparent',
   },
-  spacer: {
-    flex: 1
-  },
+  // spacer: {
+  //   flex: 1
+  // },
   login: {
     backgroundColor: cssVar('thm4'),
     borderBottomWidth: 5,
   },
   signup: {
     backgroundColor: cssVar('thm1'),
+  },
+  error: {
+    borderWidth: 1,
+    borderColor: 'red'
   },
   buttonStyle: {
     flex: 0.25,
@@ -146,6 +165,7 @@ var styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 18,
     height: 50,
+    width: SCR_WDTH,
   },
   username: {
     marginBottom: 20,

@@ -14,7 +14,8 @@ var KEYCHAIN_SERVICE = 'WhoUp';
 
 
 var DeviceUUID = require("react-native-device-uuid");
-var RemotePushIOS = require("../../RemotePushIOS");
+var RemotePushIOS = require("../RemotePushIOS");
+
 // null so we know to initialize on app launch
 var _singleton = null;
 

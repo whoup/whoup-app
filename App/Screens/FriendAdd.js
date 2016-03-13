@@ -5,6 +5,7 @@ var {
   Image,
   TextInput,
   TouchableWithoutFeedback,
+  InteractionManager
 } = React;
 var cssVar = require('../Lib/cssVar');
 
@@ -18,7 +19,7 @@ var Text             = require('../Components/Text');
 var SearchBar = require('react-native-search-bar');
 var KeyboardListener = require('../Mixins/KeyboardListener');
 
-RequestItem = require('../Components/RequestItem.js')
+var RequestItem = require('../Components/RequestItem.js')
 
 var CurrentUserStore = require('../Stores/CurrentUserStore');
 //var CURRENT_USER = CurrentUserStore.get().data;
@@ -37,7 +38,7 @@ var FriendAdd = React.createClass({
       text: '',
       username: '',
       userId: '',
-      loading: false,
+      loading: true,
       friends: {},
       reqs: {}
     };
@@ -45,15 +46,17 @@ var FriendAdd = React.createClass({
 
   componentDidMount: function(){
     var userId = this.getUserId()
-    this.friends = base.bindToState('users/' + userId + '/friends/', {
-      context: this,
-      asArray: false,
-      state: 'friends'
-    });
-    this.reqs = base.bindToState('users/' + userId + '/sent_reqs/', {
-      context: this,
-      asArray: false,
-      state: 'reqs'
+    InteractionManager.runAfterInteractions(() => {
+      this.friends = base.bindToState('users/' + userId + '/friends/', {
+        context: this,
+        asArray: false,
+        state: 'friends'
+      });
+      this.reqs = base.bindToState('users/' + userId + '/sent_reqs/', {
+        context: this,
+        asArray: false,
+        state: 'reqs'
+      });
     });
   },
 

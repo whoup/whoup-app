@@ -24,7 +24,6 @@ var SimpleList       = require('../Components/InvertedList');
 var AppActions       = require('../Actions/AppActions');
 
 var CurrentUserStore = require('../Stores/CurrentUserStore');
-var CURRENT_USER = CurrentUserStore.get().data;
 
 var Rebase = require('re-base');
 var base = Rebase.createClass('https://whoup.firebaseio.com/');
@@ -122,7 +121,7 @@ var Chat = React.createClass({
   },
 
   componentDidMount: function() {
-    messages = 'users/' + CURRENT_USER.id + '/messages/' + this.props.passProps.id;
+    messages = 'users/' + this.getUserId() + '/messages/' + this.props.passProps.id;
     this.messageRef = base.bindToState(messages, {
       context: this,
       state: 'messages',
@@ -151,10 +150,11 @@ var Chat = React.createClass({
 
 
   getUsername: function() {
-    if (!this.username) {
-      this.username = this.props.username || CurrentUserStore.get().data.username;
-    }
-    return this.username;
+    return CurrentUserStore.get().data.username;
+  },
+
+  getUserId: function() {
+    return CurrentUserStore.get().data.id
   },
 
   renderProgress: function() {
@@ -223,16 +223,7 @@ var Chat = React.createClass({
     var content = this.renderItems();
     var progress = this.renderProgress();
     var title = this.renderTitle();
-    var name = this.props.passProps == undefined ? null : this.props.passProps.id
-    // if (this.state.items.length === 0) {
-    //   content = this.renderEmpty();
-    // }
-    // else {
-
-    // }
-
-
-    //{progress}
+    var friendId = this.props.passProps == undefined ? null : this.props.passProps.id;
     return (
       <View style={[styles.flex, {backgroundColor: 'black'}]}>
         {title}
@@ -240,7 +231,7 @@ var Chat = React.createClass({
           {content}
         </View>
           <ChatInput toggleSubmitting={this.toggleSending} updateProgress={this.updateProgress}
-            currUid={CURRENT_USER.id} username={this.getUsername()} friendId={name} />
+            currUid={this.getUserId()} username={this.getUsername()} friendId={friendId} />
 
       </View>
     );

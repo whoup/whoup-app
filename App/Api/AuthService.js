@@ -4,6 +4,8 @@ var FirebaseRef = require('../Api/FirebaseRef');
 var AuthService = {
   accountCallback: function(callback) {
     return function(error, authData) {
+      if (error)
+        return callback(error);
       UserService.getUser(authData, callback, error);
     };
   },
@@ -26,7 +28,7 @@ var AuthService = {
         } else {
 
         }
-      }, function(error, committed, snapshot) {
+      }, (error, committed, snapshot) => {
         if (error)
           callback(error);
         else if (!committed)
@@ -43,7 +45,7 @@ var AuthService = {
       email: email,
       password: password
     },
-    function(error, userData) {
+    (error, userData) => {
       if (error){
         return callback(error);
       }
@@ -59,7 +61,9 @@ var AuthService = {
     FirebaseRef.ref().authWithPassword({
       email: email,
       password: password
-    }, AuthService.accountCallback(callback));
+    },
+      AuthService.accountCallback(callback)
+    );
   }
 };
 

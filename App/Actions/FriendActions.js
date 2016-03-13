@@ -126,6 +126,21 @@ var FriendActions = {
     });
   },
 
+  deleteFriend: function(uid, currUid, callback) {
+    Network.started();
+    FirebaseRef.userFriendRef(uid).child(currUid).remove(function(error) {
+      if (error) {
+        callback(error);
+        Network.completed()
+      } else {
+        FirebaseRef.userFriendRef(currUid).child(uid).remove(function(error) {
+          callback(error);
+          Network.completed()
+        });
+      }
+    })
+  },
+
   acceptRequest: function(uid, username, currUid, currUsername, callback) {
     Network.started();
     FirebaseRef.userFriendRef(uid).child(currUid).transaction(function(currentData) {

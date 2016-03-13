@@ -4,7 +4,7 @@ var ref = new Firebase('https://whoup.firebaseIO.com/');
 //var CurrentUserStore = require('../Stores/CurrentUserStore');
 var Network = require('../Api/Network');
 var DeviceUUID = require("react-native-device-uuid");
-var RemotePushIOS = require("../../RemotePushIOS");
+var RemotePushIOS = require("../RemotePushIOS");
 // var CurrentUserStore = require('../Stores/CurrentUserStore');
 // var CURRENT_USER = CurrentUserStore.get().data;
 
@@ -28,6 +28,10 @@ module.exports = {
 
   userRef: function(uid) {
     return ref.child('users').child(uid);
+  },
+
+  username: function(username) {
+    return ref.child('usernames').child(username);
   },
 
   userFriendRef: function(uid) {
@@ -78,9 +82,7 @@ module.exports = {
   registerForPush: function(uuid, uid, token) {
     var pushRef =ref.child('users').child(uid).child('deviceTokens').child(uuid);
     pushRef.transaction( (curr_val) => {
-      if (curr_val !== null || curr_val !== undefined) {
         return token;
-      }
     }, (error, committed, snapshot) => { return; })
   },
   pushRef: function() {

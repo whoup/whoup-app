@@ -39,6 +39,7 @@
 		336DD3191C6EE42800DF160F /* sleepy.gif in Resources */ = {isa = PBXBuildFile; fileRef = 336DD3181C6EE42800DF160F /* sleepy.gif */; };
 		3380AB1F1C86BAFB0034E86C /* libRCTDeviceUUID.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3380AB101C86BAEC0034E86C /* libRCTDeviceUUID.a */; };
 		33970B4D1C42FFFE00526283 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 33970B4F1C42FFFE00526283 /* Launch Screen.storyboard */; };
+		33C2BAB31C941E81004FC059 /* eyes_animation trans.gif in Resources */ = {isa = PBXBuildFile; fileRef = 33C2BAB21C941E81004FC059 /* eyes_animation trans.gif */; };
 		33DF305C1C82704F00F0BFBA /* libRCTRemotePushManager.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 330273E51BFC5E470012D429 /* libRCTRemotePushManager.a */; };
 		33DF306F1C8270EA00F0BFBA /* RemotePushDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 33DF306D1C8270EA00F0BFBA /* RemotePushDelegate.m */; };
 		33DF30721C82B36400F0BFBA /* bored.gif in Resources */ = {isa = PBXBuildFile; fileRef = 33DF30711C82B36400F0BFBA /* bored.gif */; };
@@ -224,6 +225,7 @@
 		33781C891C7D7C7C00E6BBB2 /* Bored.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Bored.gif; sourceTree = "<group>"; };
 		3380AB091C86BAEC0034E86C /* RCTDeviceUUID.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTDeviceUUID.xcodeproj; path = "../node_modules/react-native-device-uuid/RCTDeviceUUID.xcodeproj"; sourceTree = "<group>"; };
 		33970B4E1C42FFFE00526283 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "Base.lproj/Launch Screen.storyboard"; sourceTree = "<group>"; };
+		33C2BAB21C941E81004FC059 /* eyes_animation trans.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "eyes_animation trans.gif"; sourceTree = "<group>"; };
 		33DF306C1C8270EA00F0BFBA /* RemotePushDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemotePushDelegate.h; sourceTree = "<group>"; };
 		33DF306D1C8270EA00F0BFBA /* RemotePushDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RemotePushDelegate.m; sourceTree = "<group>"; };
 		33DF30711C82B36400F0BFBA /* bored.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = bored.gif; sourceTree = "<group>"; };
@@ -500,6 +502,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				33C2BAB21C941E81004FC059 /* eyes_animation trans.gif */,
 				33DF30731C82B37700F0BFBA /* eyes.gif */,
 				33DF30711C82B36400F0BFBA /* bored.gif */,
 				33781C891C7D7C7C00E6BBB2 /* Bored.gif */,
@@ -830,6 +833,7 @@
 				332C6AA61BEA07C200A9921C /* Entypo.ttf in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				33009EA71C60983200FD2CDE /* sofia-black.ttf in Resources */,
+				33C2BAB31C941E81004FC059 /* eyes_animation trans.gif in Resources */,
 				33970B4D1C42FFFE00526283 /* Launch Screen.storyboard in Resources */,
 				332C6AAD1BEA07C200A9921C /* Zocial.ttf in Resources */,
 				332C6AAB1BEA07C200A9921C /* MaterialIcons.ttf in Resources */,

@@ -69,10 +69,6 @@ var UserService = {
   //   });
   // },
   getUser: function(authData, callback, error) {
-
-    if (!authData) return callback({
-      message: "An error occurred, please try again"
-    });
     FirebaseRef.userRef(authData.uid).once('value', function(snapshot) {
       var dbData = snapshot.val();
       var data = {};

@@ -318,8 +318,8 @@ var styles = StyleSheet.create({
   },
   marLeftRight: {
     flex: 1,
-    marginLeft: 10,
-    marginRight: 10
+    marginLeft: 20,
+    marginRight: 20
   },
   copyOffset: {
     paddingBottom: 20

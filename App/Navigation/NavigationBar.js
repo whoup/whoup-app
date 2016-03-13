@@ -39,7 +39,7 @@ var CustomRightToLeftGesture = Object.assign({}, RightBaseConfig.gestures.pop, {
 
   direction: 'right-to-left',
   // Make it so we can drag anywhere on the screen
-  edgeHitWidth: SCREEN_WIDTH,
+  edgeHitWidth: 50,
 });
 
 var RightSceneConfig = Object.assign({}, RightBaseConfig, {
@@ -56,7 +56,7 @@ var CustomLeftToRightGesture = Object.assign({}, LeftBaseConfig.gestures.pop, {
   snapVelocity: 1,
   direction: 'left-to-right',
   // Make it so we can drag anywhere on the screen
-  edgeHitWidth: SCREEN_WIDTH,
+  edgeHitWidth: SCREEN_WIDTH / 3,
 });
 
 var LeftSceneConfig = Object.assign({}, LeftBaseConfig, {

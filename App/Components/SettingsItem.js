@@ -39,7 +39,7 @@ var SettingsItem = React.createClass({
   renderRightIcon: function() {
     if (!this.props.nextIcon) return null;
     return (
-      <Icon name={'ios-arrow-right'} size={30} color={'black'} style={''} />
+      <Icon name={'ios-arrow-right'} size={24} style={styles.rightIcon} />
     );
   },
 
@@ -48,9 +48,10 @@ var SettingsItem = React.createClass({
       <View style={[styles.row, this.props.noTap && styles.touch]}>
         <View style={styles.left}>
           {this.renderTitle()}
-          {this.renderSubtitle()}
+
         </View>
         <View style={styles.right}>
+          {this.renderSubtitle()}
           {this.renderRightIcon()}
         </View>
       </View>
@@ -59,11 +60,16 @@ var SettingsItem = React.createClass({
 
   render: function() {
     if (this.props.noTap) {
-      return this.renderContent();
+      return (
+        <View style={styles.marBottom}>
+          {this.renderContent()}
+        </View>
+      )
+
     }
 
     return (
-      <View>
+      <View style={styles.marBottom}>
         <TouchableHighlight
               style={styles.touch}
               underlayColor={cssVar('gray10')}
@@ -84,29 +90,34 @@ var styles = StyleSheet.create({
   row: {
     flex: 1,
     flexDirection: 'row',
-    alignItems: 'center',
-    paddingRight: 10,
-    paddingLeft: 10
-
+    paddingTop: 12,
+    paddingBottom: 12,
+    paddingLeft: 15,
+    paddingRight: 15
+  },
+   marBottom: {
+    marginBottom: 10,
   },
   title: {
     fontSize: 18,
+    fontFamily: cssVar('fontLight'),
+    color: cssVar('thm2'),
   },
   subtitle: {
     paddingTop: 5,
-    fontSize: 14,
-    color: cssVar('gray20'),
+    fontSize: 18,
+    lineHeight: 18,
+    color: cssVar('thm6'),
   },
   left: {
     flex: 1,
   },
   right: {
-
+    flexDirection: 'row'
   },
   rightIcon: {
-    fontFamily: cssVar('fontIcon'),
-    color: cssVar('gray30'),
-    fontSize: 12,
+    color: cssVar('thm6'),
+    marginLeft: 8,
   }
 });
 
