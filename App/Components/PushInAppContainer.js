@@ -4,7 +4,8 @@ var {
   StyleSheet,
   Animated,
   Image,
-  TouchableWithoutFeedback
+  TouchableWithoutFeedback,
+  AppStateIOS,
 } = React;
 
 var Text = require('../Components/Text');
@@ -25,7 +26,7 @@ var PushInAppContainer = React.createClass({
       fromId: '',
       from: '',
       type: '',
-
+      appState: '',
     }
 
    },
@@ -47,21 +48,42 @@ var PushInAppContainer = React.createClass({
 
      // Determine whether notification was received on startup. Note that it will return false if the app was running in the background. To determine if the app was open or not, you'll need to keep track of the appState separately.
 
-     console.log(notification.startup);
+     // if (notification.startup) {
+     //  if (notification.type === 'request') {
+     //    return AppActions.launchRoutePath('whoup/dashboard/friends');
+     //  } else {
+     //    return AppActions.launchRoutePath('whoup/dashboard/' + notification.fromId, {id: notification.fromId, username: notification.fromUser});
+     //  }
+     // }
 
      if (this.props.routePath !== ('whoup/dashboard/' + notification.fromId)) {
-       StatusBar.setHidden(true);
-       this._setAnimation(true);
        this.setState({
                       message: notification.message,
                       type: notification.type,
                       fromId: notification.fromId,
                       from: notification.fromUser
-                    })
+                    });
+       if (notification.startup || AppStateIOS.currentState == 'background')  return this.launchResponse();
+
+
+        StatusBar.setHidden(true);
+        this._setAnimation(true);
+
+
        this.setTimeout(
-          () => { this._setAnimation(false); StatusBar.setHidden(false); },
+          () => {
+            this._setAnimation(false);
+            StatusBar.setHidden(false);
+            this.setState({
+               message: '',
+              fromId: '',
+              from: '',
+              type: '',
+            });
+          },
           2000);
-      }
+       }
+
   },
 
   launchResponse: function(){

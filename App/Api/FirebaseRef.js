@@ -16,7 +16,7 @@ module.exports = {
   },
 
   goOnline: function(uid) {
-    var amOnline = ref.child('.info').child('connected')
+    var amOnline = ref.child('.info').child('connected');
     var userRef = ref.child('presence').child(uid);
     amOnline.on('value', function(snapshot) {
       if (snapshot.val()) {
@@ -52,9 +52,9 @@ module.exports = {
   },
 
   auth: function(token, callback) {
-    Network.started();
+    //Network.started();
     ref.authWithCustomToken(token, function(error, result) {
-      Network.completed();
+      //Network.completed();
       callback();
       return;
     });

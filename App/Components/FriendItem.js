@@ -16,6 +16,9 @@ var base = Rebase.createClass('https://whoup.firebaseio.com/');
 
 var FriendItem = React.createClass({
 
+  getInitialState: function (){
+    return {open: true}
+  },
 
   deleteFriend: function() {
     FriendActions.deleteFriend(this.props.id, this.props.currUid, this.friendDeleted);
@@ -53,15 +56,15 @@ var FriendItem = React.createClass({
     return (
 
       <View style={[styles.flex, styles.seperate, styles.notUpBackground]}>
-        <Swipeout backgroundColor={cssVar('thm3')} right={[{text: 'Delete', backgroundColor: 'red', onPress: this.deleteFriend}]}>
-          <View style={styles.row}>
+        <Swipeout backgroundColor={cssVar('thm3')}  open={true} right={[{text: 'Delete', type: 'delete', onPress: this.deleteFriend}]}>
+          <View style={styles.row} >
             <View style={[styles.left, styles.rowFlex]}>
               {name}
             </View>
             <View style={styles.right}>
               <Icon name={'ios-arrow-right'} size={30} color={cssVar('thm2')} style={[styles.imageRIcon]} />
             </View>
-            </View>
+          </View>
         </Swipeout>
       </View>
 
