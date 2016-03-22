@@ -12,6 +12,8 @@
 
 #import "RCTRootView.h"
 
+//#import "AppHub.h"
+
 @implementation AppDelegate
 
 - (id) init {
@@ -43,7 +45,9 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
   NSURL *jsCodeLocation;
-
+  
+  
+  //[AppHub setApplicationID:@"xa6SqEFMV6s3MdIVY1ow"];
 
   /**
    * Loading JavaScript code - uncomment the one you want.
@@ -59,9 +63,9 @@
    * on the same Wi-Fi network.
    */
   
- jsCodeLocation = [NSURL URLWithString:@"http://10.0.0.9:8081/index.ios.bundle?platform=ios&dev=true"];
+ //jsCodeLocation = [NSURL URLWithString:@"http://10.0.0.9:8081/index.ios.bundle?platform=ios&dev=true"];
 
- // jsCodeLocation = [NSURL URLWithString:@"http://localhost:8081/index.ios.bundle?platform=ios&dev=true"];
+ jsCodeLocation = [NSURL URLWithString:@"http://localhost:8081/index.ios.bundle?platform=ios&dev=true"];
   
 //  for (NSString* family in [UIFont familyNames])
 //  {
@@ -83,6 +87,17 @@
    */
 
  // jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
+  
+  /**
+   * OPTION 3 - AppHub
+   *
+   * Load cached code and images from AppHub.
+   *
+   */
+  
+//  AHBuild *build = [[AppHub buildManager] currentBuild];
+//  jsCodeLocation = [build.bundle URLForResource:@"main"
+//                                  withExtension:@"jsbundle"];
 
   RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
                                                       moduleName:@"whoup"

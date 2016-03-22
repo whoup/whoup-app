@@ -58,7 +58,7 @@ var Routes = {
           now.getFullYear(),
           now.getMonth(),
           now.getDate(),
-          24,0,0);
+          6,0,0);
     var itsTime = now < sixAm;
     var leftImage = itsTime ? 'owl_plus' : 'owl_plus_b';
     var rightImage = itsTime ? 'settings' : 'settings_b';

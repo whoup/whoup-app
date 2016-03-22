@@ -125,6 +125,20 @@
 			remoteGlobalIDString = 48DDA26A1B0A1157004C75B0;
 			remoteInfo = RCTRemotePushManager;
 		};
+		330F8EEE1CA1CB0D0006F710 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 330F8EE61CA1CB0D0006F710 /* AppHub.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 555FF3AF1B37AC8D0064F175;
+			remoteInfo = AppHub;
+		};
+		330F8EF01CA1CB0D0006F710 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 330F8EE61CA1CB0D0006F710 /* AppHub.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 555FF3BA1B37AC8D0064F175;
+			remoteInfo = AppHubTests;
+		};
 		332C6ABA1BEA08E600A9921C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 332C6AB61BEA08E600A9921C /* RNKeychain.xcodeproj */;
@@ -204,6 +218,9 @@
 		33009EA61C60983200FD2CDE /* sofia-black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "sofia-black.ttf"; path = "../sofia-black.ttf"; sourceTree = "<group>"; };
 		33009EE61C609E1F00FD2CDE /* RNSearchBar.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNSearchBar.xcodeproj; path = "../node_modules/react-native-search-bar/RNSearchBar.xcodeproj"; sourceTree = "<group>"; };
 		330273E01BFC5E470012D429 /* RCTRemotePushManager.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTRemotePushManager.xcodeproj; path = "../node_modules/react-native-remote-push/RCTRemotePushManager.xcodeproj"; sourceTree = "<group>"; };
+		330F8EE61CA1CB0D0006F710 /* AppHub.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AppHub.xcodeproj; path = ../node_modules/apphub/AppHub/AppHub.xcodeproj; sourceTree = "<group>"; };
+		330F8F041CA1CBB50006F710 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		330F8F061CA1CBC30006F710 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		332C6A6A1BEA04AB00A9921C /* libSimulatorRemoteNotifications.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSimulatorRemoteNotifications.a; path = "Pods/../build/Debug-iphoneos/libSimulatorRemoteNotifications.a"; sourceTree = "<group>"; };
 		332C6A9E1BEA07C200A9921C /* Entypo.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Entypo.ttf; sourceTree = "<group>"; };
 		332C6A9F1BEA07C200A9921C /* EvilIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = EvilIcons.ttf; sourceTree = "<group>"; };
@@ -384,6 +401,15 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		330F8EE71CA1CB0D0006F710 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				330F8EEF1CA1CB0D0006F710 /* libAppHub.a */,
+				330F8EF11CA1CB0D0006F710 /* AppHub.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		332C6A9D1BEA07C200A9921C /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -451,6 +477,8 @@
 		68FB33C9F11B72D8148B3A6D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				330F8F061CA1CBC30006F710 /* libz.tbd */,
+				330F8F041CA1CBB50006F710 /* SystemConfiguration.framework */,
 				3334464A1C659C2D0052FDBF /* Social.framework */,
 				332C6AAE1BEA081800A9921C /* libRNVectorIcons.a */,
 				332C6A6A1BEA04AB00A9921C /* libSimulatorRemoteNotifications.a */,
@@ -469,6 +497,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				330F8EE61CA1CB0D0006F710 /* AppHub.xcodeproj */,
 				336D3A0B1C89193800F3F284 /* RCTPushNotification.xcodeproj */,
 				3380AB091C86BAEC0034E86C /* RCTDeviceUUID.xcodeproj */,
 				3334466A1C659D510052FDBF /* ActivityView.xcodeproj */,
@@ -605,6 +634,10 @@
 				{
 					ProductGroup = 3334466B1C659D510052FDBF /* Products */;
 					ProjectRef = 3334466A1C659D510052FDBF /* ActivityView.xcodeproj */;
+				},
+				{
+					ProductGroup = 330F8EE71CA1CB0D0006F710 /* Products */;
+					ProjectRef = 330F8EE61CA1CB0D0006F710 /* AppHub.xcodeproj */;
 				},
 				{
 					ProductGroup = 00C302A81ABCB8CE00DB3ED1 /* Products */;
@@ -752,6 +785,20 @@
 			fileType = archive.ar;
 			path = libRCTRemotePushManager.a;
 			remoteRef = 330273E41BFC5E470012D429 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		330F8EEF1CA1CB0D0006F710 /* libAppHub.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libAppHub.a;
+			remoteRef = 330F8EEE1CA1CB0D0006F710 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		330F8EF11CA1CB0D0006F710 /* AppHub.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = AppHub.xctest;
+			remoteRef = 330F8EF01CA1CB0D0006F710 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		332C6ABB1BEA08E600A9921C /* libRNKeychain.a */ = {
@@ -960,6 +1007,7 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/../node_modules/react-native/React/**",
 					"$(SRCROOT)/../node_modules/react-native/Libraries/PushNotificationIOS/**",
+					"$(SRCROOT)/../node_modules/apphub/AppHub/**",
 				);
 				INFOPLIST_FILE = whoup/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
@@ -987,6 +1035,7 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/../node_modules/react-native/React/**",
 					"$(SRCROOT)/../node_modules/react-native/Libraries/PushNotificationIOS/**",
+					"$(SRCROOT)/../node_modules/apphub/AppHub/**",
 				);
 				INFOPLIST_FILE = whoup/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;

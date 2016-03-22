@@ -65,7 +65,7 @@ var ChatRoomList = React.createClass({
 
   setUpNotUpTimers: function() {
     var now = new Date();
-      var sixAm = new Date(
+    var sixAm = new Date(
           now.getFullYear(),
           now.getMonth(),
           now.getDate(),

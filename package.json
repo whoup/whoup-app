@@ -7,6 +7,7 @@
     "postinstall": "find ./node_modules -type d -name fbjs -and -not -path ./node_modules/fbjs -print -exec rm -rf \"{}\" \\;"
   },
   "dependencies": {
+    "apphub": "^0.5.1",
     "events": "^1.0.2",
     "fbjs": "^0.6.1",
     "firebase": "^2.3.1",
