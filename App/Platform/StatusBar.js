@@ -1,18 +1,18 @@
 var React = require('react-native');
 var {
-  StatusBarIOS
+  StatusBar
 } = React;
 
-var StatusBar = {
+var StatBar = {
   setNetworkActive: function(active) {
-    StatusBarIOS.setNetworkActivityIndicatorVisible(active);
+    StatusBar.setNetworkActivityIndicatorVisible(active);
   },
   setStyle: function(style) {
-    StatusBarIOS.setStyle(style, true)
+    StatusBar.setBarStyle(style, true);
   },
   setHidden: function(hidden){
-    StatusBarIOS.setHidden(hidden, 'slide')
+    StatusBar.setHidden(hidden, 'slide');
   }
 };
 
-module.exports = StatusBar;
+module.exports = StatBar;

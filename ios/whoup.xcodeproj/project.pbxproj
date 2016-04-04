@@ -39,6 +39,9 @@
 		336DD3191C6EE42800DF160F /* sleepy.gif in Resources */ = {isa = PBXBuildFile; fileRef = 336DD3181C6EE42800DF160F /* sleepy.gif */; };
 		3380AB1F1C86BAFB0034E86C /* libRCTDeviceUUID.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3380AB101C86BAEC0034E86C /* libRCTDeviceUUID.a */; };
 		33970B4D1C42FFFE00526283 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 33970B4F1C42FFFE00526283 /* Launch Screen.storyboard */; };
+		339D380B1CB1E62D008BC601 /* libAppHub.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 330F8EEF1CA1CB0D0006F710 /* libAppHub.a */; };
+		339D381E1CB1E72C008BC601 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 330F8F041CA1CBB50006F710 /* SystemConfiguration.framework */; };
+		339D381F1CB1E80E008BC601 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 330F8F061CA1CBC30006F710 /* libz.tbd */; };
 		33C2BAB31C941E81004FC059 /* eyes_animation trans.gif in Resources */ = {isa = PBXBuildFile; fileRef = 33C2BAB21C941E81004FC059 /* eyes_animation trans.gif */; };
 		33DF305C1C82704F00F0BFBA /* libRCTRemotePushManager.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 330273E51BFC5E470012D429 /* libRCTRemotePushManager.a */; };
 		33DF306F1C8270EA00F0BFBA /* RemotePushDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 33DF306D1C8270EA00F0BFBA /* RemotePushDelegate.m */; };
@@ -263,6 +266,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				339D381F1CB1E80E008BC601 /* libz.tbd in Frameworks */,
+				339D381E1CB1E72C008BC601 /* SystemConfiguration.framework in Frameworks */,
 				332C6ACA1BEA09B800A9921C /* libRNVectorIcons.a in Frameworks */,
 				332C6AC91BEA09B100A9921C /* libRNKeychain.a in Frameworks */,
 				332C6AC81BEA09AB00A9921C /* libRNKeyboardEvents.a in Frameworks */,
@@ -272,6 +277,7 @@
 				00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */,
 				00C302E91ABCBA2D00DB3ED1 /* libRCTNetwork.a in Frameworks */,
 				00C302E81ABCBA2D00DB3ED1 /* libRCTImage.a in Frameworks */,
+				339D380B1CB1E62D008BC601 /* libAppHub.a in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
 				33DF305C1C82704F00F0BFBA /* libRCTRemotePushManager.a in Frameworks */,
 				336D3A121C891A9100F3F284 /* libRCTPushNotification.a in Frameworks */,
@@ -1017,7 +1023,7 @@
 					"$(PROJECT_DIR)/build/Debug-iphoneos",
 				);
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.WhoUp.club;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.Who-Up.club";
 				PRODUCT_NAME = whoup;
 				PROVISIONING_PROFILE = "";
 			};
@@ -1045,7 +1051,7 @@
 					"$(PROJECT_DIR)/build/Debug-iphoneos",
 				);
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.WhoUp.club;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.Who-Up.club";
 				PRODUCT_NAME = whoup;
 				PROVISIONING_PROFILE = "";
 			};

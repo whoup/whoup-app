@@ -111,6 +111,7 @@ var ChatRoomList = React.createClass({
   sortUsers: function(){
     var up = [];
     var notUp = [];
+    var user;
     for (var i in this.state.users) {
       user = this.state.users[i]
       if (this.state.up[user.key]) {
@@ -233,6 +234,7 @@ var ChatRoomList = React.createClass({
   },
 
   render: function() {
+    var content;
     if (this.props.currentRoute.passProps.itsTime) {
       if (this.state.userIsUp) {
         content = this.renderList();

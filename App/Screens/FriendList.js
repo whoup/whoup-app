@@ -52,7 +52,7 @@ var FriendList = React.createClass({
   },
 
   getFriends: function(){
-    userId = this.getUserId();
+    var userId = this.getUserId();
     base.fetch('users/' + userId + '/friends', {
       context: this,
       asArray: true,
