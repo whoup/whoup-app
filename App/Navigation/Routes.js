@@ -54,12 +54,18 @@ var Routes = {
   Dashboard: function(username) {
     //console.log(username);
     var now = new Date();
-    var sixAm = new Date(
+    var ninePm = new Date(
+          now.getFullYear(),
+          now.getMonth(),
+          now.getDate(),
+          21,0,0);
+     var sixAm = new Date(
           now.getFullYear(),
           now.getMonth(),
           now.getDate(),
           6,0,0);
-    var itsTime = now < sixAm;
+
+    var itsTime = now > ninePm ? true : now > sixAm ? false : true;
     var leftImage = itsTime ? 'owl_plus' : 'owl_plus_b';
     var rightImage = itsTime ? 'settings' : 'settings_b';
     var statBar = itsTime ? 'light-content' : 'default';
@@ -89,6 +95,31 @@ var Routes = {
     };
   },
 
+  ChangeEmail: function() {
+    return {
+      component: require('../Screens/ChangeEmail'),
+      title: '',
+      left: true,
+      statBar: 'light-content',
+      display: false,
+      navBack: {
+        disabled: true
+      }
+    };
+  },
+  ChangePassword: function() {
+    return {
+      component: require('../Screens/ChangePassword'),
+      title: '',
+      left: true,
+      statBar: 'light-content',
+      display: false,
+      navBack: {
+        disabled: true
+      }
+    };
+  },
+
 
   Chat: function(username) {
     return {
@@ -110,9 +141,13 @@ var listRoute = function(route, defaultRoute) {
       case 'friends':
         return listRoute(Routes.FriendList());
       case '_settings':
-        return Routes.Settings();
+        return listRoute(Routes.Settings());
       case '_friendAdd':
         return Routes.FriendAdd();
+      case '_change-email':
+        return Routes.ChangeEmail();
+      case '_change-password':
+        return Routes.ChangePassword();
       default:
         if (!defaultRoute) return null;
         return defaultRoute(path);
@@ -147,7 +182,6 @@ var userRoute = function(username) {
     switch(path) {
       case 'dashboard':
         return listRoute(Routes.Dashboard(username), function(user) {
-          console.log(user);
           return Routes.Chat(username);
         });
       default:

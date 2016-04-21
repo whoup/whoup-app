@@ -62,7 +62,7 @@ var FriendItem = React.createClass({
               {name}
             </View>
             <View style={styles.right}>
-              <Icon name={'ios-arrow-right'} size={30} color={cssVar('thm2')} style={[styles.imageRIcon]} />
+              <Icon name={'ios-arrow-left'} size={30} color={cssVar('thm2')} style={[styles.imageRIcon]} />
             </View>
           </View>
         </Swipeout>

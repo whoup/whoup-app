@@ -33,16 +33,20 @@ var ChatItem = React.createClass({
     );
   },
   renderContent: function() {
-    multiLine = this.props.body.length > 30;
-    icon1 = this.props.received ? <Image style={styles.icon1} source={{uri: 'owl_y'}} /> : null;
-    icon2 = this.props.received ? null : <Image style={styles.icon2} source={{uri: 'owl_b'}} />;
+    var multiLine = this.props.body.length > 30;
+    var icon1 = this.props.received ? <Image style={styles.icon1} source={{uri: 'owl_y'}} /> : null;
+    var icon2 = this.props.received ? null : <Image style={styles.icon2} source={{uri: 'owl_b'}} />;
+
+    var body = this.props.image ?
+      <Image style={[styles.image]} source={{uri: this.props.body}} resizeMode={'contain'}/>
+      : <Text style={[styles.body, this.props.received && styles.received, multiLine && styles.multiLine]}>
+          {this.props.body}
+        </Text>
     return (
       <View style={[this.props.noTap && styles.touch]}>
         <View style={styles.left}>
           {icon1}
-          <Text style={[styles.body, this.props.received && styles.received, multiLine && styles.multiLine]}>
-            {this.props.body}
-          </Text>
+          {body}
           {icon2}
         </View>
       </View>
@@ -112,6 +116,11 @@ var styles = StyleSheet.create({
     width: 250,
   },
   right: {
+
+  },
+  image: {
+    width: 300,
+    height: 400,
 
   },
 });

@@ -143,7 +143,7 @@ var FriendList = React.createClass({
     else if (this.state.friends.length < 1 && this.state.requests < 1) {
       content = this.renderEmpty("You have no friends.", "So add some below" );
     }
-    else if (this.state.friends.length === 1) {
+    else if (this.state.friends.length === 1 && this.state.requests.length < 1 ) {
       content =
         (
           <View style={styles.paddTop}>
@@ -178,11 +178,6 @@ var FriendList = React.createClass({
     return this.renderList();
   }
 });
-
-
-
-
-
 
 
 

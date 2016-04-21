@@ -70,9 +70,9 @@ var Login = React.createClass({
           enablesReturnKeyAutomatically={true}
           returnKeyType={'next'}
           onChange={(event) => {this.setState({email: event.nativeEvent.text, error: false }) } }
-          onSubmitEditing={(event) => this.refs.password.focus() }
+          onSubmitEditing={(event) => this.refs.password.refs.input.focus() }
           />
-          <TextInput ref="password"
+        <TextInput ref="password"
           placeholder={'Password'}
           password={true}
           clearButtonMode={'always'}
@@ -166,6 +166,7 @@ var styles = StyleSheet.create({
     fontSize: 18,
     height: 50,
     width: SCR_WDTH,
+    borderColor: 'transparent'
   },
   username: {
     marginBottom: 20,

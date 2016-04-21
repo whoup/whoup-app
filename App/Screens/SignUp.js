@@ -70,6 +70,17 @@ var SignUp = React.createClass({
     }
   },
 
+  validateUsername: function() {
+    if (this.state.current !== '' && !this.state.error )
+    {
+      return true;
+    }
+    else{
+      this.setState({error: true});
+      return false;
+    }
+  },
+
   updateText: function(event){
     var text = event.nativeEvent.text;
     this.setState({current: text, error: false});
@@ -92,12 +103,12 @@ var SignUp = React.createClass({
   },
 
   onSubmit: function (){
-      if (this.state.step === 'username' && !this.state.error) {
+      if (this.state.step === 'username' && this.validateUsername()) {
         var temp = this.state.current;
         this.refs.container.blur();
         this.setState({current: '', username: temp, step: 'email'})
-        this.refs.input.slideOutLeft(500).then((endState) => {this.setState({top: 'Enter a Email'}); this.refs.input.slideInRight(200)});
-        this.refs.input2.slideOutLeft(500).then((endState) => {this.setState({bottom: 'So we know u r real'}); this.refs.input2.slideInRight(200)});
+        this.refs.input.slideOutLeft(500).then((endState) => {this.setState({top: 'Enter an Email'}); this.refs.input.slideInRight(200)});
+        this.refs.input2.slideOutLeft(500).then((endState) => {this.setState({bottom: 'So we know you are real'}); this.refs.input2.slideInRight(200)});
       }
       else if (this.state.step === 'email' && this.validateEmail()) {
         var temp = this.state.current;

@@ -58,20 +58,20 @@ var Chat = React.createClass({
       key: message.key,
       body: message.body,
       received: message.received,
-      timestamp: message.timestamp
-
+      timestamp: message.timestamp,
+      image: message.image
     }
   },
 
-  reloadList: function() {
-    console.log("reloading Messages: " + this.props.room_id);
-    // ChatActions.fetchList(this.props.room_id, function(error) {
-    //   // TODO: handle error
-    //   if (error) {
-    //     alert(error.message);
-    //   }
-    // });
-  },
+  // reloadList: function() {
+  //   console.log("reloading Messages: " + this.props.room_id);
+  //   // ChatActions.fetchList(this.props.room_id, function(error) {
+  //   //   // TODO: handle error
+  //   //   if (error) {
+  //   //     alert(error.message);
+  //   //   }
+  //   // });
+  // },
 
   getInitialState: function() {
     var state = this.getListState();
@@ -121,15 +121,15 @@ var Chat = React.createClass({
   },
 
   componentDidMount: function() {
-    messages = 'users/' + this.getUserId() + '/messages/' + this.props.passProps.id;
+    var messages = 'users/' + this.getUserId() + '/messages/' + this.props.passProps.id;
     this.messageRef = base.bindToState(messages, {
       context: this,
       state: 'messages',
       asArray: true,
-      queries: {
-        orderByChild: 'timestamp',
-        startAt: ((new Date().getTime()) - 25200000)
-      }
+      // queries: {
+      //   orderByChild: 'timestamp',
+      //   startAt: ((new Date().getTime()) - 25200000)
+      // }
     });
     // this.getListState();
     // InteractionManager.runAfterInteractions(() => {

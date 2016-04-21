@@ -132,7 +132,7 @@ var styles = StyleSheet.create({
    marginRight: 10,
    width: 18,
    height: 18,
-   backgroundColor: cssVar('thm1')
+   backgroundColor: cssVar('gray30')
   },
   upIcon: {
    //paddingLeft: 3,

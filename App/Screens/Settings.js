@@ -4,7 +4,7 @@ var {
   StyleSheet
 } = React;
 
-var SimpleListItem   = require('../Components/SimpleList');
+var SimpleList   = require('../Components/SimpleList');
 var AppConstants = require('../Constants/AppConstants');
 var cssVar = require('../Lib/cssVar');
 var Text = require('../Components/Text');
@@ -23,11 +23,13 @@ function getListState(username, email) {
       subtitle: email,
       type: 'settings',
       nextIcon: true,
+      subPath: '_change-email',
     },
     {
       title: "Password",
       type: 'settings',
       nextIcon: true,
+      subPath: '_change-password',
     },
     {
       title: "Log out",
@@ -35,7 +37,6 @@ function getListState(username, email) {
       nextIcon: true,
       actionType: AppConstants.LOGOUT_REQUESTED
     }];
-  list.push();
 
   return {
     items: list
@@ -66,7 +67,7 @@ var Settings = React.createClass({
           Settings
         </Text>
       </View>
-        <SimpleListItem style={styles.container} currentRoute={this.props.currentRoute} items={this.state.items} />
+        <SimpleList style={styles.container} currentRoute={this.props.currentRoute} items={this.state.items} />
       </View>
     )
   }

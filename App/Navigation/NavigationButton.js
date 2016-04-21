@@ -61,7 +61,7 @@ var NavigationButton = React.createClass({
     else {
       comp = (
               <Text style={[styles.navBarText, styles.navBarButtonText, styles[item.label + 'NavBar'], item.disabled && styles.disabledText]}>
-                  {item.label}
+                {item.label}
               </Text>
         )
     }

@@ -81,7 +81,7 @@ var ChatRoomList = React.createClass({
           now.getFullYear(),
           now.getMonth(),
           now.getDate(),
-          24,0,0);
+          21,0,0);
       this.setTimeout(
         () => { AppActions.launchRoutePath('whoup/dashboard'); },
         (itsTime.getTime() - now.getTime())
@@ -181,16 +181,22 @@ var ChatRoomList = React.createClass({
   },
 
   renderNotTime: function() {
+    //<Image style={[styles.notTime]} source={{uri: 'not_time'}}/>
     return (
     <Image style={[styles.container]} source={{uri: 'white'}}>
       <AnimatedImage
-                style={styles.notTimeIcon}
-                resizeMode={'contain'}
-                active={'bored.gif'}
-                inactive={'bored_owl'}
-                />
-      <Image style={[styles.notTime]} source={{uri: 'not_time'}}>
-      </Image>
+        style={styles.notTimeIcon}
+        resizeMode={'contain'}
+        active={'bored.gif'}
+        inactive={'bored_owl'}
+        />
+      <Text style={[styles.notTimeText, styles.notTimeText1]}>
+        It's not quite time yet,
+      </Text>
+      <Text style={[styles.notTimeText, styles.notTimeText2]}>
+        come back in the evening
+      </Text>
+
     </Image>)
   },
 
@@ -309,6 +315,17 @@ var styles = StyleSheet.create({
     width: 150,
     height: 150,
     backgroundColor: 'transparent'
+  },
+  notTimeText: {
+    fontSize: 22,
+    textAlign: 'center',
+    color: cssVar('thm2')
+  },
+  notTimeText1: {
+    letterSpacing: 0.7
+  },
+  notTimeText2: {
+    letterSpacing: -1
   },
   center: {
     justifyContent: 'center',

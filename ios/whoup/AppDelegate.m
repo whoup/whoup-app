@@ -65,7 +65,7 @@
   
  //jsCodeLocation = [NSURL URLWithString:@"http://10.0.0.9:8081/index.ios.bundle?platform=ios&dev=true"];
 
-// jsCodeLocation = [NSURL URLWithString:@"http://localhost:8081/index.ios.bundle?platform=ios&dev=true"];
+ jsCodeLocation = [NSURL URLWithString:@"http://localhost:8081/index.ios.bundle?platform=ios&dev=true"];
   
 //  for (NSString* family in [UIFont familyNames])
 //  {
@@ -94,11 +94,11 @@
    * Load cached code and images from AppHub.
    *
    */
-  
-  AHBuild *build = [[AppHub buildManager] currentBuild];
-  jsCodeLocation = [build.bundle URLForResource:@"main"
-                                  withExtension:@"jsbundle"];
-
+//  
+//  AHBuild *build = [[AppHub buildManager] currentBuild];
+//  jsCodeLocation = [build.bundle URLForResource:@"main"
+//                                  withExtension:@"jsbundle"];
+//
   RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
                                                       moduleName:@"whoup"
                                                initialProperties:nil
