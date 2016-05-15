@@ -4,7 +4,6 @@ var {
   StyleSheet,
   ActivityIndicatorIOS,
   InteractionManager,
-  ListView,
   ProgressViewIOS,
   Image,
   InteractionManager

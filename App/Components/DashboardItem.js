@@ -38,7 +38,7 @@ var DashboardItem = React.createClass({
   renderRightIcon: function() {
     if (!this.props.nextIcon) return null;
     return (
-      <Icon name={'ios-arrow-right'} size={30} color={'black'} style={styles.icon}/>
+      <Icon name={'ios-arrow-forward'} size={30} color={'black'} style={styles.icon}/>
     );
   },
 

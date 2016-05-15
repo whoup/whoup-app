@@ -63,7 +63,7 @@ var AuthService = {
     },
       AuthService.accountCallback(callback)
     );
-  }
+  },
 };
 
 module.exports = AuthService;

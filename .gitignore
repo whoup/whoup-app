@@ -21,7 +21,7 @@ DerivedData
 *.ipa
 *.xcuserstate
 project.xcworkspace
-
+App/Api/ImageUploader.js
 # Android/IJ
 #
 .idea

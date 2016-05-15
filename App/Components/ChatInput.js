@@ -47,15 +47,15 @@ var ChatInput = React.createClass({
       body: text,
       height: height
     });
-    if (/\/gif/.match(text)) {
-      this.setState({gif: true,
+    // if (/\/gif/.match()) {
+    //   this.setState({gif: true,
 
-      })
-      return;
-    }
+    //   })
+    //   return;
+    // }
 
     if (text.length > oldHeight){
-      if (/\/gif/.match(text)) {
+      if (text.match(/\/gif/)) {
         this.setState({gif: true,
           search: text.replace(/^\/gif/, '')
         })
@@ -189,7 +189,7 @@ var ChatInput = React.createClass({
 
   renderPicker: function(){
     return (
-      <listView
+      <ListView
 
       />
     )
@@ -197,10 +197,8 @@ var ChatInput = React.createClass({
 
 
   render: function() {
-    var picker = this.renderPicker();
     return (
       <View style={styles.container}>
-        {picker}
         <View style={styles.footer}>
           <View style={[styles.inputButton]}>
           <Button type='blue' style={styles.button} disabled={this.state.submitting} onPress={this._takePicture}>

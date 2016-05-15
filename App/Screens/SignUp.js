@@ -80,6 +80,15 @@ var SignUp = React.createClass({
     }
   },
 
+  validatePassword: function(){
+    if (this.state.current.length > 5) {
+      return true
+    } else {
+      this.setState({error: true});
+      return false;
+    }
+  },
+
   updateText: function(event){
     if (this.state.step === 'username')
       var text = event.nativeEvent.text.replace(/[\s\[\]\.#\$\/]/g, '');
@@ -104,6 +113,13 @@ var SignUp = React.createClass({
         this.setState({error: false})
       }
     }
+
+    if (this.state.step === "passwordConfirm") {
+      if (this.state.current === this.state.password)
+        this.setState({error: false})
+      else
+        this.setState({error: true})
+    }
   },
 
   onSubmit: function (){
@@ -121,7 +137,14 @@ var SignUp = React.createClass({
         this.refs.input.slideOutLeft(500).then((endState) => {this.setState({top: 'Enter a Password'}); this.refs.input.slideInRight(200)});
         this.refs.input2.slideOutLeft(500).then((endState) => {this.setState({bottom: ';)', current: ''}); this.refs.input2.slideInRight(200)});
       }
-      else if (this.state.step === 'password' && !this.state.error) {
+      else if (this.state.step === 'password' && this.validatePassword()) {
+        var temp = this.state.current;
+        this.refs.container.blur();
+        this.setState({current: '', password: temp, step: 'passwordConfirm'})
+        this.refs.input.slideOutLeft(500).then((endState) => {this.setState({top: 'One More Time'}); this.refs.input.slideInRight(200)});
+        this.refs.input2.slideOutLeft(500).then((endState) => {this.setState({bottom: ';)', current: ''}); this.refs.input2.slideInRight(200)});
+      }
+      else if (this.state.step === 'passwordConfirm' && !this.state.error) {
           this.refs.container.blur();
           this.submitSignUp();
       }
@@ -156,7 +179,9 @@ var SignUp = React.createClass({
             clearButtonMode={'always'}
             autoCorrect={false}
             keyboardType={"email-address"}
-            secureTextEntry={this.state.step === "password" ? true : false}
+            secureTextEntry={
+              this.state.step === "password" || this.state.step === "passwordConfirm" ? true : false
+            }
             keyboardAppearance={"dark"}
             style={[styles.input, styles.username, this.state.error && styles.error]}
             enablesReturnKeyAutomatically={true}

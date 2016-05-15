@@ -103,7 +103,7 @@ var ChangeEmail = React.createClass({
     return (
       <View style={styles.navBar} >
         <TouchableOpacity onPress={this.goBack} >
-          <Icon name={'ios-arrow-left'} size={30} color={cssVar('thm3')} style={[styles.imageLIcon]} />
+          <Icon name={'ios-arrow-back'} size={30} color={cssVar('thm3')} style={[styles.imageLIcon]} />
         </TouchableOpacity>
         <Text style={styles.title} >
           Change Password

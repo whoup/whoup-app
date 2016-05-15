@@ -32,6 +32,17 @@ var Routes = {
     };
   },
 
+  PasswordReset: function(){
+    return {
+      component: require('../Screens/PasswordReset'),
+      statBar: 'light-content',
+      left: true,
+      navBack: {
+        disabled: true
+      }
+    };
+  },
+
   FriendAdd: function() {
     return{
       component: require('../Screens/FriendAdd'),
@@ -120,7 +131,6 @@ var Routes = {
       }
     };
   },
-
 
   Chat: function(username) {
     return {
@@ -221,7 +231,9 @@ var authRoute = function (route, defaultRoute) {
       case 'signup':
         return Routes.SignUp();
       case 'login':
-        return Routes.LogIn();
+        return authRoute(Routes.LogIn());
+      case 'password':
+        return Routes.PasswordReset();
       default:
         if (!defaultRoute) return null;
         return defaultRoute(path);

@@ -43,7 +43,12 @@ var AuthActions = {
   submitSignUp: function(email, username, password, callback) {
     Network.started();
     AuthService.signup(email, username, password, AuthActions.authCallback(callback));
-  }
+  },
+
+  resetPassword: function(email, callback) {
+    FirebaseRef.ref().resetPassword({email: email}, callback);
+  },
+
 };
 
 module.exports = AuthActions;

@@ -22,26 +22,27 @@ var Login = React.createClass({
   getInitialState: function() {
     return {
       email: '',
-      password: '',
       submitted: false,
-      error: false
+      error: false,
+      message: ''
     }
   },
 
-  submitLogin: function() {
+  submitReset: function() {
     this.setState({submitted: true})
-    var password = this.state.password;
     var email = this.state.email;
-    AuthActions.submitLogin(email, password, function(error, data) {
+    AuthActions.resetPassword(email, function(error) {
       if (error) {
         // TODO: better errors
-        this.setState({submitted: false, error: true})
+        this.setState({submitted: false, error: true, message: error.message})
+      } else {
+        this.setState({submitted: false, message: "check yo email for instructions"})
       }
     }.bind(this));
   },
 
-  forgotPassword: function(){
-    AppActions.launchRelativeItem(this.props.currentRoute, {subPath: 'password'});
+  goBack: function() {
+    AppActions.goBack(this.props.navigator);
   },
 
   render: function() {
@@ -53,7 +54,7 @@ var Login = React.createClass({
     }
     else {
       button =
-      (<TouchableHighlight style={styles.button} onPress={this.submitLogin}>
+      (<TouchableHighlight style={styles.button} onPress={this.submitReset}>
           <Icon name={'ios-arrow-forward'} size={30} color={'#000000'} style={[styles.next]} />
         </TouchableHighlight>)
     };
@@ -63,7 +64,12 @@ var Login = React.createClass({
           <View style={styles.center} >
             <Image style={styles.icon} source={{uri: 'owl'}} />
           </View>
-          <TextInput ref="email"
+          <Text style={[styles.forgot_password,
+            this.state.error && styles.errorMessage]}>
+            {this.state.message}
+          </Text>
+          <TextInput
+            ref={"email"}
             placeholder={"Email"}
             autoCapitalize={"none"}
             clearButtonMode={'always'}
@@ -72,27 +78,14 @@ var Login = React.createClass({
             keyboardAppearance={"dark"}
             style={[styles.input, styles.username, this.state.error && styles.error]}
             enablesReturnKeyAutomatically={true}
-            returnKeyType={'next'}
-            onChange={(event) => {this.setState({email: event.nativeEvent.text, error: false }) } }
-            onSubmitEditing={(event) => this.refs.password.refs.input.focus() }
+            returnKeyType={'default'}
+            onChange={(event) => {this.setState({email: event.nativeEvent.text, error: false })}}
+            onSubmitEditing={(event) => this.submitReset()}
             />
-          <TextInput ref="password"
-            placeholder={'Password'}
-            password={true}
-            clearButtonMode={'always'}
-            autoCorrect={false}
-            keyboardType={"default"}
-            keyboardAppearance={"dark"}
-            style={[styles.input, styles.password, this.state.error && styles.error]}
-            enablesReturnKeyAutomatically={true}
-            returnKeyType={'done'}
-            onChange={(event) => {this.setState({password: event.nativeEvent.text, error: false }) } }
-            onSubmitEditing={(event) => this.submitLogin()}
-          />
         </View>
         <View style={[styles.bottom, (this.state.keyboardSpace < 10) && styles.halfFlex]} >
           {button}
-          <Text onPress={this.forgotPassword} style={[styles.forgot_password]}>Forgot Password?</Text>
+          <Text onPress={this.goBack} style={[styles.forgot_password]}>Login</Text>
         </View>
         <View style={{height: this.state.keyboardSpace}}></View>
       </Image>
@@ -153,7 +146,10 @@ var styles = StyleSheet.create({
   },
   error: {
     borderWidth: 1,
-    borderColor: 'red'
+    borderColor: 'red',
+  },
+  errorMessage: {
+    color: 'red'
   },
   buttonStyle: {
     flex: 0.25,
@@ -186,6 +182,7 @@ var styles = StyleSheet.create({
     marginBottom: 5,
     color: cssVar('thm1'),
     fontSize: 16,
+    alignSelf: 'center',
 
   },
 });
