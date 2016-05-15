@@ -66,7 +66,7 @@ var SectionedList = React.createClass({
       return <View/>
     }
     else {
-       return (<View style={{height: 25}}/>)
+       return (<View style={{height: 15}}/>)
     }
 
   },
@@ -75,6 +75,8 @@ var SectionedList = React.createClass({
     var Component = this.props.reloadList ? RefreshableListView : ListView;
     return (
       <Component
+        enableEmptySections={true}
+        showsVerticalScrollIndicator={false}
         initialListSize={1}
         automaticallyAdjustContentInsets={true}
         dataSource={this.state.dataSource.cloneWithRowsAndSections(this.props.items)}

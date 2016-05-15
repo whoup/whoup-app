@@ -2,7 +2,8 @@ var React  = require('react-native');
 var {
   View,
   StyleSheet,
-  TouchableHighlight
+  TouchableHighlight,
+  Image
 } = React;
 
 var cssVar = require('../Lib/cssVar');
@@ -44,11 +45,12 @@ var DashboardItem = React.createClass({
   renderContent: function() {
     var name = this.renderName();
     var up = this.props.up == true;
+    var uri = up ? require('../Images/owl_g/image.png') : require('../Images/owl_b/image.png');
 
     return (
       <View style={[styles.row, styles.notUpBackground, up && styles.upBackground]}>
         <View style={[styles.left, styles.rowFlex]}>
-          <View style={[styles.notUpIcon, up && styles.upIcon]} />
+          <Image style={[styles.statusIcon]} resizeMode={'contain'} source={uri} />
           {name}
         </View>
         <View style={styles.right, styles.center}>
@@ -133,6 +135,12 @@ var styles = StyleSheet.create({
    width: 18,
    height: 18,
    backgroundColor: cssVar('gray30')
+  },
+  statusIcon: {
+    width: 30,
+    height: 30,
+    marginRight: 5,
+
   },
   upIcon: {
    //paddingLeft: 3,

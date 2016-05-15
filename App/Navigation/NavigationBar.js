@@ -16,6 +16,7 @@ var DispatcherListener = require('../Mixins/DispatcherListener');
 var AppConstants = require('../Constants/AppConstants');
 var StatusBar = require('../Platform/StatusBar');
 var PushInAppContainer = require('../Components/PushInAppContainer');
+var ConnectionStatus = require('../Components/ConnectionStatus');
 
 var stacksEqual = function(one, two, length) {
   if (one.length < length) return false;
@@ -31,7 +32,7 @@ var stacksEqual = function(one, two, length) {
 
 var SCREEN_WIDTH = require('Dimensions').get('window').width;
 var RightBaseConfig = Navigator.SceneConfigs.FloatFromLeft;
-var LeftBaseConfig = Navigator.SceneConfigs.FloatFromRight;
+var LeftBaseConfig = Navigator.SceneConfigs.PushFromRight;
 
 var CustomRightToLeftGesture = Object.assign({}, RightBaseConfig.gestures.pop, {
   // Make it snap back really quickly after canceling pop
@@ -67,6 +68,26 @@ var LeftSceneConfig = Object.assign({}, LeftBaseConfig, {
     pop: CustomLeftToRightGesture,
   }
 });
+
+
+
+// var CustomRightToLeftGesture2 = Object.assign({}, LeftBaseConfig.gestures.push, {
+//   // Make it snap back really quickly after canceling pop
+//   snapVelocity: 1,
+
+//   direction: 'left-to-right',
+//   // Make it so we can drag anywhere on the screen
+//   edgeHitWidth: SCREEN_WIDTH,
+// });
+
+// var MainSceneConfig = Object.assign({}, RightBaseConfig, {
+//   // A very tightly wound spring will make this transition fast
+
+//   // Use our custom gesture defined above
+//   gestures: {
+//     push: CustomRightToLeftGesture2,
+//   }
+// });
 
 var Container = React.createClass({
   render: function() {
@@ -175,6 +196,9 @@ var NavigationBar = {
   },
 
   _configureScene: function(route) {
+    // if (route.main)
+    //   return MainSceneConfig;
+    // else
     if (route.left)
       return LeftSceneConfig;
     else {
@@ -213,6 +237,7 @@ var NavigationBar = {
             configureScene={this._configureScene}
           />
           <PushInAppContainer routePath={path.routePath}/>
+          <ConnectionStatus/>
         </View>
     );
   }

@@ -67,6 +67,7 @@ var RequestAcceptItem = React.createClass({
     return (
       <View style={[styles.row, styles.background, this.state.accepted && styles.accepted]}>
         <View style={[styles.left, styles.rowFlex]}>
+          <Image style={styles.invite} source={{uri: 'invite'}}/>
           {name}
         </View>
         <View style={[[styles.mar_left, styles.right]]}>
@@ -94,21 +95,23 @@ var styles = StyleSheet.create({
     paddingTop: 10,
     paddingBottom: 10,
     marginBottom: 15,
-    paddingLeft: 15,
+    paddingLeft: 5,
     paddingRight: 15,
     alignItems: 'center',
+    marginLeft: 20,
+    marginRight: 20
   },
   marBottom: {
     marginBottom: 15,
   },
   rowFlex: {
     flexDirection: 'row',
-
   },
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+
   },
   name: {
     fontSize: 22,
@@ -156,6 +159,12 @@ var styles = StyleSheet.create({
     width: 30,
     height: 30,
     justifyContent: 'center',
+  },
+  invite: {
+    width: 35,
+    height: 35,
+    marginLeft: 5,
+    marginRight: 5
   },
 });
 

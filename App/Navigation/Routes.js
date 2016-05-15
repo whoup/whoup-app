@@ -65,7 +65,7 @@ var Routes = {
           now.getDate(),
           6,0,0);
 
-    var itsTime = now > ninePm ? true : now > sixAm ? false : true;
+    var itsTime = now > ninePm ? true : now < sixAm ? true : false;
     var leftImage = itsTime ? 'owl_plus' : 'owl_plus_b';
     var rightImage = itsTime ? 'settings' : 'settings_b';
     var statBar = itsTime ? 'light-content' : 'default';
@@ -73,6 +73,7 @@ var Routes = {
       component: require('../Screens/Dashboard'),
       title: '',
       statBar: statBar,
+      main: true,
       passProps: {
         itsTime: itsTime,
       },

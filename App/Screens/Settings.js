@@ -10,6 +10,9 @@ var cssVar = require('../Lib/cssVar');
 var Text = require('../Components/Text');
 var CurrentUserStore = require('../Stores/CurrentUserStore');
 
+var NavigationListener = require('../Mixins/NavigationListener')
+var FirebaseRef = require('../Api/FirebaseRef');
+
 function getListState(username, email) {
   var list = [
     {
@@ -44,6 +47,8 @@ function getListState(username, email) {
 };
 
 var Settings = React.createClass({
+  mixins: [NavigationListener],
+
   getInitialState() {
     return getListState(this.getUsername(), this.getUserEmail());
   },
@@ -57,6 +62,10 @@ var Settings = React.createClass({
   },
   getUserEmail: function() {
     return CurrentUserStore.get().data.email;
+  },
+
+  onDidFocusNavigation: function() {
+    this.setState(getListState(this.getUsername(), this.getUserEmail()));
   },
 
   render: function() {

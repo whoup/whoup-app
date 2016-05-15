@@ -21,8 +21,10 @@ var ChatActions = require('../Actions/ChatActions');
 var TimerMixin = require('react-timer-mixin');
 var Rebase = require('re-base');
 var FirebaseRef = require('../Api/FirebaseRef');
-
+var Animatable = require('react-native-animatable');
+var client = require('../Api/HTTPClient')
 var base = Rebase.createClass('https://whoup.firebaseio.com/');
+
 
 var ChatRoomList = React.createClass({
   mixins: [TimerMixin],
@@ -31,6 +33,9 @@ var ChatRoomList = React.createClass({
     return {
               users: [],
               up: {},
+              userIsUp: false,
+              //bounceValue: new Animated.Value(0),
+
           }
   },
 
@@ -43,12 +48,11 @@ var ChatRoomList = React.createClass({
   },
 
   getItemProps: function(friend) {
-    //console.log(this.state.up[friend.key]);
     return {
       name: friend.username,
       type: 'dashboardFriend',
       id: friend.key,
-      up: this.state.up[friend.key],
+      up: this.isUserUp(this.state.up[friend.key]),
       subPath: friend.key,
       passProps: {
         id: friend.key,
@@ -60,6 +64,9 @@ var ChatRoomList = React.createClass({
   imUp: function() {
     FirebaseRef.goOnline(this.getUserId());
     this.setState({userIsUp: true});
+    var animate = () => this.refs.ico.bounce(1200);
+    this.setInterval(animate, 10000);
+    animate();
   },
 
 
@@ -70,28 +77,39 @@ var ChatRoomList = React.createClass({
           now.getMonth(),
           now.getDate(),
           6,0,0);
-
+    var sixAmTomorrow = new Date(
+          now.getFullYear(),
+          now.getMonth(),
+          now.getDate() + 1,
+          6,0,0);
+    var ninePM = new Date(
+          now.getFullYear(),
+          now.getMonth(),
+          now.getDate(),
+          21,0,0);
     if (now < sixAm) {
       this.setTimeout(
         () => { AppActions.launchRoutePath('whoup/dashboard'); },
         (sixAm.getTime() - now.getTime())
       );
-    } else {
-      var itsTime = new Date(
-          now.getFullYear(),
-          now.getMonth(),
-          now.getDate(),
-          21,0,0);
+    } else if (now > ninePM) {
       this.setTimeout(
         () => { AppActions.launchRoutePath('whoup/dashboard'); },
-        (itsTime.getTime() - now.getTime())
+        (sixAmTomorrow.getTime() - now.getTime())
+      );
+    }
+    else if (now > sixAm && now < ninePM){
+      this.setTimeout(
+        () => { AppActions.launchRoutePath('whoup/dashboard'); },
+        (ninePM.getTime() - now.getTime())
       );
     }
   },
 
   componentDidMount: function() {
+    var id = this.getUserId();
     this.setUpNotUpTimers();
-    this.ref = base.syncState('users/' + this.getUserId() + '/friends', {
+    this.ref = base.bindToState('users/' + id + '/friends', {
       context: this,
       state: 'users',
       asArray: true
@@ -101,11 +119,17 @@ var ChatRoomList = React.createClass({
       state: 'up',
       asArray: false,
     });
+
   },
 
   componentWillUnmount: function() {
     base.removeBinding(this.ref);
     base.removeBinding(this.ups);
+  },
+
+  isUserUp: function(user){
+    var F_MIN = 15 * 60 * 1000;
+    return (user !== undefined && ( user.began !== undefined || new Date() - new Date(user.ended) < F_MIN ));
   },
 
   sortUsers: function(){
@@ -114,7 +138,7 @@ var ChatRoomList = React.createClass({
     var user;
     for (var i in this.state.users) {
       user = this.state.users[i]
-      if (this.state.up[user.key]) {
+      if (this.isUserUp(this.state.up[user.key])) {
         up.push(user)
       }
       else {
@@ -169,7 +193,10 @@ var ChatRoomList = React.createClass({
         return (
           <Image style={[styles.flex,]} source={{uri: 'black'}}>
             <View style={[styles.center, styles.qflex, styles.copyOffset, styles.black, styles.paddTop]}>
-              <Image style={styles.icon} source={{uri: 'owl'}} />
+              <Animatable.Image
+                ref="ico"
+                style={[styles.icon]}
+                source={{uri: 'owl'}} />
                 <Text style={styles.copy}>
                   Who Up?
                 </Text>
@@ -186,14 +213,15 @@ var ChatRoomList = React.createClass({
     <Image style={[styles.container]} source={{uri: 'white'}}>
       <AnimatedImage
         style={styles.notTimeIcon}
-        resizeMode={'contain'}
+        resizeMode={'stretch'}
+        tap={true}
         active={'bored.gif'}
         inactive={'bored_owl'}
         />
-      <Text style={[styles.notTimeText, styles.notTimeText1]}>
+      <Text style={[styles.notTimeText]}>
         It's not quite time yet,
       </Text>
-      <Text style={[styles.notTimeText, styles.notTimeText2]}>
+      <Text style={[styles.notTimeText]}>
         come back in the evening
       </Text>
 
@@ -240,6 +268,7 @@ var ChatRoomList = React.createClass({
   },
 
   render: function() {
+    //this.state.up[this.getUserId()] !== undefined && this.state.up[this.getUserId()].began !== undefined
     var content;
     if (this.props.currentRoute.passProps.itsTime) {
       if (this.state.userIsUp) {
@@ -299,7 +328,6 @@ var styles = StyleSheet.create({
     height: 200,
     width: 100,
     backgroundColor: 'transparent',
-    alignSelf: 'auto',
   },
   copy: {
     backgroundColor: 'transparent',
@@ -309,23 +337,19 @@ var styles = StyleSheet.create({
   icon: {
     width: 75,
     height: 75,
-    backgroundColor: 'transparent'
+    backgroundColor: 'transparent',
   },
   notTimeIcon: {
     width: 150,
     height: 150,
-    backgroundColor: 'transparent'
+    backgroundColor: 'transparent',
+    marginTop: -64,
+    marginBottom: -20
   },
   notTimeText: {
-    fontSize: 22,
+    fontSize: 30,
     textAlign: 'center',
     color: cssVar('thm2')
-  },
-  notTimeText1: {
-    letterSpacing: 0.7
-  },
-  notTimeText2: {
-    letterSpacing: -1
   },
   center: {
     justifyContent: 'center',

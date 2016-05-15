@@ -3,99 +3,6 @@ var UserService = require('../Api/UserService');
 var Network = require('../Api/Network');
 
 var FriendActions = {
-  // fetchList: function(uid, callback) {
-  //   Network.started();
-  //   UserService.watchFriendList(CURRENT_USER.id, function(error, listProps) {
-  //     Network.completed();
-  //     if(callback) callback(error);
-
-  //     if (!error) {
-  //       Dispatcher.dispatch({
-  //         actionType: AppConstants.FRIEND_LIST_UPDATED,
-  //         listProps: listProps
-  //       });
-  //     }
-  //   });
-  // },
-  // fetchRequestList: function(uid, callback) {
-  //   Network.started();
-  //   UserService.watchRequestList(CURRENT_USER.id, function(error, listProps) {
-  //     Network.completed();
-  //     if(callback) callback(error);
-  //     if (!error) {
-  //       Dispatcher.dispatch({
-  //         actionType: AppConstants.FRIENDREQ_LIST_UPDATED,
-  //         listProps: listProps
-  //       });
-  //     }
-  //   });
-  // },
-
-  // unmountFriendAdd: function() {
-  //   FirebaseRef.userFriendRef(CURRENT_USER.id).off('child_added', function(snapshot, prevKey) {
-  //     var newFriend = snapshot.val();
-  //     var data = {
-  //       key: 'friend',
-  //       friendProps: {
-  //         id: newFriend.id,
-  //         username: newFriend.username,
-  //       }
-  //     };
-  //       Dispatcher.dispatch({
-  //         actionType: AppConstants.FRIEND_ADDED,
-  //         friendProps: data
-  //       });
-  //   })
-  // },
-
-  // mountFriendAdd: function() {
-  //   FirebaseRef.userFriendRef(CURRENT_USER.id).on('child_added', function(snapshot, prevKey) {
-  //     var newFriend = snapshot.val();
-  //     var data = {
-  //       key: 'friend',
-  //       friendProps: {
-  //         id: newFriend.id,
-  //         username: newFriend.username,
-  //       }
-  //     };
-  //       Dispatcher.dispatch({
-  //         actionType: AppConstants.FRIEND_ADDED,
-  //         friendProps: data
-  //       });
-  //   })
-  // },
-  // unmountFriendReq: function() {
-  //   FirebaseRef.userFriendReqRef(CURRENT_USER.id).off('child_added', function(snapshot, prevKey){
-  //     var newReq = snapshot.val();
-  //     var data = {
-  //       key: 'request',
-  //       friendProps: {
-  //         id: newReq.id,
-  //         username: newReq.username,
-  //       }
-  //     };
-  //      Dispatcher.dispatch({
-  //         actionType: AppConstants.FRIENDREQ_ADDED,
-  //         friendProps: data
-  //       });
-  //   });
-  // },
-  // mountFriendReq: function() {
-  //   FirebaseRef.userFriendReqRef(CURRENT_USER.id).on('child_added', function(snapshot, prevKey){
-  //     var newReq = snapshot.val();
-  //     var data = {
-  //       key: 'request',
-  //       friendProps: {
-  //         id: newReq.id,
-  //         username: newReq.username,
-  //       }
-  //     };
-  //      Dispatcher.dispatch({
-  //         actionType: AppConstants.FRIENDREQ_ADDED,
-  //         friendProps: data
-  //       });
-  //   });
-  // },
 
   addFriend: function(uid, username, currUid, currUsername, callback) {
     Network.started();
@@ -168,7 +75,7 @@ var FriendActions = {
         } else {
           FirebaseRef.userFriendReqRef(currUid).child(uid).remove(function(error) {
             FirebaseRef.pushRef().push({
-              type: 'request-accept',
+              type: 'request',
               to: uid,
               from: currUid,
               message: '@' + currUsername + ' accepted your friend request',

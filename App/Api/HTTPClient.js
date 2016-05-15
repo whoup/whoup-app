@@ -180,6 +180,13 @@ var HTTPClient = {
       req = req.query(params);
     }
     this.fetch(req, callback);
+  },
+  retreive: function(url, params, callback) {
+    var req = superagent.get(url);
+    if (params) {
+      req = req.query(params);
+    }
+    req.end(this.wrapper(callback));
   }
 };
 

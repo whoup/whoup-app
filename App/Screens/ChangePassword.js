@@ -180,11 +180,11 @@ var styles = StyleSheet.create({
     backgroundColor: cssVar('thm5'),
   },
   title: {
-    fontSize: 18,
+    fontSize: 22,
     color: cssVar('thm1'),
     flex: 1,
     textAlign: 'center',
-    marginBottom: 5
+    marginVertical: 9
   },
   imageRIcon: {
     marginRight: 17,

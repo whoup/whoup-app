@@ -2,7 +2,8 @@ var React  = require('react-native');
 var {
   View,
   StyleSheet,
-  TouchableHighlight
+  TouchableHighlight,
+  Image
 } = React;
 
 var cssVar = require('../Lib/cssVar');
@@ -56,13 +57,11 @@ var FriendItem = React.createClass({
     return (
 
       <View style={[styles.flex, styles.seperate, styles.notUpBackground]}>
-        <Swipeout backgroundColor={cssVar('thm3')}  open={true} right={[{text: 'Delete', type: 'delete', onPress: this.deleteFriend}]}>
+        <Swipeout backgroundColor={'transparent'}  open={true} right={[{text: 'Delete', type: 'delete', onPress: this.deleteFriend}]}>
           <View style={styles.row} >
             <View style={[styles.left, styles.rowFlex]}>
+              <Image style={styles.owl} source={require('../Images/owl_b/image.png')}/>
               {name}
-            </View>
-            <View style={styles.right}>
-              <Icon name={'ios-arrow-left'} size={30} color={cssVar('thm2')} style={[styles.imageRIcon]} />
             </View>
           </View>
         </Swipeout>
@@ -93,15 +92,10 @@ var styles = StyleSheet.create({
     flexDirection: 'row',
     paddingTop: 10,
     paddingBottom: 10,
-
-    paddingLeft: 15,
-    paddingRight: 15
+    paddingLeft: 5,
   },
   seperate: {
-    marginBottom: 15,
-  },
-  marBottom: {
-    marginBottom: 15,
+    marginBottom: 10,
   },
   rowFlex: {
     flexDirection: 'row',
@@ -133,19 +127,12 @@ var styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center'
   },
-  notUpIcon: {
-   marginRight: 10,
-   width: 18,
-   height: 18,
-   backgroundColor: cssVar('thm1')
+  owl: {
+    width: 30,
+    height: 30,
+    marginLeft: 5,
+    marginRight: 5
   },
-  upIcon: {
-   //paddingLeft: 3,
-   backgroundColor: '#18BF17',
-  },
-  icon: {
-    paddingTop: 3
-  }
 });
 
 module.exports = FriendItem;

@@ -14,6 +14,7 @@ var TextInput  = require('../Components/TextInput');
 var Dimensions = require('Dimensions');
 var Icon                = require('react-native-vector-icons/Ionicons');
 var AppActions          = require('../Actions/AppActions');
+var AuthActions          = require('../Actions/AuthActions');
 
 var FirebaseRef = require('../Api/FirebaseRef');
 
@@ -61,7 +62,8 @@ var ChangeEmail = React.createClass({
               this.setState({error: true, errorMessage: error.message, loading: false})
           }
         } else {
-          this.setState({success: true, loading: false})
+          AuthActions.updateEmail(this.state.newEmail);
+          this.setState({success: true, loading: false});
         }
       }.bind(this));
     }
@@ -176,11 +178,11 @@ var styles = StyleSheet.create({
     backgroundColor: cssVar('thm5'),
   },
   title: {
-    fontSize: 18,
+    fontSize: 22,
     color: cssVar('thm1'),
     flex: 1,
     textAlign: 'center',
-    marginBottom: 5
+    marginVertical: 9
   },
   imageRIcon: {
     marginRight: 17,

@@ -20,8 +20,11 @@ module.exports = {
     var userRef = ref.child('presence').child(uid);
     amOnline.on('value', function(snapshot) {
       if (snapshot.val()) {
-        userRef.onDisconnect().remove();
-        userRef.set(true);
+        // userRef.onDisconnect().remove();
+        // userRef.set(true);
+        userRef.child('ended').onDisconnect().set(Firebase.ServerValue.TIMESTAMP);
+        userRef.child('began').onDisconnect().set(null);
+        userRef.child('began').set(Firebase.ServerValue.TIMESTAMP);
       }
     });
   },
@@ -87,6 +90,10 @@ module.exports = {
   },
   pushRef: function() {
     return ref.child('push-notifs').child('tasks');
+  },
+
+  imageRef: function() {
+    return ref.child('images')
   }
 
 };

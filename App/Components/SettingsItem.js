@@ -39,7 +39,7 @@ var SettingsItem = React.createClass({
   renderRightIcon: function() {
     if (!this.props.nextIcon) return null;
     return (
-      <Icon name={'ios-arrow-right'} size={24} style={styles.rightIcon} />
+      <Icon name={'ios-arrow-forward'} size={24} style={styles.rightIcon} />
     );
   },
 

@@ -40,13 +40,18 @@ var InvertedList = React.createClass({
     var rowIds = this.props.items.map((row, index) => index).reverse();
     return (
       <Component
-        initialListSize={30}
+        initialListSize={10}
+        enableEmptySections={true}
+        removeClippedSubviews={true}
         style={{paddingTop: 30}}
+        onEndReachedThreshold={0}
+        onEndReached={this.props.onEndReached}
         automaticallyAdjustContentInsets={true}
-        renderScrollComponent={(props) => (<InvertibleScrollView {...props} inverted />)}
+        renderScrollComponent={(props) => (<InvertibleScrollView {...props} inverted={true} keyboardDismissMode={'on-drag'} />)}
         dataSource={ds.cloneWithRows(this.props.items, rowIds)}
         renderRow={this.renderRow}
         loadData={this.props.reloadList}
+        pageSize={10}
         minBetweenTime={2000}
       />
     );

@@ -40,7 +40,8 @@ var FriendAdd = React.createClass({
       userId: '',
       loading: true,
       friends: {},
-      reqs: {}
+      reqs: {},
+      reqSent: {}
     };
   },
 
@@ -57,19 +58,25 @@ var FriendAdd = React.createClass({
         asArray: false,
         state: 'reqs'
       });
+      this.reqSent = base.bindToState('users/' + userId + '/friend_reqs/', {
+        context: this,
+        asArray: false,
+        state: 'reqSent'
+      });
     });
   },
 
   componentWillUnmount: function() {
     //this.props.store.removeChangeListener(this._onChange);
     base.removeBinding(this.reqs);
+    base.removeBinding(this.reqSent);
     base.removeBinding(this.friends);
     // console.log(this.state);
   },
 
 
   updateText: function(text) {
-    text = text.replace(/[\[\].#/]/g, '').toLowerCase();;
+    text = text.replace(/[\[\].#@/]/g, '').toLowerCase();;
   if (text !== '' && text !== this.getUsername()){
     users.child(text).once('value', function(snapshot) {
       var data = snapshot.val();
@@ -95,7 +102,7 @@ var FriendAdd = React.createClass({
 
   renderBody: function(){
     if (this.state.username){
-      var isFriend = this.state.friends[this.state.userId] !== undefined || this.state.reqs[this.state.userId];
+      var isFriend = (this.state.friends[this.state.userId] !== undefined || this.state.reqs[this.state.userId] || this.state.reqSent[this.state.userId]);
       return (
               <RequestItem
                 username={this.state.username}
@@ -126,19 +133,6 @@ var FriendAdd = React.createClass({
     return CurrentUserStore.get().data.id;
   },
 
-  // <TextInput ref="username-input"
-  //         placeholder={"Search"}
-  //         keyboardType={ "twitter" }
-  //         autoCapitalize={'none'}
-  //         multiline={true}
-  //         clearTextOnFocus={true}
-  //         autoGrow={true}
-  //         autoFocus={false}
-  //         style={styles.input}
-  //         returnKeyType={'send'}
-  //         onChangeText={this.updateText}
-  //         value={this.state.text}
-  //         /><View style={[styles.flex, styles.gray]}>
   render: function() {
     return (
       <View style={[styles.flex]} >
@@ -180,7 +174,7 @@ var styles = StyleSheet.create({
     backgroundColor: cssVar('thm5')
   },
   title: {
-    fontSize: 18,
+    fontSize: 22,
     color: cssVar('thm1')
   },
   titleView: {

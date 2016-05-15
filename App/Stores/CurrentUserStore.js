@@ -101,13 +101,16 @@ Dispatcher.register(function(action) {
       );
       break;
     case AppConstants.LOGIN_USER:
+      setUserProps(action.userProps, action.token);
+      SingletonStore.emitChange();
+      saveSingleton();
       registerForPushNotifs(action.userProps.id);
       // FirebaseRef.auth(action.token, () => {
 
       // });
     case AppConstants.USER_UPDATED:
       setUserProps(action.userProps, action.token);
-      SingletonStore.emitChange();
+      //SingletonStore.emitChange();
       saveSingleton();
       break;
     case AppConstants.LOGOUT_REQUESTED:

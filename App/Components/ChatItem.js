@@ -3,13 +3,18 @@ var {
   View,
   StyleSheet,
   TouchableHighlight,
-  Image
+  Image,
+  Linking,
+  WebView
 } = React;
 
 var cssVar = require('../Lib/cssVar');
 
 var Text       = require('../Components/Text');
 var AppActions = require('../Actions/AppActions');
+import Hyperlink from 'react-native-hyperlink';
+
+
 
 var ChatItem = React.createClass({
 
@@ -38,10 +43,12 @@ var ChatItem = React.createClass({
     var icon2 = this.props.received ? null : <Image style={styles.icon2} source={{uri: 'owl_b'}} />;
 
     var body = this.props.image ?
-      <Image style={[styles.image]} source={{uri: this.props.body}} resizeMode={'contain'}/>
-      : <Text style={[styles.body, this.props.received && styles.received, multiLine && styles.multiLine]}>
+      <Image style={[styles.image]} defaultSource={{uri: 'app_icon'}} source={{uri: this.props.body}} resizeMode={'contain'}/>
+      : <Hyperlink onPress={(url) => Linking.openURL(url).catch(err => console.error('An error occurred', err))}>
+      <Text style={[styles.body, this.props.received && styles.received, multiLine && styles.multiLine]}>
           {this.props.body}
         </Text>
+        </Hyperlink>
     return (
       <View style={[this.props.noTap && styles.touch]}>
         <View style={styles.left}>

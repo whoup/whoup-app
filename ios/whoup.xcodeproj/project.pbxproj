@@ -38,6 +38,8 @@
 		336D3A121C891A9100F3F284 /* libRCTPushNotification.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 336D3A101C89193800F3F284 /* libRCTPushNotification.a */; };
 		336DD3191C6EE42800DF160F /* sleepy.gif in Resources */ = {isa = PBXBuildFile; fileRef = 336DD3181C6EE42800DF160F /* sleepy.gif */; };
 		3380AB1F1C86BAFB0034E86C /* libRCTDeviceUUID.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3380AB101C86BAEC0034E86C /* libRCTDeviceUUID.a */; };
+		338A41B91CE7FF0B002536C9 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 338A41B81CE7FF0A002536C9 /* CoreData.framework */; };
+		338A41BB1CE7FF20002536C9 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 338A41BA1CE7FF20002536C9 /* libsqlite3.0.tbd */; };
 		33970B4D1C42FFFE00526283 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 33970B4F1C42FFFE00526283 /* Launch Screen.storyboard */; };
 		339D380B1CB1E62D008BC601 /* libAppHub.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 330F8EEF1CA1CB0D0006F710 /* libAppHub.a */; };
 		339D381E1CB1E72C008BC601 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 330F8F041CA1CBB50006F710 /* SystemConfiguration.framework */; };
@@ -185,6 +187,13 @@
 			remoteGlobalIDString = F12AFB9B1ADAF8F800E0535D;
 			remoteInfo = RCTDeviceUUID;
 		};
+		338A41A71CE7FA4A002536C9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 338A419C1CE7FA4A002536C9 /* RCTGoogleAnalyticsBridge.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = A79185C61C30694E001236A6;
+			remoteInfo = RCTGoogleAnalyticsBridge;
+		};
 		33D1D2DA1CC4A28A00499BBA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 33D1D2C51CC4A28A00499BBA /* RNImagePicker.xcodeproj */;
@@ -252,6 +261,9 @@
 		336DD3181C6EE42800DF160F /* sleepy.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = sleepy.gif; sourceTree = "<group>"; };
 		33781C891C7D7C7C00E6BBB2 /* Bored.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Bored.gif; sourceTree = "<group>"; };
 		3380AB091C86BAEC0034E86C /* RCTDeviceUUID.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTDeviceUUID.xcodeproj; path = "../node_modules/react-native-device-uuid/RCTDeviceUUID.xcodeproj"; sourceTree = "<group>"; };
+		338A419C1CE7FA4A002536C9 /* RCTGoogleAnalyticsBridge.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTGoogleAnalyticsBridge.xcodeproj; path = "../node_modules/react-native-google-analytics-bridge/ios/RCTGoogleAnalyticsBridge/RCTGoogleAnalyticsBridge.xcodeproj"; sourceTree = "<group>"; };
+		338A41B81CE7FF0A002536C9 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		338A41BA1CE7FF20002536C9 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		33970B4E1C42FFFE00526283 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "Base.lproj/Launch Screen.storyboard"; sourceTree = "<group>"; };
 		33C2BAB21C941E81004FC059 /* eyes_animation trans.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "eyes_animation trans.gif"; sourceTree = "<group>"; };
 		33D1D2C51CC4A28A00499BBA /* RNImagePicker.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNImagePicker.xcodeproj; path = "../node_modules/react-native-image-picker/ios/RNImagePicker.xcodeproj"; sourceTree = "<group>"; };
@@ -275,6 +287,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				338A41BB1CE7FF20002536C9 /* libsqlite3.0.tbd in Frameworks */,
+				338A41B91CE7FF0B002536C9 /* CoreData.framework in Frameworks */,
 				339D381F1CB1E80E008BC601 /* libz.tbd in Frameworks */,
 				339D381E1CB1E72C008BC601 /* SystemConfiguration.framework in Frameworks */,
 				332C6ACA1BEA09B800A9921C /* libRNVectorIcons.a in Frameworks */,
@@ -490,6 +504,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		338A419D1CE7FA4A002536C9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				338A41A81CE7FA4A002536C9 /* libRCTGoogleAnalyticsBridge.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		33D1D2C61CC4A28A00499BBA /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -501,6 +523,8 @@
 		68FB33C9F11B72D8148B3A6D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				338A41BA1CE7FF20002536C9 /* libsqlite3.0.tbd */,
+				338A41B81CE7FF0A002536C9 /* CoreData.framework */,
 				330F8F061CA1CBC30006F710 /* libz.tbd */,
 				330F8F041CA1CBB50006F710 /* SystemConfiguration.framework */,
 				3334464A1C659C2D0052FDBF /* Social.framework */,
@@ -521,6 +545,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				338A419C1CE7FA4A002536C9 /* RCTGoogleAnalyticsBridge.xcodeproj */,
 				33D1D2C51CC4A28A00499BBA /* RNImagePicker.xcodeproj */,
 				330F8EE61CA1CB0D0006F710 /* AppHub.xcodeproj */,
 				336D3A0B1C89193800F3F284 /* RCTPushNotification.xcodeproj */,
@@ -675,6 +700,10 @@
 				{
 					ProductGroup = 00C302B61ABCB90400DB3ED1 /* Products */;
 					ProjectRef = 00C302B51ABCB90400DB3ED1 /* RCTGeolocation.xcodeproj */;
+				},
+				{
+					ProductGroup = 338A419D1CE7FA4A002536C9 /* Products */;
+					ProjectRef = 338A419C1CE7FA4A002536C9 /* RCTGoogleAnalyticsBridge.xcodeproj */;
 				},
 				{
 					ProductGroup = 00C302BC1ABCB91800DB3ED1 /* Products */;
@@ -872,6 +901,13 @@
 			remoteRef = 3380AB0F1C86BAEC0034E86C /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		338A41A81CE7FA4A002536C9 /* libRCTGoogleAnalyticsBridge.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRCTGoogleAnalyticsBridge.a;
+			remoteRef = 338A41A71CE7FA4A002536C9 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		33D1D2DB1CC4A28A00499BBA /* libRNImagePicker.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1046,7 +1082,7 @@
 					"$(SRCROOT)/../node_modules/apphub/AppHub/**",
 				);
 				INFOPLIST_FILE = whoup/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1056,6 +1092,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.WhoUp.club;
 				PRODUCT_NAME = whoup;
 				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -1074,7 +1111,7 @@
 					"$(SRCROOT)/../node_modules/apphub/AppHub/**",
 				);
 				INFOPLIST_FILE = whoup/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1084,6 +1121,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.WhoUp.club;
 				PRODUCT_NAME = whoup;
 				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

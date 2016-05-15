@@ -1,10 +1,12 @@
 var React = require('react-native')
 
 var {
-  AppStateIOS
+  AppStateIOS,
+  TouchableWithoutFeedback
 } = React;
 
 var cssVar = require('../Lib/cssVar');
+var Animatable = require('react-native-animatable');
 
 var AnimatedImage = React.createClass({
   propTypes: React.Image.propTypes,
@@ -28,20 +30,29 @@ var AnimatedImage = React.createClass({
     this.setState({ appState: currentAppState  });
   },
 
-  setNativeProps() {
+  setNativeProps: function() {
     var image = this.refs.image;
     image.setNativeProps.apply(image, arguments);
   },
-  render() {
+
+  onTap: function(){
+    if (this.props.tap) {
+      this.refs.image.bounce(1200);
+    }
+  },
+
+  render: function() {
     if (this.state.appState === 'active'){
       return (
-        <React.Image
-          {...this.props}
-          ref="image"
-          defaultSource={{uri: this.props.inactive}}
-          source={{uri: this.props.active}}
-          style={[this.props.style || {}]}
-        />
+        <TouchableWithoutFeedback onPress={this.onTap}>
+          <Animatable.Image
+            {...this.props}
+            ref="image"
+            defaultSource={{uri: this.props.inactive}}
+            source={{uri: this.props.active}}
+            style={[this.props.style || {}]}
+          />
+        </TouchableWithoutFeedback>
       );
     } else {
       return (

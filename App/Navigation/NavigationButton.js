@@ -98,7 +98,7 @@ var NavigationButton = React.createClass({
       return null;
     }
     if (route.left == undefined) {
-      var backLabel = route.navBack || {icon: 'ios-arrow-left'}; //{icon: 'caret-left-semi'};
+      var backLabel = route.navBack || {icon: 'ios-arrow-back'}; //{icon: 'caret-left-semi'};
       return this.makeButton(backLabel, styles.navBarRightButton, this.goBack);
     } else {
       return null;
@@ -117,7 +117,7 @@ var NavigationButton = React.createClass({
       return null;
     }
     if (route.left) {
-      var backLabel = route.navBack || {icon: 'ios-arrow-left'}; //{icon: 'caret-left-semi'};
+      var backLabel = route.navBack || {icon: 'ios-arrow-back'}; //{icon: 'caret-left-semi'};
       return this.makeButton(backLabel, styles.navBarLeftButton, this.goBack);
     } else {
       return null;

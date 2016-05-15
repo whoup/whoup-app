@@ -4,8 +4,7 @@ var FirebaseRef = require('../Api/FirebaseRef');
 var AuthService = {
   accountCallback: function(callback) {
     return function(error, authData) {
-      if (error)
-        return callback(error);
+      if (error) return callback(error);
       UserService.getUser(authData, callback, error);
     };
   },
@@ -15,7 +14,7 @@ var AuthService = {
       if (!authData){
         return callback({ message: "Username: " + username + " already taken"});
       }
-      FirebaseRef.ref().child('usernames').child(username).transaction(function(data) {
+      FirebaseRef.ref().child('usernames').child(username.toLowerCase()).transaction(function(data) {
         if (data === null) {
           FirebaseRef.ref().child('users').child(authData.uid).set({
             email: authData.password.email,

@@ -16,9 +16,14 @@ var KeyboardListener = require('../Mixins/KeyboardListener');
 var dismissKeyboard = require('dismissKeyboard');
 
 var ImagePickerManager = require('NativeModules').ImagePickerManager;
+var ImageUploader = require('../Api/ImageUploader');
+var FirebaseRef = require('../Api/FirebaseRef');
 
 var Rebase = require('re-base');
 var base = Rebase.createClass('https://whoup.firebaseio.com/');
+
+var client = require('../Api/HTTPClient')
+
 
 var ChatInput = React.createClass({
   mixins: [KeyboardListener],
@@ -36,10 +41,42 @@ var ChatInput = React.createClass({
     };
   },
 
-  updateText: function(text) {
-    this.setState({content: {
+  updateText: function(text, height) {
+    var oldHeight = this.state.height;
+    this.setState({
       body: text,
-    }});
+      height: height
+    });
+    if (/\/gif/.match(text)) {
+      this.setState({gif: true,
+
+      })
+      return;
+    }
+
+    if (text.length > oldHeight){
+      if (/\/gif/.match(text)) {
+        this.setState({gif: true,
+          search: text.replace(/^\/gif/, '')
+        })
+        return;
+      }
+
+      var url_regex = /(https?:\/\/(?:www\.|(?!www))[^\s\.]+\.[^\s]{2,}|www\.[^\s]+\.[^\s]{2,})/g;
+      var matches = text.match(url_regex);
+      if (matches){
+        client.retreive("http://opengraph.io/api/1.0/site/" + matches[0] , null, (err, data) => {
+          if (err || data.error) return console.log('shit');
+
+          if (/image/.test(data.openGraph.type) || /.*.gif/.test(data.openGraph.image)){
+            this.onSubmit(data.openGraph.image, true);
+            this.setState({
+              body: text.replace(matches[0], ''),
+            });
+          }
+        });
+      }
+    }
   },
   clearText: function() {
     this.setState(this.blankContent);
@@ -49,18 +86,44 @@ var ChatInput = React.createClass({
     this.setState({submitting: (!this.state.submitting)})
   },
 
+
   onSubmitButton: function() {
-    if (!this.state.submitting && this.state.body !== '') {
-      var body = this.state.body;
+    this.onSubmit(this.state.body, false);
+    this.clearText();
+  },
+
+
+  onSubmitImage: function(image) {
+    this.toggleSubmitting();
+
+
+    ImageUploader(image, (error, response) => {
+      if (error) console.log('error');
+
+      this.setState({imageData: ''});
+      this.toggleSubmitting();
+      this.onSubmit(response, true);
+
+    }, this.props.updateProgress);
+
+
+    // path will be something like
+  },
+
+
+  onSubmit: function(body, image) {
+    if ((!this.state.submitting || image) && body !== '') {
+
       var friendId = this.props.friendId;
       var fromUsername = this.props.username;
       var fromId = this.props.currUid
+
       var toggleSub = this.toggleSubmitting;
+
       var togglePropSub = this.props.toggleSubmitting;
       var postEnd = 'users/' + friendId + '/messages/' + fromId;
       var currUsrEnd = 'users/' + fromId + '/messages/' + friendId;
-      var image = this.state.image
-      this.clearText();
+
       this.toggleSubmitting();
       base.push(postEnd, {
         data: {body: body, received: true, image: image, timestamp: Firebase.ServerValue.TIMESTAMP},
@@ -73,7 +136,7 @@ var ChatInput = React.createClass({
                   data: {
                     to: friendId,
                     from: fromId,
-                    message: '@' + fromUsername + ' just sent you media',
+                    message: '@' + fromUsername + ' just sent you a message',
                     type: 'message',
                     username: fromUsername,
                     sound: "ping.aiff"
@@ -94,6 +157,8 @@ var ChatInput = React.createClass({
       chooseFromLibraryButtonTitle: 'Choose from Library...', // specify null or empty string to remove this button
       quality: 0.8,
       allowsEditing: false, // Built in iOS functionality to resize/reposition the image
+      mediaType: 'photo',
+      noData: true
     };
 
     // The first arg will be the options object for customization, the second is
@@ -103,8 +168,6 @@ var ChatInput = React.createClass({
     // response.uri is the uri to the local file asset on the device
     // response.isVertical will be true if the image is vertically oriented
     ImagePickerManager.showImagePicker(options, (response) => {
-
-      console.log('Response = ', response);
 
       if (response.didCancel) {
         console.log('User cancelled image picker');
@@ -118,22 +181,26 @@ var ChatInput = React.createClass({
       else {
         const source = {uri: response.uri.replace('file://', ''), isStatic: true};
 
-        this.setState({
-          body: 'data:image/jpeg;base64,' + response.data,
-          image: true
-        });
-        this.onSubmitButton();
+        this.onSubmitImage(source.uri);
       }
     });
 
   },
 
+  renderPicker: function(){
+    return (
+      <listView
+
+      />
+    )
+  },
+
 
   render: function() {
-    var camImage = this.state.chosen ? this.state.image.uri : null;
-    console.log(this.state.image)
+    var picker = this.renderPicker();
     return (
       <View style={styles.container}>
+        {picker}
         <View style={styles.footer}>
           <View style={[styles.inputButton]}>
           <Button type='blue' style={styles.button} disabled={this.state.submitting} onPress={this._takePicture}>
@@ -154,10 +221,7 @@ var ChatInput = React.createClass({
               enablesReturnKeyAutomatically={true}
               returnKeyType={'default'}
               onChange={(event) => {
-                this.setState({
-                  body: event.nativeEvent.text,
-                  height: event.nativeEvent.contentSize.height,
-                });
+                this.updateText(event.nativeEvent.text, event.nativeEvent.contentSize.height);
               }}
 
               value={this.state.body}

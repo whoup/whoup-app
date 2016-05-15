@@ -4,8 +4,7 @@ var {
   Image,
   StyleSheet,
   TouchableHighlight,
-  ActivityIndicatorIOS,
-  PixelRatio
+  ActivityIndicatorIOS
 } = React;
 var Icon = require('react-native-vector-icons/Ionicons');
 var KeyboardListener = require('../Mixins/KeyboardListener');
@@ -71,7 +70,7 @@ var SignUp = React.createClass({
   },
 
   validateUsername: function() {
-    if (this.state.current !== '' && !this.state.error )
+    if (this.state.current !== '' && !this.state.error)
     {
       return true;
     }
@@ -82,12 +81,17 @@ var SignUp = React.createClass({
   },
 
   updateText: function(event){
-    var text = event.nativeEvent.text;
+    if (this.state.step === 'username')
+      var text = event.nativeEvent.text.replace(/[\s\[\]\.#\$\/]/g, '');
+    else if (this.state.step === 'email')
+      var text = event.nativeEvent.text.replace(/\s/g, '');
+    else
+      var text = event.nativeEvent.text
     this.setState({current: text, error: false});
 
 
     if (this.state.step === 'username') {
-      var text = text.replace(/[\[\].#/]/g, '').toLowerCase();
+      var text = text.toLowerCase();
       if (text !== '' && text.length < 17) {
         FirebaseRef.username(text).once('value', function(snapshot) {
           if (snapshot.val() !== null) {

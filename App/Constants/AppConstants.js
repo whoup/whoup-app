@@ -17,5 +17,6 @@ module.exports = keyMirror({
   FRIEND_LIST_UPDATED: null,
   FRIENDREQ_LIST_UPDATED: null,
   FRIENDREQ_ADDED: null,
-  FRIEND_ADDED: null
+  FRIEND_ADDED: null,
+  USER_UPDATED: null,
 });

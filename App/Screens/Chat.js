@@ -6,7 +6,8 @@ var {
   InteractionManager,
   ListView,
   ProgressViewIOS,
-  Image
+  Image,
+  InteractionManager
 } = React;
 
 // var ChatListStore = require('../Stores/ChatListStore');
@@ -28,6 +29,8 @@ var CurrentUserStore = require('../Stores/CurrentUserStore');
 var Rebase = require('re-base');
 var base = Rebase.createClass('https://whoup.firebaseio.com/');
 
+var FirebaseRef = require('../Api/FirebaseRef');
+
 var ChatInput = require('../Components/ChatInput');
 var Chat = React.createClass({
   mixins: [NavigationListener, NavBarHelper],
@@ -43,15 +46,15 @@ var Chat = React.createClass({
   //     }
   //   };
   // },
-  getListItems: function() {
-    return ChatListStore.get(this.props.room_id);
-  },
+  // getListItems: function() {
+  //   return ChatListStore.get(this.props.room_id);
+  // },
 
-  isListChange: function(username) {
+  // isListChange: function(username) {
 
-    // TODO: how to know if chatlist has changed??
-    return this.getUsername() == username;
-  },
+  //   // TODO: how to know if chatlist has changed??
+  //   return this.getUsername() == username;
+  // },
 
   getItemProps: function(message) {
     return {
@@ -83,7 +86,9 @@ var Chat = React.createClass({
     return {
       messages: [],
       sending: false,
-      progress: null,
+      progress: 1,
+      working: false,
+      renderPlaceHolder: true,
     };
   },
 
@@ -92,7 +97,7 @@ var Chat = React.createClass({
   },
 
   updateProgress: function(e) {
-    this.setState({progress: e.loaded/e.total})
+    this.setState({progress: e})
   },
 
   getNavBarState: function() {
@@ -106,8 +111,38 @@ var Chat = React.createClass({
     }
   },
 
-  _onChange: function() {
-    this.setState(this.getListState());
+  getMoreMessages: function() {
+    //this.setState(this.getListState());
+    if (!this.state.working){
+      FirebaseRef.ref().child('users').child(this.getUserId()).child('messages').child(this.props.passProps.id)
+      //.orderByChild('timestamp')
+      .endAt(null, this.state.messages[0].key)
+      .limitToLast(10)
+      .once('value', function (snapshot) {
+        var msgs = [];
+        snapshot.forEach(function(data) {
+          var d = data.val();
+          d.key = data.key();
+          if (d.key !== this.state.messages[0].key)
+          msgs.push(d);
+          //console.log("The " + data.key() + " dinosaur's score is " + data.val());
+        }.bind(this));
+        this.setState({messages: msgs.concat(this.state.messages), working: false})
+      }.bind(this));
+    }
+    this.setState({working: true});
+    // base.fetch(messages, {
+    //   context: this,
+    //   asArray: true,
+    //   queries: {
+    //     //orderByChild: 'timestamp',
+    //     limitToLast: 3,
+
+    //   }
+    //   then(data){
+    //     console.log(data);
+    //   }
+    // });
   },
 
   messageAdded: function() {
@@ -121,15 +156,18 @@ var Chat = React.createClass({
   },
 
   componentDidMount: function() {
-    var messages = 'users/' + this.getUserId() + '/messages/' + this.props.passProps.id;
-    this.messageRef = base.bindToState(messages, {
-      context: this,
-      state: 'messages',
-      asArray: true,
-      // queries: {
-      //   orderByChild: 'timestamp',
-      //   startAt: ((new Date().getTime()) - 25200000)
-      // }
+    InteractionManager.runAfterInteractions(() => {
+      var messages = 'users/' + this.getUserId() + '/messages/' + this.props.passProps.id;
+      this.messageRef = base.bindToState(messages, {
+        context: this,
+        state: 'messages',
+        asArray: true,
+        queries: {
+          orderByChild: 'timestamp',
+          //limitToLast: 10,
+
+        }
+      });
     });
     // this.getListState();
     // InteractionManager.runAfterInteractions(() => {
@@ -158,14 +196,19 @@ var Chat = React.createClass({
   },
 
   renderProgress: function() {
-    if (this.state.sending) {
+    if (this.state.progress < 1) {
       return (
-        <ProgressViewIOS progress={this.state.progress}/>
+        <ProgressViewIOS
+          progress={this.state.progress}
+          trackTintColor={cssVar('thm2')}
+          progressViewStyle={'default'}
+          progressTintColor={cssVar('thm1')}
+        />
       );
     }
     else {
       return (
-        <View />
+        <View/>
       );
     }
   },
@@ -178,12 +221,13 @@ var Chat = React.createClass({
          style={styles.flex}
          currentRoute={this.props.currentRoute}
          getItemProps={this.getItemProps}
-         items={[]}
+         items={[<ActivityIndicatorIOS color={'black'}/>]}
          {...this.props.listProps}
        />
       );
     }
     else {
+      //onEndReached={this.getMoreMessages}
       list = (
        <SimpleList
          style={[styles.flex, styles.white]}
@@ -228,6 +272,7 @@ var Chat = React.createClass({
       <View style={[styles.flex, {backgroundColor: 'black'}]}>
         {title}
         <View style={[styles.flex, styles.white]} >
+          {progress}
           {content}
         </View>
           <ChatInput toggleSubmitting={this.toggleSending} updateProgress={this.updateProgress}
@@ -238,6 +283,7 @@ var Chat = React.createClass({
   },
 
   render: function() {
+    //console.log(this.state);
     return this.renderContent();
   }
 });

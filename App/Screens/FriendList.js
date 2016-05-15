@@ -208,9 +208,8 @@ var FriendAndRequestList = React.createClass({
 
   launchActivityView: function(){
     ActivityView.show({
-      text: "You Up? I am.",
-      url: "http://whoup.club",
-      image: "app_icon",
+      text: "You Up? I am. Add me @" + CurrentUserStore.get().data.username,
+      url: "https://itunes.apple.com/us/app/who-up/id1099664936?ls=1&mt=8",
     });
   },
 
@@ -222,10 +221,10 @@ var FriendAndRequestList = React.createClass({
           <Image style={[styles.imageLIcon]} source={{uri: 'invite'}} />
         </TouchableOpacity>
         <Text style={styles.title} >
-          My Friends
+          My Owls
         </Text>
         <TouchableOpacity onPress={this.goBack} >
-          <Icon name={'ios-arrow-right'} size={30} color={cssVar('thm3')} style={[styles.imageRIcon]} />
+          <Icon name={'ios-arrow-forward'} size={30} color={cssVar('thm3')} style={[styles.imageRIcon]} />
         </TouchableOpacity>
       </View>
     );
@@ -313,7 +312,7 @@ var styles = StyleSheet.create({
     alignItems: 'center',
   },
    title: {
-    fontSize: 18,
+    fontSize: 22,
     color: cssVar('thm1'),
     flex: 1,
     textAlign: 'center',
@@ -341,8 +340,7 @@ var styles = StyleSheet.create({
   },
   container: {
     backgroundColor: 'transparent',
-    paddingLeft: 20,
-    paddingRight: 20
+
   },
   header: {
     backgroundColor: 'transparent',

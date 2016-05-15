@@ -61,7 +61,7 @@ var RequestItem = React.createClass({
     var button = this.addButton();
     return (
       <View style={[styles.row, styles.inline]}>
-        <Image style={styles.owl} source={{uri: 'owl_b'}}/>
+        <Image style={styles.owl} source={require('../Images/owl_b/image.png')}/>
         <Text style={[styles.username, styles.left, styles.mar_left]}>
           @{this.props.username}
         </Text>
@@ -86,8 +86,8 @@ var styles = StyleSheet.create({
     justifyContent: 'center',
   },
   owl: {
-    width: 32,
-    height: 32,
+    width: 30,
+    height: 30,
     marginLeft: 10,
     marginRight: 5
   },

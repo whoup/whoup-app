@@ -5,10 +5,10 @@
 	};
 	objectVersion = 46;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		5D82368F1B0CE3CB005A9EF3 /* RNKeychainManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D82368C1B0CE2A6005A9EF3 /* RNKeychainManager.m */; };
 		5D8236911B0CE3D6005A9EF3 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D8236901B0CE3D6005A9EF3 /* Security.framework */; };
+		2875AC8501C64B35A538362E /* libRCTGoogleAnalyticsBridge.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9447BAC48F954989A96C3C9C /* libRCTGoogleAnalyticsBridge.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -29,6 +29,8 @@
 		5D82368B1B0CE2A6005A9EF3 /* RNKeychainManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNKeychainManager.h; sourceTree = "<group>"; };
 		5D82368C1B0CE2A6005A9EF3 /* RNKeychainManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNKeychainManager.m; sourceTree = "<group>"; };
 		5D8236901B0CE3D6005A9EF3 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		CE0C282DA77B4394A5C744F9 /* RCTGoogleAnalyticsBridge.xcodeproj */ = {isa = PBXFileReference; name = "RCTGoogleAnalyticsBridge.xcodeproj"; path = "../node_modules/react-native-google-analytics-bridge/ios/RCTGoogleAnalyticsBridge/RCTGoogleAnalyticsBridge.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		9447BAC48F954989A96C3C9C /* libRCTGoogleAnalyticsBridge.a */ = {isa = PBXFileReference; name = "libRCTGoogleAnalyticsBridge.a"; path = "libRCTGoogleAnalyticsBridge.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,6 +39,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5D8236911B0CE3D6005A9EF3 /* Security.framework in Frameworks */,
+				2875AC8501C64B35A538362E /* libRCTGoogleAnalyticsBridge.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -49,6 +52,7 @@
 				5D8236901B0CE3D6005A9EF3 /* Security.framework */,
 				5D82368A1B0CE2A6005A9EF3 /* RNKeychainManager */,
 				5D8236701B0CE05B005A9EF3 /* Products */,
+				C096C22E71A342BB845A9B40 /* Libraries */,
 			);
 			sourceTree = "<group>";
 			wrapsLines = 0;
@@ -68,6 +72,15 @@
 				5D82368C1B0CE2A6005A9EF3 /* RNKeychainManager.m */,
 			);
 			path = RNKeychainManager;
+			sourceTree = "<group>";
+		};
+		C096C22E71A342BB845A9B40 /* Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				CE0C282DA77B4394A5C744F9 /* RCTGoogleAnalyticsBridge.xcodeproj */,
+			);
+			name = Libraries;
+			path = "";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -96,7 +109,7 @@
 		5D8236671B0CE05B005A9EF3 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0630;
+				LastUpgradeCheck = 630;
 				ORGANIZATIONNAME = "Joel Arvidsson";
 				TargetAttributes = {
 					5D82366E1B0CE05B005A9EF3 = {
@@ -220,10 +233,15 @@
 					"$(SRCROOT)/../../React/**",
 					"$(SRCROOT)/../react-native/React/**",
 					"$(SRCROOT)/node_modules/react-native/React/**",
+					"$(SRCROOT)/../node_modules/react-native-google-analytics-bridge/ios/RCTGoogleAnalyticsBridge/**",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
 			};
 			name = Debug;
 		};
@@ -236,10 +254,15 @@
 					"$(SRCROOT)/../../React/**",
 					"$(SRCROOT)/../react-native/React/**",
 					"$(SRCROOT)/node_modules/react-native/React/**",
+					"$(SRCROOT)/../node_modules/react-native-google-analytics-bridge/ios/RCTGoogleAnalyticsBridge/**",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
 			};
 			name = Release;
 		};
