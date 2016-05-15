@@ -6,16 +6,48 @@
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  */
-
+#import "RemotePushDelegate.h"
+#import "RCTPushNotificationManager.h"
 #import "AppDelegate.h"
 
 #import "RCTRootView.h"
 
+#import "AppHub.h"
+
 @implementation AppDelegate
+
+- (id) init {
+  return self;
+}
+
+// Required to register for notifications
+- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
+{
+  [RCTPushNotificationManager didRegisterUserNotificationSettings:notificationSettings];
+}
+// Required for the register event.
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
+{
+  [RCTPushNotificationManager didRegisterForRemoteNotificationsWithDeviceToken:deviceToken];
+}
+// Required for the notification event.
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)notification
+{
+  [RCTPushNotificationManager didReceiveRemoteNotification:notification];
+}
+// Required for the localNotification event.
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
+{
+  [RCTPushNotificationManager didReceiveLocalNotification:notification];
+}
+
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
   NSURL *jsCodeLocation;
+  
+  
+  [AppHub setApplicationID:@"xa6SqEFMV6s3MdIVY1ow"];
 
   /**
    * Loading JavaScript code - uncomment the one you want.
@@ -30,9 +62,11 @@
    * `inet` value under `en0:`) and make sure your computer and iOS device are
    * on the same Wi-Fi network.
    */
+  
+ jsCodeLocation = [NSURL URLWithString:@"http://10.0.0.9:8081/index.ios.bundle?platform=ios&dev=true"];
 
-  jsCodeLocation = [NSURL URLWithString:@"http://localhost:8081/index.ios.bundle?platform=ios&dev=true"];
-
+  //jsCodeLocation = [NSURL URLWithString:@"http://localhost:8081/index.ios.bundle?platform=ios&dev=true"];
+  
   /**
    * OPTION 2
    * Load from pre-bundled file on disk. To re-generate the static bundle
@@ -43,19 +77,35 @@
    * see http://facebook.github.io/react-native/docs/runningondevice.html
    */
 
-//   jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
+  // jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
+  
+  /**
+   * OPTION 3 - AppHub
+   *
+   * Load cached code and images from AppHub.
+   *
+   */
+//  
+//  AHBuild *build = [[AppHub buildManager] currentBuild];
+//  jsCodeLocation = [build.bundle URLForResource:@"main"
+//                                  withExtension:@"jsbundle"];
 
   RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
                                                       moduleName:@"whoup"
                                                initialProperties:nil
                                                    launchOptions:launchOptions];
-
+  
+  rootView.backgroundColor = [UIColor blackColor];
+  
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
   UIViewController *rootViewController = [[UIViewController alloc] init];
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
+  self.window.tintColor = [UIColor blackColor];
   [self.window makeKeyAndVisible];
   return YES;
 }
+
+
 
 @end

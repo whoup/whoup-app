@@ -1,3 +1,5 @@
 rootProject.name = 'whoup'
 
 include ':app'
+include ':react-native-google-analytics-bridge'
+project(':react-native-google-analytics-bridge').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-google-analytics-bridge/android')
